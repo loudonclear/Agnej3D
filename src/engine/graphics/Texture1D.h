@@ -8,8 +8,7 @@
 /**
  * @class Texture1D
  *
- * Wrapper class for OpenGL 2D Textures. This is probably the class you'll want to use
- * for all of your texturing purposes.
+ * Wrapper class for OpenGL 1D Textures.
  */
 class Texture1D : public Texture {
 public:

@@ -64,11 +64,11 @@ Texture2D::Texture2D(unsigned char *data, int width, int height, Texture::DATA_T
 
     // Bind the texture by calling bind() and filling it in
     // Generate the texture with glTexImage2D
-    Texture::setTextureParams(Texture::FILTER_METHOD::LINEAR, Texture::WRAP_METHOD::CLAMP_TO_EDGE);
-
     bind();
     glTexImage2D(GL_TEXTURE_2D, 0, internalFormat , width, height, 0, format, gltype, data);
     unbind();
+
+    Texture::setTextureParams(Texture::FILTER_METHOD::LINEAR_MIPMAP_LINEAR, Texture::WRAP_METHOD::CLAMP_TO_EDGE);
 }
 
 void Texture2D::_setFilterMethod(GLenum filter) {
@@ -91,6 +91,21 @@ void Texture2D::_setTextureParams(GLenum filter, GLenum wrap) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap);
+
+    if (filter == GL_NEAREST_MIPMAP_NEAREST ||
+        filter == GL_NEAREST_MIPMAP_LINEAR ||
+        filter == GL_LINEAR_MIPMAP_NEAREST ||
+        filter == GL_LINEAR_MIPMAP_LINEAR) {
+
+        glGenerateMipmap(GL_TEXTURE_2D);
+        GLfloat fLargest;
+        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &fLargest);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, fLargest);
+    } else {
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+    }
+
     this->unbind();
 }
 

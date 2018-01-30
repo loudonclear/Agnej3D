@@ -61,7 +61,7 @@ Texture3D::Texture3D(unsigned char *data, int width, int height, int depth, Text
     }
 
     // Bind the texture by calling bind() and filling it in
-    // Generate the texture with glTexImage2D
+    // Generate the texture with glTexImage3D
     Texture::setTextureParams(Texture::FILTER_METHOD::LINEAR, Texture::WRAP_METHOD::CLAMP_TO_EDGE);
 
     bind();

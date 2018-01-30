@@ -5,6 +5,9 @@
 #include "engine/graphics/Graphics.h"
 #include "engine/graphics/Camera.h"
 #include "engine/graphics/Material.h"
+#include "engine/application.h"
+#include "engine/input/Input.h"
+#include "warmup/WarmupApplication.h"
 
 #include <QApplication>
 #include <QKeyEvent>
@@ -18,7 +21,7 @@ View::View(QWidget *parent) : QGLWidget(ViewFormat(), parent),
     m_captureMouse(true),
     m_fps(0), m_frameIndex(0),
     m_graphics(nullptr),
-    m_camera(nullptr)
+    m_app(nullptr)
 {
     /** SUPPORT CODE START **/
 
@@ -88,11 +91,7 @@ void View::initializeGL()
 
     /** SUPPORT CODE END **/
 
-    // TODO (Lab 1): Initialize camera
-
-    // TODO (Lab 1): Initialize material
-
-    // TODO (Warmup 1): Initialize application
+    m_app = std::make_unique<WarmupApplication>();
 }
 
 void View::paintGL()
@@ -107,9 +106,8 @@ void View::paintGL()
     /** SUPPORT CODE END **/
 
 
-    // TODO (Lab 1): Call your game rendering code here
+    m_app->draw(m_graphics);
 
-    // TODO (Warmup 1): Call your game rendering code here
 
     /** SUPPORT CODE START **/
 
@@ -130,14 +128,13 @@ void View::resizeGL(int w, int h)
 
     /** SUPPORT CODE END **/
 
-    // TODO (Lab 1): Resize the camera
-
-    // TODO (Warmup 1): Resize the application
+    m_app->resize(glm::vec2(w, h));
 }
 
 void View::mousePressEvent(QMouseEvent *event)
 {
-    // TODO (Warmup 1): Handle mouse press events
+    Input::onMousePressed(event);
+    m_app->onMousePressed(event);
 }
 
 void View::mouseMoveEvent(QMouseEvent *event)
@@ -165,19 +162,18 @@ void View::mouseMoveEvent(QMouseEvent *event)
 
     /** SUPPORT CODE END **/
 
-    // TODO (Lab 1): Handle mouse movements here
-
-    // TODO (Warmup 1): Handle mouse movements here
+    m_app->onMouseMoved(glm::vec2(deltaX, deltaY));
 }
 
 void View::mouseReleaseEvent(QMouseEvent *event)
 {
-    // TODO (Warmup 1): Handle mouse release here
+    Input::onMouseReleased(event);
+    m_app->onMouseReleased(event);
 }
 
 void View::wheelEvent(QWheelEvent *event)
 {
-    // TODO (Warmup 1): Handle mouse wheel events here
+    m_app->onMouseWheelMoved(event);
 }
 
 void View::keyPressEvent(QKeyEvent *event)
@@ -195,14 +191,13 @@ void View::keyPressEvent(QKeyEvent *event)
 
     /** SUPPORT CODE END **/
 
-    // TODO (Lab 1): Handle keyboard presses here
-
-    // TODO (Warmup 1): Handle keyboard presses here
+    Input::onKeyPressed(event);
+    m_app->onKeyPressed(event);
 }
 
 void View::keyRepeatEvent(QKeyEvent *event)
 {
-    // TODO (Warmup 1): Handle key repeats (happens when holding down keys)
+
 }
 
 void View::keyReleaseEvent(QKeyEvent *event)
@@ -216,7 +211,8 @@ void View::keyReleaseEvent(QKeyEvent *event)
 
     /** SUPPORT CODE END **/
 
-    // TODO (Warmup 1): Handle key releases
+    Input::onKeyReleased(event);
+    m_app->onKeyReleased(event);
 }
 
 void View::tick()
@@ -243,7 +239,7 @@ void View::tick()
     /** SUPPORT CODE END **/
 
 
-    // TODO (Warmup 1): Implement the game update here
+    m_app->tick(seconds);
 
 
     /** SUPPORT CODE START **/

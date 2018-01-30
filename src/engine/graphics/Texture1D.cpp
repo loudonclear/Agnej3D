@@ -63,7 +63,7 @@ Texture1D::Texture1D(unsigned char *data, int width, Texture::DATA_TYPE type, in
     }
 
     // Bind the texture by calling bind() and filling it in
-    // Generate the texture with glTexImage2D
+    // Generate the texture with glTexImage1D
     Texture::setTextureParams(Texture::FILTER_METHOD::LINEAR, Texture::WRAP_METHOD::CLAMP_TO_EDGE);
 
     bind();
@@ -73,14 +73,14 @@ Texture1D::Texture1D(unsigned char *data, int width, Texture::DATA_TYPE type, in
 
 void Texture1D::_setFilterMethod(GLenum filter) {
     this->bind();
-    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, filter);
-    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, filter);
+    glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, filter);
+    glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, filter);
     this->unbind();
 }
 
 void Texture1D::_setWrapMethod(GLenum wrap) {
     this->bind();
-    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, wrap);
+    glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_S, wrap);
     this->unbind();
 }
 

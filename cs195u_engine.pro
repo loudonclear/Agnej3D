@@ -44,7 +44,16 @@ SOURCES += \
     src/engine/graphics/Shape.cpp \
     src/engine/graphics/Graphics.cpp \
     src/engine/graphics/Material.cpp \
-    src/engine/graphics/Light.cpp
+    src/engine/graphics/Light.cpp \
+    src/engine/Application.cpp \
+    src/engine/Screen.cpp \
+    src/warmup/WarmupApplication.cpp \
+    src/warmup/WarmupMenuScreen.cpp \
+    src/warmup/WarmupGameScreen.cpp \
+    src/engine/input/Input.cpp \
+    src/engine/world/World.cpp \
+    src/engine/world/GameObject.cpp \
+    src/engine/components/Transform.cpp
 
 HEADERS += \
     libs/glew-1.10.0/include/GL/glew.h \
@@ -78,7 +87,21 @@ HEADERS += \
     src/engine/graphics/Shape.h \
     src/engine/graphics/Material.h \
     src/engine/graphics/Light.h \
-    src/engine/graphics/Constants.h
+    src/engine/graphics/Constants.h \
+    src/engine/Application.h \
+    src/engine/Screen.h \
+    src/warmup/WarmupApplication.h \
+    src/warmup/WarmupMenuScreen.h \
+    src/warmup/WarmupGameScreen.h \
+    src/engine/input/Input.h \
+    src/engine/world/World.h \
+    src/engine/world/GameObject.h \
+    src/engine/systems/System.h \
+    src/engine/components/Component.h \
+    src/engine/components/TypeMap.h \
+    src/engine/components/Transform.h \
+    src/engine/physics/Ray.h \
+    src/engine/physics/RaycastResult.h
 
 FORMS += src/mainwindow.ui
 

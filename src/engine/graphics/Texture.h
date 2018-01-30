@@ -11,7 +11,12 @@
 class Texture {
 public:
     enum class FILTER_METHOD { NEAREST = GL_NEAREST,
-                               LINEAR = GL_LINEAR };
+                               LINEAR = GL_LINEAR,
+                               NEAREST_MIPMAP_NEAREST = GL_NEAREST_MIPMAP_NEAREST,
+                               LINEAR_MIPMAP_NEAREST = GL_LINEAR_MIPMAP_NEAREST,
+                               NEAREST_MIPMAP_LINEAR = GL_NEAREST_MIPMAP_LINEAR,
+                               LINEAR_MIPMAP_LINEAR = GL_LINEAR_MIPMAP_LINEAR
+                               };
 
     enum class WRAP_METHOD { CLAMP_TO_EDGE = GL_CLAMP_TO_EDGE,
                              REPEAT = GL_REPEAT };
