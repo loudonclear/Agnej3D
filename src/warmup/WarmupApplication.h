@@ -1,7 +1,7 @@
 #ifndef WARMUPAPPLICATION_H
 #define WARMUPAPPLICATION_H
 
-#include "engine/application.h"
+#include "engine/Application.h"
 
 class WarmupApplication : public Application
 {

@@ -5,7 +5,7 @@
 #include "engine/graphics/Graphics.h"
 #include "engine/graphics/Camera.h"
 #include "engine/graphics/Material.h"
-#include "engine/application.h"
+#include "engine/Application.h"
 #include "engine/input/Input.h"
 #include "warmup/WarmupApplication.h"
 

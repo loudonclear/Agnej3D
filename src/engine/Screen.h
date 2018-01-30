@@ -3,7 +3,7 @@
 
 #include "engine/util/CommonIncludes.h"
 #include <QKeyEvent>
-#include "application.h"
+#include "Application.h"
 
 class Graphics;
 

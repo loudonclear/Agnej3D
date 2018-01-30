@@ -18,13 +18,13 @@ void WarmupMenuScreen::draw(Graphics *g) {
     g->setCamera(m_camera);
 
     g->clearTransform();
-    g->translate(glm::vec3(-13.5f, 0, 0));
+    g->translate(glm::vec3(-14, 0, 0));
     g->setDefaultMaterial();
-    g->drawText("Press Enter to begin", 4);
+    g->drawText("Press Space to begin", 4);
 }
 
 void WarmupMenuScreen::onKeyPressed(QKeyEvent *event) {
-    if (event->key() == Qt::Key_Enter) {
+    if (event->key() == Qt::Key_Space) {
         application->setScreen("game");
     }
 }

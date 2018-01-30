@@ -53,12 +53,6 @@ void WarmupGameScreen::draw(Graphics *g) {
     g->scale(20);
     g->setMaterial("grass");
     g->drawShape("quad");
-
-    g->clearTransform();
-    g->setDefaultMaterial();
-    g->translate(glm::vec3(1.f, 1.f, 10.f));
-    g->scale(5);
-    g->drawShape("cylinder");
 }
 
 void WarmupGameScreen::resize(glm::vec2 &size) {
