@@ -8,9 +8,7 @@
 
 template <class ValueType>
 class TypeMap {
-      // Internally, we'll use a hash table to store mapping from type
-      // IDs to the values.
-      typedef std::unordered_map<int, ValueType> InternalMap;
+      typedef std::unordered_map<int, ValueType> InternalMap; // possibly use unordered multimap
 public:
     typedef typename InternalMap::iterator iterator;
     typedef typename InternalMap::const_iterator const_iterator;
@@ -21,7 +19,6 @@ public:
     iterator begin() { return m_map.begin();  }
     iterator end() { return m_map.end(); }
 
-    // Finds the value associated with the type "Key" in the type map.
     template <class Key>
     iterator find() { return m_map.find(getTypeId<Key>());  }
 
@@ -29,12 +26,9 @@ public:
     void remove() { m_map.erase(getTypeId<Key>()); }
 
 
-
-    // Same as above, const version
     template <class Key>
     const_iterator find() const { return m_map.find(getTypeId<Key>()); }
 
-    // Associates a value with the type "Key"
     template <class Key>
     void put(ValueType &&value) {
         m_map[getTypeId<Key>()] = std::forward<ValueType>(value);

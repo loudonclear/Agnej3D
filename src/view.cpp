@@ -134,7 +134,7 @@ void View::resizeGL(int w, int h)
 void View::mousePressEvent(QMouseEvent *event)
 {
     Input::onMousePressed(event);
-    m_app->onMousePressed(event);
+    //m_app->onMousePressed(event);
 }
 
 void View::mouseMoveEvent(QMouseEvent *event)
@@ -168,7 +168,7 @@ void View::mouseMoveEvent(QMouseEvent *event)
 void View::mouseReleaseEvent(QMouseEvent *event)
 {
     Input::onMouseReleased(event);
-    m_app->onMouseReleased(event);
+    //m_app->onMouseReleased(event);
 }
 
 void View::wheelEvent(QWheelEvent *event)
@@ -184,10 +184,7 @@ void View::keyPressEvent(QKeyEvent *event)
     if(event->isAutoRepeat()) {
         keyRepeatEvent(event);
         return;
-    }
-
-    // Feel free to remove this
-    if (event->key() == Qt::Key_Escape) QApplication::quit();
+    }   
 
     /** SUPPORT CODE END **/
 

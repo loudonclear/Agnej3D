@@ -19,12 +19,10 @@ public:
     virtual void draw(Graphics *g) {}
     virtual void resize(glm::vec2 &size) {}
 
-    virtual void onMousePressed(QMouseEvent *event) {}
-    virtual void onMouseMoved(glm::vec2 &delta) {}
-    virtual void onMouseReleased(QMouseEvent *event) {}
-    virtual void onMouseWheelMoved(QWheelEvent *event) {}
     virtual void onKeyPressed(QKeyEvent *event) {}
     virtual void onKeyReleased(QKeyEvent *event) {}
+    virtual void onMouseMoved(glm::vec2 &delta) {}
+    virtual void onMouseWheelMoved(QWheelEvent *event) {}
 
 protected:
     Application* application;

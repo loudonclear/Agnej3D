@@ -11,12 +11,8 @@
 class System
 {
 public:
-    System();
-
-    virtual void addGameObject(GameObject go) = 0;
-    virtual void removeGameObject(GameObject go) = 0;
-
-
+    virtual void addGameObject(const std::shared_ptr<GameObject> &go) = 0;
+    virtual void removeGameObject(const std::shared_ptr<GameObject> &go) = 0;
 };
 
 #endif // SYSTEM_H

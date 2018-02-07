@@ -1,17 +1,16 @@
-#ifndef WARMUPGAMESCREEN_H
-#define WARMUPGAMESCREEN_H
+#ifndef WARMUPDEBUGSCREEN_H
+#define WARMUPDEBUGSCREEN_H
+
 
 #include "engine/Screen.h"
 
 class Camera;
 class World;
 
-class WarmupGameScreen : public Screen
+class WarmupDebugScreen : public Screen
 {
 public:
-    WarmupGameScreen();
-
-    static std::shared_ptr<Camera> camera;
+    WarmupDebugScreen();
 
     void tick(float seconds);
     void draw(Graphics *g);
@@ -22,8 +21,9 @@ public:
     void onMouseWheelMoved(QWheelEvent *event);
 
 private:
-
+    std::shared_ptr<Camera> m_camera;
     std::shared_ptr<World> m_world;
 };
 
-#endif // WARMUPGAMESCREEN_H
+
+#endif // WARMUPDEBUGSCREEN_H

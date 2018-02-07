@@ -38,29 +38,20 @@ void Application::resize(glm::vec2 size) {
     m_activeScreen->resize(size);
 }
 
-
-void Application::onMousePressed(QMouseEvent *event) {
-    m_activeScreen->onMousePressed(event);
-}
-
-void Application::onMouseMoved(glm::vec2 delta) {
-    m_activeScreen->onMouseMoved(delta);
-}
-
-void Application::onMouseReleased(QMouseEvent *event) {
-    m_activeScreen->onMouseReleased(event);
-}
-
-void Application::onMouseWheelMoved(QWheelEvent *event) {
-    m_activeScreen->onMouseWheelMoved(event);
-}
-
 void Application::onKeyPressed(QKeyEvent *event) {
     m_activeScreen->onKeyPressed(event);
 }
 
 void Application::onKeyReleased(QKeyEvent *event) {
     m_activeScreen->onKeyReleased(event);
+}
+
+void Application::onMouseMoved(glm::vec2 delta) {
+    m_activeScreen->onMouseMoved(delta);
+}
+
+void Application::onMouseWheelMoved(QWheelEvent *event) {
+    m_activeScreen->onMouseWheelMoved(event);
 }
 
 

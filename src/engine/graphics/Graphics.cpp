@@ -165,10 +165,6 @@ void Graphics::addCylinder() {
     cylinderData.resize(cylinderVertexCount * 8);
     std::copy(&cylinderVertexBufferData[0], &cylinderVertexBufferData[cylinderVertexCount * 8 - 1], cylinderData.begin());
     addShape("cylinder", cylinderData);
-
-    // Update shape
-    std::shared_ptr<Shape> shape = getShape("cylinder");
-    shape->translate(glm::vec3(0, 0.5f, 0));
 }
 
 void Graphics::addSphere() {
@@ -340,6 +336,13 @@ void Graphics::drawLine2D(glm::vec2 start, glm::vec2 end, float width) {
     // Draw
     pushTransform(m);
     drawShape("quad");
+}
+
+void Graphics::drawLine(const glm::vec3 &p1, const glm::vec3 &p2) {
+    glBegin(GL_LINES);
+    glVertex3f(p1.x, p1.y, p1.z);
+    glVertex3f(p1.x, p1.y, p1.z);
+    glEnd();
 }
 
 void Graphics::setTransform(const mat4 &transform) {

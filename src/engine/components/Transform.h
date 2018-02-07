@@ -1,6 +1,8 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
+#define GLM_FORCE_RADIANS
+
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtx/transform.hpp>
@@ -13,7 +15,7 @@
 class Transform : public Component
 {
 public:
-    Transform();
+    Transform(std::shared_ptr<GameObject> &parent);
 
     glm::vec3 getPosition();
     glm::quat getRotation();
@@ -25,10 +27,15 @@ public:
     void setRotation(glm::quat rotation);
     void setScale(glm::vec3 scale);
 
+    void translate(glm::vec3 trans);
+    void rotate(glm::quat rot);
+    void scale(glm::vec3 scale);
+
     glm::vec3 transformPoint(const glm::vec3 &point);
     glm::vec3 transformVector(const glm::vec3 &vec);
     Ray transformRay(const Ray &ray);
     glm::vec3 transformNormal(const glm::vec3 &normal);
+    glm::vec3 inverseRotateVector(const glm::vec3 &vec);
 
 private:
 

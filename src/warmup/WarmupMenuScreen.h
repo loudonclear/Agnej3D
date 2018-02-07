@@ -11,7 +11,9 @@ class WarmupMenuScreen : public Screen
 public:
     WarmupMenuScreen();
 
+    void tick(float seconds);
     void draw(Graphics *g);
+
     void onKeyPressed(QKeyEvent *event);
 
 private:
