@@ -52,6 +52,12 @@ INPUT(
 ./debug\EnemyFollowComponent.o
 ./debug\GoalComponent.o
 ./debug\VisualCollide.o
+./debug\MinecraftMenuScreen.o
+./debug\MinecraftApplication.o
+./debug\MinecraftGameScreen.o
+./debug\MinecraftWorld.o
+./debug\Chunk.o
+./debug\PerlinNoise.o
 ./debug\qrc_shaders.o
 ./debug\qrc_fonts.o
 ./debug\qrc_images.o

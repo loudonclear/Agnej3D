@@ -54,7 +54,7 @@ private:
 
     Graphics* m_graphics;
 
-    std::unique_ptr<Application> m_app;
+    std::shared_ptr<Application> m_app;
 
 private slots:
     void tick();

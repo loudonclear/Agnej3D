@@ -72,7 +72,13 @@ SOURCES += \
     src/warmup/WarmupDebugWorld.cpp \
     src/warmup/EnemyFollowComponent.cpp \
     src/warmup/components/GoalComponent.cpp \
-    src/warmup/components/VisualCollide.cpp
+    src/warmup/components/VisualCollide.cpp \
+    src/minecraft/MinecraftMenuScreen.cpp \
+    src/minecraft/MinecraftApplication.cpp \
+    src/minecraft/MinecraftGameScreen.cpp \
+    src/minecraft/MinecraftWorld.cpp \
+    src/minecraft/Chunk.cpp \
+    src/minecraft/PerlinNoise.cpp
 
 HEADERS += \
     libs/glew-1.10.0/include/GL/glew.h \
@@ -139,7 +145,13 @@ HEADERS += \
     src/warmup/WarmupDebugWorld.h \
     src/warmup/EnemyFollowComponent.h \
     src/warmup/components/GoalComponent.h \
-    src/warmup/components/VisualCollide.h
+    src/warmup/components/VisualCollide.h \
+    src/minecraft/MinecraftMenuScreen.h \
+    src/minecraft/MinecraftApplication.h \
+    src/minecraft/MinecraftGameScreen.h \
+    src/minecraft/MinecraftWorld.h \
+    src/minecraft/Chunk.h \
+    src/minecraft/PerlinNoise.h
 
 FORMS += src/mainwindow.ui
 

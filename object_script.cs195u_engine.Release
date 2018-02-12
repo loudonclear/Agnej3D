@@ -52,6 +52,12 @@ INPUT(
 ./release\EnemyFollowComponent.o
 ./release\GoalComponent.o
 ./release\VisualCollide.o
+./release\MinecraftMenuScreen.o
+./release\MinecraftApplication.o
+./release\MinecraftGameScreen.o
+./release\MinecraftWorld.o
+./release\Chunk.o
+./release\PerlinNoise.o
 ./release\qrc_shaders.o
 ./release\qrc_fonts.o
 ./release\qrc_images.o
