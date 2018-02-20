@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <iostream>
 
+//glm::vec3 gravity(0, -1, 0);
+
 PhysicsSystem::PhysicsSystem()
 {
 
@@ -24,6 +26,15 @@ void PhysicsSystem::removeGameObject(const std::shared_ptr<GameObject> &go) {
 void PhysicsSystem::update(float seconds) {
 
     broadphase();
+
+    for (auto iter = m_components.begin(); iter != m_components.end(); ++iter) {
+        std::shared_ptr<RigidBody> rb = iter->get()->getRigidBody();
+        if (rb != nullptr) {
+            //rb->force += gravity * rb->getMass();
+            rb->integrateForces(seconds);
+            rb->integrateVelocities(seconds);
+        }
+     }
 
 }
 

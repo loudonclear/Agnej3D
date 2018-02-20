@@ -15,7 +15,7 @@
 class Transform : public Component
 {
 public:
-    Transform(std::shared_ptr<GameObject> &parent);
+    Transform(GameObject *parent);
 
     glm::vec3 getPosition();
     glm::quat getRotation();

@@ -58,6 +58,9 @@ INPUT(
 ./debug\MinecraftWorld.o
 ./debug\Chunk.o
 ./debug\PerlinNoise.o
+./debug\ChunkManager.o
+./debug\PlayerMoveComponent.o
+./debug\Player.o
 ./debug\qrc_shaders.o
 ./debug\qrc_fonts.o
 ./debug\qrc_images.o

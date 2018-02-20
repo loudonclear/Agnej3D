@@ -12,7 +12,7 @@ class Transform;
 class GraphicsComponent : public Component
 {
 public:
-    GraphicsComponent(std::shared_ptr<GameObject> &parent, const std::string &materialName = "default");
+    GraphicsComponent(GameObject *parent, const std::string &materialName = "default");
 
     virtual void init();
     virtual void draw(Graphics *g) = 0;

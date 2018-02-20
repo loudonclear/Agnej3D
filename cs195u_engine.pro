@@ -78,7 +78,10 @@ SOURCES += \
     src/minecraft/MinecraftGameScreen.cpp \
     src/minecraft/MinecraftWorld.cpp \
     src/minecraft/Chunk.cpp \
-    src/minecraft/PerlinNoise.cpp
+    src/minecraft/PerlinNoise.cpp \
+    src/minecraft/ChunkManager.cpp \
+    src/minecraft/PlayerMoveComponent.cpp \
+    src/minecraft/Player.cpp
 
 HEADERS += \
     libs/glew-1.10.0/include/GL/glew.h \
@@ -151,7 +154,10 @@ HEADERS += \
     src/minecraft/MinecraftGameScreen.h \
     src/minecraft/MinecraftWorld.h \
     src/minecraft/Chunk.h \
-    src/minecraft/PerlinNoise.h
+    src/minecraft/PerlinNoise.h \
+    src/minecraft/ChunkManager.h \
+    src/minecraft/PlayerMoveComponent.h \
+    src/minecraft/Player.h
 
 FORMS += src/mainwindow.ui
 

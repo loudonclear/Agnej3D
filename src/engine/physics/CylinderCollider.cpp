@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-CylinderCollider::CylinderCollider(std::shared_ptr<GameObject> &parent) : ShapeCollider(parent)
+CylinderCollider::CylinderCollider(GameObject *parent, Transform colliderTransform) : ShapeCollider(parent, colliderTransform)
 {
 }
 
@@ -21,6 +21,6 @@ glm::vec3 CylinderCollider::getSupport(const glm::vec3 &dir) {
         support.z = 0.f;
     }
 
-    return m_transform->transformPoint(support);
+    return m_transform->transformPoint(m_colliderTransform.transformPoint(support));
 }
 

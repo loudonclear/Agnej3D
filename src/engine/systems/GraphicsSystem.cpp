@@ -2,6 +2,7 @@
 #include "engine/components/GraphicsComponent.h"
 
 #include <algorithm>
+#include <iostream>
 
 GraphicsSystem::GraphicsSystem()
 {
@@ -9,7 +10,9 @@ GraphicsSystem::GraphicsSystem()
 
 void GraphicsSystem::addGameObject(const std::shared_ptr<GameObject> &go) {
     std::shared_ptr<GraphicsComponent> component = go->getComponent<GraphicsComponent>();
-    if (component != nullptr) m_components.push_back(component);
+    if (component != nullptr) {
+        m_components.push_back(component);
+    }
 }
 
 void GraphicsSystem::removeGameObject(const std::shared_ptr<GameObject> &go) {

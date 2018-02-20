@@ -1,6 +1,6 @@
 #include "SphereCollider.h"
 
-SphereCollider::SphereCollider(std::shared_ptr<GameObject> &parent) : ShapeCollider(parent)
+SphereCollider::SphereCollider(GameObject *parent, Transform colliderTransform) : ShapeCollider(parent, colliderTransform)
 {
 }
 
@@ -29,5 +29,5 @@ glm::vec3 SphereCollider::getSupport(const glm::vec3 &dir) {
     glm::vec3 localDir = glm::normalize(m_transform->inverseRotateVector(dir));
 
     glm::vec3 support(0.5f * localDir);
-    return m_transform->transformPoint(support);
+    return m_transform->transformPoint(m_colliderTransform.transformPoint(support));
 }

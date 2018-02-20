@@ -6,7 +6,7 @@
 class FixedTickComponent : public Component
 {
 public:
-    FixedTickComponent(std::shared_ptr<GameObject> &parent);
+    FixedTickComponent(GameObject *parent);
 
     virtual void fixedTick(float seconds) {}
 };

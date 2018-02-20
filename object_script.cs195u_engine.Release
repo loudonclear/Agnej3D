@@ -58,6 +58,9 @@ INPUT(
 ./release\MinecraftWorld.o
 ./release\Chunk.o
 ./release\PerlinNoise.o
+./release\ChunkManager.o
+./release\PlayerMoveComponent.o
+./release\Player.o
 ./release\qrc_shaders.o
 ./release\qrc_fonts.o
 ./release\qrc_images.o

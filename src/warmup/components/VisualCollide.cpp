@@ -3,7 +3,7 @@
 #include "engine/components/GraphicsComponent.h"
 #include "engine/physics/ShapeCollider.h"
 
-VisualCollide::VisualCollide(std::shared_ptr<GameObject> &parent) : TickComponent(parent)
+VisualCollide::VisualCollide(GameObject *parent) : TickComponent(parent)
 {
 }
 

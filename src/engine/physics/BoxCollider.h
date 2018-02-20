@@ -6,7 +6,7 @@
 class BoxCollider : public ShapeCollider
 {
 public:
-    BoxCollider(std::shared_ptr<GameObject> &parent);
+    BoxCollider(GameObject *parent, Transform colliderTransform = Transform(nullptr));
 
 //    bool pointInside(const glm::vec3 &point);
 //    bool raycast(const Ray &ray, RaycastResult &result);

@@ -6,7 +6,7 @@
 class SphereCollider : public ShapeCollider
 {
 public:
-    SphereCollider(std::shared_ptr<GameObject> &parent);
+    SphereCollider(GameObject *parent, Transform colliderTransform = Transform(nullptr));
 
     //virtual bool pointInside(const glm::vec3 &point);
     //virtual bool raycast(const Ray &ray, RaycastResult &result);

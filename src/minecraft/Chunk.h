@@ -58,20 +58,19 @@ struct Block {
 class Chunk : public Component
 {
 public:
-    Chunk(std::shared_ptr<GameObject> &parent, const glm::vec3& dimensions);
+    Chunk(GameObject *parent, const int dimx, const int dimy, const int dimz);
 
     void init();
     void update();
 
-    Block* getBlock(unsigned int x, unsigned int y, unsigned int z);
-    void setBlock(unsigned int x, unsigned int y, unsigned int z, Block &block);
+    Block* getBlock(int x, int y, int z);
+    void setBlock(int x, int y, int z, Block &block);
 private:
 
     std::shared_ptr<GraphicsShapeComponent> gc;
-    std::map<char, Block> blockTypes;
 
     std::vector<Block*> m_blocks;
-    const glm::vec3 m_dimensions;
+    const int dimx, dimy, dimz;
 };
 
 #endif // CHUNK_H

@@ -17,7 +17,7 @@ const float FLOAT_EPSILON = 1e-4f;
 class ShapeCollider : public Component
 {
 public:
-    ShapeCollider(std::shared_ptr<GameObject> &parent);
+    ShapeCollider(GameObject *parent, Transform colliderTransform);
 
     void init();
 
@@ -27,6 +27,7 @@ public:
     bool isStatic();
 
     std::shared_ptr<Transform> getTransform();
+    std::shared_ptr<RigidBody> getRigidBody();
 
     //virtual bool pointInside(const glm::vec3 &point) = 0;
     //virtual bool raycast(const Ray &ray) = 0;
@@ -36,6 +37,8 @@ public:
 protected:
     std::shared_ptr<Transform> m_transform;
     std::shared_ptr<RigidBody> m_rigidbody;
+
+    Transform m_colliderTransform;
 
     bool SolveQuadratic(float a, float b, float c, float &t) {
         float discriminant = b * b - 4.0 * a * c;

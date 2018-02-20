@@ -9,7 +9,7 @@ class Transform;
 class EnemyFollowComponent : public TickComponent
 {
 public:
-    EnemyFollowComponent(std::shared_ptr<GameObject> &parent);
+    EnemyFollowComponent(GameObject *parent);
 
     void tick(float seconds);
     void init();

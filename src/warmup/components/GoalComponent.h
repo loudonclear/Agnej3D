@@ -7,7 +7,7 @@
 class GoalComponent : public BoxCollider
 {
 public:
-    GoalComponent(std::shared_ptr<GameObject> &parent, int &score);
+    GoalComponent(GameObject *parent, int &score);
 
     void onCollide(Collision::ContactData cd);
 

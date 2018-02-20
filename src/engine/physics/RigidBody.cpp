@@ -2,9 +2,8 @@
 #include "engine/world/GameObject.h"
 #include "engine/physics/ShapeCollider.h"
 
-RigidBody::RigidBody(std::shared_ptr<GameObject> &parent, bool isStatic) : Component(parent), m_isStatic(isStatic)
+RigidBody::RigidBody(GameObject *parent, bool isStatic, float mass) : Component(parent), m_isStatic(isStatic), m_mass(mass), m_invMass(1.f/mass)
 {
-
 }
 
 void RigidBody::init() {
@@ -18,4 +17,14 @@ void RigidBody::onCollide(Collision::ContactData cd) {
     } else {
         m_transform->translate(cd.contactNormal * cd.penetration / 2.f);
     }
+}
+
+void RigidBody::integrateVelocities(float dt) {
+    m_transform->translate(dt * velocity);
+}
+
+void RigidBody::integrateForces(float dt) {
+    if (m_invMass == 0.f) return;
+
+    velocity += (force * dt * m_invMass);
 }

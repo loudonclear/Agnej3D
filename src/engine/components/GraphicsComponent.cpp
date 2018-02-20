@@ -2,7 +2,7 @@
 #include "engine/world/GameObject.h"
 #include "engine/graphics/Graphics.h"
 
-GraphicsComponent::GraphicsComponent(std::shared_ptr<GameObject> &parent, const std::string &materialName) : Component(parent), m_materialName(materialName)
+GraphicsComponent::GraphicsComponent(GameObject *parent, const std::string &materialName) : Component(parent), m_materialName(materialName)
 {
 }
 

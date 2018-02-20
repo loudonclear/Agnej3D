@@ -2,7 +2,7 @@
 #include <glm/gtx/string_cast.hpp>
 #include <iostream>
 
-Transform::Transform(std::shared_ptr<GameObject> &parent) : Component(parent), m_scale(1, 1, 1)
+Transform::Transform(GameObject *parent) : Component(parent), m_scale(1, 1, 1)
 {
 }
 

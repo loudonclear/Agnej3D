@@ -31,14 +31,14 @@ WarmupDebugWorld::WarmupDebugWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
 
 
     interaction = std::make_shared<GameObject>("interaction");
-    std::shared_ptr<GraphicsComponent> comp = std::make_shared<GraphicsShapeComponent>(interaction, "cylinder");
+    std::shared_ptr<GraphicsComponent> comp = std::make_shared<GraphicsShapeComponent>(interaction.get(), "cylinder");
 
-    std::shared_ptr<Transform> trans = std::make_shared<Transform>(interaction);
+    std::shared_ptr<Transform> trans = std::make_shared<Transform>(interaction.get());
     trans->setPosition(glm::vec3(0, 0.5f, -4.f));
     shapeTransform = trans;
 
-    std::shared_ptr<ShapeCollider> sc = std::make_shared<CylinderCollider>(interaction);
-    std::shared_ptr<TickComponent> vc = std::make_shared<VisualCollide>(interaction);
+    std::shared_ptr<ShapeCollider> sc = std::make_shared<CylinderCollider>(interaction.get());
+    std::shared_ptr<TickComponent> vc = std::make_shared<VisualCollide>(interaction.get());
 
     interaction->addComponent(comp);
     interaction->addComponent(trans);
@@ -48,13 +48,13 @@ WarmupDebugWorld::WarmupDebugWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
 
 
     std::shared_ptr<GameObject> cylinder = std::make_shared<GameObject>("cylinder");
-    std::shared_ptr<GraphicsComponent> comp1 = std::make_shared<GraphicsShapeComponent>(cylinder, "cylinder");
+    std::shared_ptr<GraphicsComponent> comp1 = std::make_shared<GraphicsShapeComponent>(cylinder.get(), "cylinder");
 
-    std::shared_ptr<Transform> trans1 = std::make_shared<Transform>(cylinder);
+    std::shared_ptr<Transform> trans1 = std::make_shared<Transform>(cylinder.get());
     trans1->setPosition(glm::vec3(-4, 0.5f, 0));
 
-    std::shared_ptr<ShapeCollider> sc1 = std::make_shared<CylinderCollider>(cylinder);
-    vc = std::make_shared<VisualCollide>(cylinder);
+    std::shared_ptr<ShapeCollider> sc1 = std::make_shared<CylinderCollider>(cylinder.get());
+    vc = std::make_shared<VisualCollide>(cylinder.get());
 
     cylinder->addComponent(comp1);
     cylinder->addComponent(trans1);
@@ -64,13 +64,13 @@ WarmupDebugWorld::WarmupDebugWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
 
 
     std::shared_ptr<GameObject> cube = std::make_shared<GameObject>("cube");
-    std::shared_ptr<GraphicsComponent> comp2 = std::make_shared<GraphicsShapeComponent>(cube, "cube");
+    std::shared_ptr<GraphicsComponent> comp2 = std::make_shared<GraphicsShapeComponent>(cube.get(), "cube");
 
-    std::shared_ptr<Transform> trans2 = std::make_shared<Transform>(cube);
+    std::shared_ptr<Transform> trans2 = std::make_shared<Transform>(cube.get());
     trans2->setPosition(glm::vec3(0, 0.5f, 0));
 
-    std::shared_ptr<ShapeCollider> sc2 = std::make_shared<BoxCollider>(cube);
-    vc = std::make_shared<VisualCollide>(cube);
+    std::shared_ptr<ShapeCollider> sc2 = std::make_shared<BoxCollider>(cube.get());
+    vc = std::make_shared<VisualCollide>(cube.get());
 
     cube->addComponent(comp2);
     cube->addComponent(trans2);
@@ -80,13 +80,13 @@ WarmupDebugWorld::WarmupDebugWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
 
 
     std::shared_ptr<GameObject> sphere = std::make_shared<GameObject>("sphere");
-    std::shared_ptr<GraphicsComponent> comp3 = std::make_shared<GraphicsShapeComponent>(sphere, "sphere");
+    std::shared_ptr<GraphicsComponent> comp3 = std::make_shared<GraphicsShapeComponent>(sphere.get(), "sphere");
 
-    std::shared_ptr<Transform> trans3 = std::make_shared<Transform>(sphere);
+    std::shared_ptr<Transform> trans3 = std::make_shared<Transform>(sphere.get());
     trans3->setPosition(glm::vec3(4, 0.5f, 0));
 
-    std::shared_ptr<ShapeCollider> sc3 = std::make_shared<SphereCollider>(sphere);
-    vc = std::make_shared<VisualCollide>(sphere);
+    std::shared_ptr<ShapeCollider> sc3 = std::make_shared<SphereCollider>(sphere.get());
+    vc = std::make_shared<VisualCollide>(sphere.get());
 
     sphere->addComponent(comp3);
     sphere->addComponent(trans3);
@@ -160,25 +160,25 @@ void WarmupDebugWorld::onKeyPressed(QKeyEvent *event) {
         shapeType = (shapeType + 1) % 3;
         switch(shapeType) {
         case 0:
-            comp = std::make_shared<GraphicsShapeComponent>(interaction, "cylinder");
-            sc = std::make_shared<CylinderCollider>(interaction);
+            comp = std::make_shared<GraphicsShapeComponent>(interaction.get(), "cylinder");
+            sc = std::make_shared<CylinderCollider>(interaction.get());
             break;
         case 1:
-            comp = std::make_shared<GraphicsShapeComponent>(interaction, "cube");
-            sc = std::make_shared<BoxCollider>(interaction);
+            comp = std::make_shared<GraphicsShapeComponent>(interaction.get(), "cube");
+            sc = std::make_shared<BoxCollider>(interaction.get());
             break;
         case 2:
-            comp = std::make_shared<GraphicsShapeComponent>(interaction, "sphere");
-            sc = std::make_shared<SphereCollider>(interaction);
+            comp = std::make_shared<GraphicsShapeComponent>(interaction.get(), "sphere");
+            sc = std::make_shared<SphereCollider>(interaction.get());
             break;
         }
 
-        std::shared_ptr<Transform> trans = std::make_shared<Transform>(interaction);
+        std::shared_ptr<Transform> trans = std::make_shared<Transform>(interaction.get());
         trans->setPosition(glm::vec3(0, 0.5f, -4.f));
         shapeTransform = trans;
 
 
-        std::shared_ptr<TickComponent> vc = std::make_shared<VisualCollide>(interaction);
+        std::shared_ptr<TickComponent> vc = std::make_shared<VisualCollide>(interaction.get());
 
         interaction->addComponent(comp);
         interaction->addComponent(trans);

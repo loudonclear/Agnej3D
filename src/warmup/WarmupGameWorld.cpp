@@ -24,17 +24,17 @@ WarmupGameWorld::WarmupGameWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
     addSystem(m_physicsSystem);
 
     std::shared_ptr<GameObject> player = std::make_shared<GameObject>("player");
-    std::shared_ptr<GraphicsComponent> comp = std::make_shared<GraphicsShapeComponent>(player, "cylinder");
+    std::shared_ptr<GraphicsComponent> comp = std::make_shared<GraphicsShapeComponent>(player.get(), "cylinder");
 
-    std::shared_ptr<Transform> trans = std::make_shared<Transform>(player);
+    std::shared_ptr<Transform> trans = std::make_shared<Transform>(player.get());
     playerTransform = trans;
     trans->setPosition(glm::vec3(-4, 0.5f, 0));
     std::shared_ptr<Camera> c = WarmupGameScreen::camera;
     c->setEye(glm::vec3(-4, 2.5f, 0));
     c->setLook(glm::vec3(1, 0, 0));
 
-    std::shared_ptr<ShapeCollider> sc = std::make_shared<CylinderCollider>(player);
-    std::shared_ptr<RigidBody> rb = std::make_shared<RigidBody>(player, false);
+    std::shared_ptr<ShapeCollider> sc = std::make_shared<CylinderCollider>(player.get());
+    std::shared_ptr<RigidBody> rb = std::make_shared<RigidBody>(player.get(), false);
 
     player->addComponent(comp);
     player->addComponent(trans);
@@ -44,15 +44,15 @@ WarmupGameWorld::WarmupGameWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
 
 
     std::shared_ptr<GameObject> enemy = std::make_shared<GameObject>("enemy");
-    comp = std::make_shared<GraphicsShapeComponent>(enemy, "cylinder");
+    comp = std::make_shared<GraphicsShapeComponent>(enemy.get(), "cylinder");
 
-    trans = std::make_shared<Transform>(enemy);
+    trans = std::make_shared<Transform>(enemy.get());
     trans->setPosition(glm::vec3(4, 0.5f, 0));
 
-    sc = std::make_shared<CylinderCollider>(enemy);
-    rb = std::make_shared<RigidBody>(enemy, false);
+    sc = std::make_shared<CylinderCollider>(enemy.get());
+    rb = std::make_shared<RigidBody>(enemy.get(), false);
 
-    std::shared_ptr<TickComponent> tc = std::make_shared<EnemyFollowComponent>(enemy);
+    std::shared_ptr<TickComponent> tc = std::make_shared<EnemyFollowComponent>(enemy.get());
 
     enemy->addComponent(comp);
     enemy->addComponent(trans);
@@ -63,13 +63,13 @@ WarmupGameWorld::WarmupGameWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
 
 
     std::shared_ptr<GameObject> ball = std::make_shared<GameObject>("ball");
-    comp = std::make_shared<GraphicsShapeComponent>(ball, "sphere");
+    comp = std::make_shared<GraphicsShapeComponent>(ball.get(), "sphere");
 
-    trans = std::make_shared<Transform>(ball);
+    trans = std::make_shared<Transform>(ball.get());
     trans->setPosition(glm::vec3(0, 0.5f, 0));
 
-    sc = std::make_shared<SphereCollider>(ball);
-    rb = std::make_shared<RigidBody>(ball, false);
+    sc = std::make_shared<SphereCollider>(ball.get());
+    rb = std::make_shared<RigidBody>(ball.get(), false);
 
     ball->addComponent(comp);
     ball->addComponent(trans);
@@ -79,13 +79,13 @@ WarmupGameWorld::WarmupGameWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
 
 
     std::shared_ptr<GameObject> wall1 = std::make_shared<GameObject>("wall");
-    comp = std::make_shared<GraphicsShapeComponent>(wall1, "cube");
+    comp = std::make_shared<GraphicsShapeComponent>(wall1.get(), "cube");
 
-    trans = std::make_shared<Transform>(wall1);
+    trans = std::make_shared<Transform>(wall1.get());
     trans->setPosition(glm::vec3(0, 0.5f, 2.5f));
     trans->setScale(glm::vec3(10, 1, 0.2f));
 
-    sc = std::make_shared<BoxCollider>(wall1);
+    sc = std::make_shared<BoxCollider>(wall1.get());
 
     wall1->addComponent(comp);
     wall1->addComponent(trans);
@@ -94,13 +94,13 @@ WarmupGameWorld::WarmupGameWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
 
 
     std::shared_ptr<GameObject> wall2 = std::make_shared<GameObject>("wall");
-    comp = std::make_shared<GraphicsShapeComponent>(wall2, "cube");
+    comp = std::make_shared<GraphicsShapeComponent>(wall2.get(), "cube");
 
-    trans = std::make_shared<Transform>(wall2);
+    trans = std::make_shared<Transform>(wall2.get());
     trans->setPosition(glm::vec3(0, 0.5f, -2.5f));
     trans->setScale(glm::vec3(10, 1, 0.2f));
 
-    sc = std::make_shared<BoxCollider>(wall2);
+    sc = std::make_shared<BoxCollider>(wall2.get());
 
     wall2->addComponent(comp);
     wall2->addComponent(trans);
@@ -109,13 +109,13 @@ WarmupGameWorld::WarmupGameWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
 
 
     std::shared_ptr<GameObject> goal1 = std::make_shared<GameObject>("goal");
-    comp = std::make_shared<GraphicsShapeComponent>(goal1, "cube");
+    comp = std::make_shared<GraphicsShapeComponent>(goal1.get(), "cube");
 
-    trans = std::make_shared<Transform>(goal1);
+    trans = std::make_shared<Transform>(goal1.get());
     trans->setPosition(glm::vec3(-5, 0.5f, 0));
     trans->setScale(glm::vec3(0.2f, 0.6f, 5));
 
-    sc = std::make_shared<GoalComponent>(goal1, score1);
+    sc = std::make_shared<GoalComponent>(goal1.get(), score1);
 
     goal1->addComponent(comp);
     goal1->addComponent(trans);
@@ -124,13 +124,13 @@ WarmupGameWorld::WarmupGameWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
 
 
     std::shared_ptr<GameObject> goal2 = std::make_shared<GameObject>("goal");
-    comp = std::make_shared<GraphicsShapeComponent>(goal2, "cube");
+    comp = std::make_shared<GraphicsShapeComponent>(goal2.get(), "cube");
 
-    trans = std::make_shared<Transform>(goal2);
+    trans = std::make_shared<Transform>(goal2.get());
     trans->setPosition(glm::vec3(5, 0.5f, 0));
     trans->setScale(glm::vec3(0.2f, 0.6f, 5));
 
-    sc = std::make_shared<GoalComponent>(goal2, score2);
+    sc = std::make_shared<GoalComponent>(goal2.get(), score2);
 
     goal2->addComponent(comp);
     goal2->addComponent(trans);

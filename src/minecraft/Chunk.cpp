@@ -3,9 +3,9 @@
 #include "engine/components/GraphicsShapeComponent.h"
 #include "engine/graphics/Shape.h"
 
-Chunk::Chunk(std::shared_ptr<GameObject> &parent, const glm::vec3& dimensions) : Component(parent), m_dimensions(dimensions)
+Chunk::Chunk(GameObject *parent, const int dimx, const int dimy, const int dimz) : Component(parent), dimx(dimx), dimy(dimy), dimz(dimz)
 {
-    m_blocks.reserve(m_dimensions.x * m_dimensions.y * m_dimensions.z);
+    m_blocks.reserve(dimx * dimy * dimz);
 }
 
 
@@ -15,17 +15,17 @@ void Chunk::init() {
     update();
 }
 
-Block* Chunk::getBlock(unsigned int x, unsigned int y, unsigned int z) {
-    if (x < 0 || x >= m_dimensions.x || y < 0 || y >= m_dimensions.y || z < 0 || z >= m_dimensions.z) return nullptr;
+Block* Chunk::getBlock(int x, int y, int z) {
+    if (x < 0 || x >= dimx || y < 0 || y >= dimy || z < 0 || z >= dimz) return nullptr;
 
-    const unsigned int index = x*m_dimensions.y*m_dimensions.z + y*m_dimensions.z + z;
+    const int index = x*dimy*dimz + y*dimz + z;
     return m_blocks[index];
 }
 
-void Chunk::setBlock(unsigned int x, unsigned int y, unsigned int z, Block& block) {
-    if (x < 0 || x >= m_dimensions.x || y < 0 || y >= m_dimensions.y || z < 0 || z >= m_dimensions.z) return;
+void Chunk::setBlock(int x, int y, int z, Block& block) {
+    if (x < 0 || x >= dimx || y < 0 || y >= dimy || z < 0 || z >= dimz) return;
 
-    const unsigned int index = x*m_dimensions.y*m_dimensions.z + y*m_dimensions.z + z;
+    const int index = x*dimy*dimz + y*dimz + z;
     m_blocks[index] = &block;
 }
 
@@ -33,14 +33,14 @@ void Chunk::update() {
 
     std::vector<float> data;
     std::vector<int> triangles;
-    data.reserve(m_dimensions.x * m_dimensions.y * m_dimensions.z * 24 * 8);
-    triangles.reserve(m_dimensions.x * m_dimensions.y * m_dimensions.z * 12 * 3);
+    data.reserve(dimx * dimy * dimz * 24 * 8);
+    triangles.reserve(dimx * dimy * dimz * 12 * 3);
     int numVertices = 0;
 
-    for (unsigned int x = 0; x < m_dimensions.x; x++) {
-        for (unsigned int y = 0; y < m_dimensions.y; y++) {
-            for (unsigned int z = 0; z < m_dimensions.z; z++) {
-                const unsigned int index = x*m_dimensions.y*m_dimensions.z + y*m_dimensions.z + z;
+    for (int x = 0; x < dimx; x++) {
+        for (int y = 0; y < dimy; y++) {
+            for (int z = 0; z < dimz; z++) {
+                const int index = x*dimy*dimz + y*dimz + z;
                 Block* b = m_blocks[index];
 
                 if (!b->transparent) {

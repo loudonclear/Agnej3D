@@ -68,7 +68,7 @@ Texture2D::Texture2D(unsigned char *data, int width, int height, Texture::DATA_T
     glTexImage2D(GL_TEXTURE_2D, 0, internalFormat , width, height, 0, format, gltype, data);
     unbind();
 
-    Texture::setTextureParams(Texture::FILTER_METHOD::LINEAR_MIPMAP_LINEAR, Texture::WRAP_METHOD::CLAMP_TO_EDGE);
+    Texture::setTextureParams(Texture::FILTER_METHOD::NEAREST, Texture::WRAP_METHOD::CLAMP_TO_EDGE);
 }
 
 void Texture2D::_setFilterMethod(GLenum filter) {

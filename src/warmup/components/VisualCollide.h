@@ -9,7 +9,7 @@ class ShapeCollider;
 class VisualCollide : public TickComponent
 {
 public:
-    VisualCollide(std::shared_ptr<GameObject> &parent);
+    VisualCollide(GameObject *parent);
 
     void tick(float seconds);
     void init();

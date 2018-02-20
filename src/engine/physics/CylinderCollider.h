@@ -6,7 +6,7 @@
 class CylinderCollider : public ShapeCollider
 {
 public:
-    CylinderCollider(std::shared_ptr<GameObject> &parent);
+    CylinderCollider(GameObject *parent, Transform colliderTransform = Transform(nullptr));
 
     //bool pointInside(const glm::vec3 &point);
     //bool raycast(const Ray &ray, RaycastResult &result);

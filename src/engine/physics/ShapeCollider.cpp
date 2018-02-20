@@ -1,6 +1,6 @@
 #include "ShapeCollider.h"
 
-ShapeCollider::ShapeCollider(std::shared_ptr<GameObject> &parent) : Component(parent)
+ShapeCollider::ShapeCollider(GameObject *parent, Transform colliderTransform) : Component(parent), m_colliderTransform(colliderTransform)
 {
 
 }
@@ -17,6 +17,10 @@ glm::vec3 ShapeCollider::getCenter() {
 
 std::shared_ptr<Transform> ShapeCollider::getTransform() {
     return m_transform;
+}
+
+std::shared_ptr<RigidBody> ShapeCollider::getRigidBody() {
+    return m_rigidbody;
 }
 
 void ShapeCollider::onCollide(Collision::ContactData cd) {
