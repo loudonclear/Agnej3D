@@ -19,6 +19,8 @@ public:
     void resize(glm::vec2 &size);
 
     void onKeyPressed(QKeyEvent *event);
+    void onMousePressed(QMouseEvent *event);
+    void onMouseReleased(QMouseEvent *event);
     void onMouseMoved(glm::vec2 &delta);
     void onMouseWheelMoved(QWheelEvent *event);
 

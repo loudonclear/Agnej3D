@@ -2,10 +2,11 @@
 #define GRAPHICSSHAPECOMPONENT_H
 
 #include "GraphicsComponent.h"
+#include "engine/graphics/Shape.h"
 
 class ShapeCollider;
 
-class GraphicsShapeComponent : public GraphicsComponent
+class GraphicsShapeComponent : public virtual GraphicsComponent
 {
 public:
     GraphicsShapeComponent(GameObject *parent, const std::string &shapeName, const std::string &materialName = "default", bool frustumCull = false);
@@ -13,7 +14,10 @@ public:
     void draw(Graphics *g);
     void init();
 
-    void setShape(std::shared_ptr<Shape> shape) { m_shape = shape; }
+    void setShape(std::vector<float> &data, std::vector<int> &triangles) {
+        m_shape = std::make_shared<Shape>(data, triangles);
+        m_shape->build();
+    }
 
 private:
     std::shared_ptr<Shape> m_shape;

@@ -38,9 +38,6 @@ INPUT(
 ./release\GraphicsSystem.o
 ./release\GraphicsShapeComponent.o
 ./release\TimingSystem.o
-./release\TickComponent.o
-./release\FixedTickComponent.o
-./release\PhysicsSystem.o
 ./release\Collision.o
 ./release\RigidBody.o
 ./release\ShapeCollider.o
@@ -61,6 +58,12 @@ INPUT(
 ./release\ChunkManager.o
 ./release\PlayerMoveComponent.o
 ./release\Player.o
+./release\InputComponent.o
+./release\InputSystem.o
+./release\CollisionSystem.o
+./release\Enemy.o
+./release\MinecraftEnemyAI.o
+./release\EnemyCollider.o
 ./release\qrc_shaders.o
 ./release\qrc_fonts.o
 ./release\qrc_images.o

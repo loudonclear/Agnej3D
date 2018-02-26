@@ -3,22 +3,24 @@
 #include "engine/components/GraphicsShapeComponent.h"
 #include "engine/graphics/Shape.h"
 
+
 Chunk::Chunk(GameObject *parent, const int dimx, const int dimy, const int dimz) : Component(parent), dimx(dimx), dimy(dimy), dimz(dimz)
 {
-    m_blocks.reserve(dimx * dimy * dimz);
+    m_blocks.resize(dimx * dimy * dimz);
 }
 
 
 
 void Chunk::init() {
-    gc = std::static_pointer_cast<GraphicsShapeComponent>(m_gameObject->getComponent<GraphicsComponent>());
+    gc = std::dynamic_pointer_cast<GraphicsShapeComponent>(m_gameObject->getComponent<GraphicsComponent>());
     update();
 }
 
 Block* Chunk::getBlock(int x, int y, int z) {
     if (x < 0 || x >= dimx || y < 0 || y >= dimy || z < 0 || z >= dimz) return nullptr;
 
-    const int index = x*dimy*dimz + y*dimz + z;
+    const unsigned int index = x*dimy*dimz + y*dimz + z;
+    assert(index >= 0 && index < m_blocks.size());
     return m_blocks[index];
 }
 
@@ -26,11 +28,12 @@ void Chunk::setBlock(int x, int y, int z, Block& block) {
     if (x < 0 || x >= dimx || y < 0 || y >= dimy || z < 0 || z >= dimz) return;
 
     const int index = x*dimy*dimz + y*dimz + z;
+    assert(index >= 0 && index < m_blocks.size());
+    assert(&block != nullptr);
     m_blocks[index] = &block;
 }
 
 void Chunk::update() {
-
     std::vector<float> data;
     std::vector<int> triangles;
     data.reserve(dimx * dimy * dimz * 24 * 8);
@@ -40,7 +43,7 @@ void Chunk::update() {
     for (int x = 0; x < dimx; x++) {
         for (int y = 0; y < dimy; y++) {
             for (int z = 0; z < dimz; z++) {
-                const int index = x*dimy*dimz + y*dimz + z;
+                const unsigned int index = x*dimy*dimz + y*dimz + z;
                 Block* b = m_blocks[index];
 
                 if (!b->transparent) {
@@ -192,7 +195,6 @@ void Chunk::update() {
         }
     }
 
-    std::shared_ptr<Shape> newShape = std::make_shared<Shape>(data, triangles);
-    gc->setShape(newShape);
+    gc->setShape(data, triangles);
 }
 

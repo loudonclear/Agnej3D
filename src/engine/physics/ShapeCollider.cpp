@@ -1,6 +1,7 @@
 #include "ShapeCollider.h"
+#include <iostream>
 
-ShapeCollider::ShapeCollider(GameObject *parent, Transform colliderTransform) : Component(parent), m_colliderTransform(colliderTransform)
+ShapeCollider::ShapeCollider(GameObject *parent, Transform colliderTransform) : Component(parent), m_colliderTransform(colliderTransform), m_transform(nullptr), m_rigidbody(nullptr)
 {
 
 }

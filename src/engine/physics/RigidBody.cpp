@@ -2,7 +2,7 @@
 #include "engine/world/GameObject.h"
 #include "engine/physics/ShapeCollider.h"
 
-RigidBody::RigidBody(GameObject *parent, bool isStatic, float mass) : Component(parent), m_isStatic(isStatic), m_mass(mass), m_invMass(1.f/mass)
+RigidBody::RigidBody(GameObject *parent, bool isStatic, float mass) : Component(parent), m_isStatic(isStatic), m_mass(mass), m_invMass(1.f/mass), isGrounded(false)
 {
 }
 

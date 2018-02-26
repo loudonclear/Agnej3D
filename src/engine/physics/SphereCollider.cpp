@@ -1,13 +1,13 @@
 #include "SphereCollider.h"
 
-SphereCollider::SphereCollider(GameObject *parent, Transform colliderTransform) : ShapeCollider(parent, colliderTransform)
+SphereCollider::SphereCollider(GameObject *parent, Transform colliderTransform) : Component(parent), ShapeCollider(parent, colliderTransform)
 {
 }
 
-//bool SphereCollider::pointInside(const glm::vec3 &point) {
-//    glm::vec3 res = m_transform.transformPoint(point);
-//    return glm::length2(res) < m_radiusSquared ? true : false;
-//}
+bool SphereCollider::pointInside(const glm::vec3 &point) {
+    glm::vec3 localPoint = m_transform->inverseTransformPoint(point);
+    return glm::length2(localPoint) <= 0.25f ? true : false;
+}
 
 //bool SphereCollider::raycast(const Ray &ray, RaycastResult &result) {
 //    Ray localRay = m_transform.transformRay(ray);

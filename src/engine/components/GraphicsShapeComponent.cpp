@@ -8,14 +8,14 @@
 #include <glm/gtx/string_cast.hpp>
 
 GraphicsShapeComponent::GraphicsShapeComponent(GameObject *parent, const std::string &shapeName, const std::string &materialName, bool frustumCull) :
-    GraphicsComponent(parent, materialName), m_frustumCull(frustumCull)
+    Component(parent), GraphicsComponent(parent, materialName), m_frustumCull(frustumCull)
 {
     Graphics *g = Graphics::getGlobalInstance();
     m_shape = g->getShape(shapeName);
 }
 
 GraphicsShapeComponent::GraphicsShapeComponent(GameObject *parent, std::shared_ptr<Shape> shape, const std::string &materialName, bool frustumCull) :
-    GraphicsComponent(parent, materialName), m_shape(shape), m_frustumCull(frustumCull)
+    Component(parent), GraphicsComponent(parent, materialName), m_shape(shape), m_frustumCull(frustumCull)
 {
 }
 

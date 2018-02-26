@@ -14,12 +14,10 @@
 const float FLOAT_EPSILON = 1e-4f;
 #define SIGN(n) ((n)<0 ? -1:1)
 
-class ShapeCollider : public Component
+class ShapeCollider : public virtual Component
 {
 public:
-    ShapeCollider(GameObject *parent, Transform colliderTransform);
-
-    void init();
+    virtual void init();
 
     virtual void onCollide(Collision::ContactData cd);
     bool isColliding();
@@ -29,12 +27,15 @@ public:
     std::shared_ptr<Transform> getTransform();
     std::shared_ptr<RigidBody> getRigidBody();
 
-    //virtual bool pointInside(const glm::vec3 &point) = 0;
+    virtual bool pointInside(const glm::vec3 &point) = 0;
     //virtual bool raycast(const Ray &ray) = 0;
     virtual glm::vec3 getSupport(const glm::vec3 &dir) = 0;
+    //virtual glm::vec3 getDimensions();
     virtual glm::vec3 getCenter();
 
 protected:
+    ShapeCollider(GameObject *parent, Transform colliderTransform);
+
     std::shared_ptr<Transform> m_transform;
     std::shared_ptr<RigidBody> m_rigidbody;
 

@@ -7,7 +7,6 @@
 #include <vector>
 #include <memory>
 
-
 class System
 {
 public:

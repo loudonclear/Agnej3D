@@ -375,7 +375,7 @@ void Shape::draw(const std::shared_ptr<Graphics> &g) {
 }
 
 void Shape::draw(Graphics *g) {
-    // Build VAO if not buildt already
+    // Build VAO if not built already
     if(!m_built) {
         build();
     }

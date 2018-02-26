@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include "World.h"
 
-GameObject::GameObject(const std::string &name) : m_world(nullptr), name(name)
+GameObject::GameObject(const std::string &name) : name(name), m_world(nullptr)
 {
 
 }

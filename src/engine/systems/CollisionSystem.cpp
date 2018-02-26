@@ -1,48 +1,40 @@
-#include "PhysicsSystem.h"
+#include "CollisionSystem.h"
 #include "engine/physics/ShapeCollider.h"
 #include "engine/physics/Collision.h"
 
 #include <algorithm>
 #include <iostream>
 
-//glm::vec3 gravity(0, -1, 0);
-
-PhysicsSystem::PhysicsSystem()
+CollisionSystem::CollisionSystem()
 {
 
 }
 
-void PhysicsSystem::addGameObject(const std::shared_ptr<GameObject> &go) {
+void CollisionSystem::addGameObject(const std::shared_ptr<GameObject> &go) {
     std::shared_ptr<ShapeCollider> component = go->getComponent<ShapeCollider>();
     if (component != nullptr) m_components.push_back(component);
 }
 
-void PhysicsSystem::removeGameObject(const std::shared_ptr<GameObject> &go) {
+void CollisionSystem::removeGameObject(const std::shared_ptr<GameObject> &go) {
     std::shared_ptr<ShapeCollider> component = go->getComponent<ShapeCollider>();
     if (component != nullptr)
         m_components.erase(std::remove(m_components.begin(), m_components.end(), component), m_components.end());
 }
 
-void PhysicsSystem::update(float seconds) {
+void CollisionSystem::update(float seconds) {
 
     broadphase();
 
-    for (auto iter = m_components.begin(); iter != m_components.end(); ++iter) {
-        std::shared_ptr<RigidBody> rb = iter->get()->getRigidBody();
-        if (rb != nullptr) {
-            //rb->force += gravity * rb->getMass();
-            rb->integrateForces(seconds);
-            rb->integrateVelocities(seconds);
-        }
-     }
-
 }
 
-void PhysicsSystem::broadphase() {
+void CollisionSystem::broadphase() {
     if (m_components.size() < 2) return;
 
     for (auto iter = m_components.begin(); iter != m_components.end(); ++iter) {
         iter->get()->setColliding(false);
+        if (!iter->get()->isStatic()) {
+            iter->get()->getRigidBody()->force = glm::vec3(0, -20, 0);
+        }
     }
 
     for (auto iter1 = m_components.begin(); iter1 != --m_components.end(); ++iter1) {
@@ -53,8 +45,7 @@ void PhysicsSystem::broadphase() {
             cd.s1 = s1;
             cd.s2 = s2;
 
-            //TODO uncomment
-            //if(!(s1->isStatic() && s2->isStatic())) continue;
+            if((s1->isStatic() || s2->isStatic())) continue;
             if (Collision::collide(cd)) {
                 s1->setColliding(true);
                 s2->setColliding(true);
@@ -70,6 +61,6 @@ void PhysicsSystem::broadphase() {
     }
 }
 
-//void PhysicsSystem::narrowphase() {
+//void CollisionSystem::narrowphase() {
 
 //}

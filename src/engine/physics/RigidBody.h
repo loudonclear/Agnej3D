@@ -5,7 +5,7 @@
 #include "engine/physics/Collision.h"
 #include "engine/components/Transform.h"
 
-class RigidBody : public Component
+class RigidBody : public virtual Component
 {
 public:
     RigidBody(GameObject *parent, bool isStatic, float mass = 1);

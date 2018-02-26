@@ -38,9 +38,6 @@ INPUT(
 ./debug\GraphicsSystem.o
 ./debug\GraphicsShapeComponent.o
 ./debug\TimingSystem.o
-./debug\TickComponent.o
-./debug\FixedTickComponent.o
-./debug\PhysicsSystem.o
 ./debug\Collision.o
 ./debug\RigidBody.o
 ./debug\ShapeCollider.o
@@ -61,6 +58,12 @@ INPUT(
 ./debug\ChunkManager.o
 ./debug\PlayerMoveComponent.o
 ./debug\Player.o
+./debug\InputComponent.o
+./debug\InputSystem.o
+./debug\CollisionSystem.o
+./debug\Enemy.o
+./debug\MinecraftEnemyAI.o
+./debug\EnemyCollider.o
 ./debug\qrc_shaders.o
 ./debug\qrc_fonts.o
 ./debug\qrc_images.o

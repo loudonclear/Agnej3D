@@ -1,15 +1,18 @@
 #include "BoxCollider.h"
 
-BoxCollider::BoxCollider(GameObject *parent, Transform colliderTransform) : ShapeCollider(parent, colliderTransform)
+#include <iostream>
+#include "glm/gtx/string_cast.hpp"
+
+BoxCollider::BoxCollider(GameObject *parent, Transform colliderTransform) : Component(parent), ShapeCollider(parent, colliderTransform)
 {
 }
 
-//bool BoxCollider::pointInside(const glm::vec3 &point) {
-//    glm::vec3 localPoint = m_transform.transformPoint(point);
-//    return localPoint.x > -m_halfSize.x && localPoint.x < m_halfSize.x &&
-//           localPoint.y > -m_halfSize.y && localPoint.y < m_halfSize.y &&
-//           localPoint.z > -m_halfSize.z && localPoint.z < m_halfSize.z;
-//}
+bool BoxCollider::pointInside(const glm::vec3 &point) {
+    glm::vec3 localPoint = m_transform->inverseTransformPoint(point);
+    return localPoint.x > -0.5f && localPoint.x < 0.5f &&
+           localPoint.y > -0.5f && localPoint.y < 0.5f &&
+           localPoint.z > -0.5f && localPoint.z < 0.5f;
+}
 
 //bool BoxCollider::raycast(const Ray &ray, RaycastResult &result) {
 

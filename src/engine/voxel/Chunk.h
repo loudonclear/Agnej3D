@@ -8,9 +8,8 @@
 
 #include "engine/components/Component.h"
 
-#include <iostream>
-
 class GraphicsShapeComponent;
+class Shape;
 
 struct Block {
 
@@ -68,6 +67,7 @@ public:
 private:
 
     std::shared_ptr<GraphicsShapeComponent> gc;
+    std::shared_ptr<Shape> newShape;
 
     std::vector<Block*> m_blocks;
     const int dimx, dimy, dimz;

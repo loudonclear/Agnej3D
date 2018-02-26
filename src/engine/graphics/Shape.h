@@ -88,7 +88,6 @@ public:
 
     bool printDebug();
 
-private:
     void build();
 
 private:

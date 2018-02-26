@@ -7,7 +7,8 @@
 #include "engine/systems/System.h"
 #include "engine/systems/TimingSystem.h"
 #include "engine/systems/GraphicsSystem.h"
-#include "engine/systems/PhysicsSystem.h"
+#include "engine/systems/CollisionSystem.h"
+#include "engine/systems/InputSystem.h"
 
 
 class Graphics;
@@ -34,18 +35,21 @@ public:
         m_systems.remove<SystemType>();
     }
 
-    void addGameObject(const std::string &name, const std::shared_ptr<GameObject> &gameObject);
-    void addGameObject(const std::string &name, GameObject &&gameObject);
+    void addGameObject(const std::string &name, const std::shared_ptr<GameObject> &gameObject, const bool init = true);
+    //void addGameObject(const std::string &name, GameObject &&gameObject);
     std::shared_ptr<GameObject> getGameObject(const std::string &name);
     void removeGameObject(const std::string &name);
 
     void init();
+    virtual void reset() {}
 
     virtual void tick(float seconds) {}
     virtual void draw(Graphics *g) {}
 
     virtual void onKeyPressed(QKeyEvent *event) {}
     virtual void onKeyReleased(QKeyEvent *event) {}
+    virtual void onMousePressed(QMouseEvent *event) {}
+    virtual void onMouseReleased(QMouseEvent *event) {}
     virtual void onMouseMoved(glm::vec2 &delta) {}
     virtual void onMouseWheelMoved(QWheelEvent *event) {}
 

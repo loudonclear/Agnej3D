@@ -17,6 +17,10 @@ void Application::setScreen(const std::string &name) {
     m_activeScreen = m_screens[name];
 }
 
+std::shared_ptr<Screen> Application::getScreen(const std::string &name) {
+    return m_screens[name];
+}
+
 void Application::removeScreen(const std::string &name) {
     m_screens.erase(m_screens.find(name));
 }
@@ -44,6 +48,14 @@ void Application::onKeyPressed(QKeyEvent *event) {
 
 void Application::onKeyReleased(QKeyEvent *event) {
     m_activeScreen->onKeyReleased(event);
+}
+
+void Application::onMousePressed(QMouseEvent *event) {
+    m_activeScreen->onMousePressed(event);
+}
+
+void Application::onMouseReleased(QMouseEvent *event) {
+    m_activeScreen->onMouseReleased(event);
 }
 
 void Application::onMouseMoved(glm::vec2 delta) {

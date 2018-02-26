@@ -338,13 +338,6 @@ void Graphics::drawLine2D(glm::vec2 start, glm::vec2 end, float width) {
     drawShape("quad");
 }
 
-void Graphics::drawLine(const glm::vec3 &p1, const glm::vec3 &p2) {
-    glBegin(GL_LINES);
-    glVertex3f(p1.x, p1.y, p1.z);
-    glVertex3f(p1.x, p1.y, p1.z);
-    glEnd();
-}
-
 void Graphics::setTransform(const mat4 &transform) {
     m_transform = transform;
     setUniform("m", m_transform);

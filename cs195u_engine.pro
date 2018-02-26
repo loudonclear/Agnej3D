@@ -59,9 +59,6 @@ SOURCES += \
     src/engine/systems/GraphicsSystem.cpp \
     src/engine/components/GraphicsShapeComponent.cpp \
     src/engine/systems/TimingSystem.cpp \
-    src/engine/components/TickComponent.cpp \
-    src/engine/components/FixedTickComponent.cpp \
-    src/engine/systems/PhysicsSystem.cpp \
     src/engine/physics/Collision.cpp \
     src/engine/physics/RigidBody.cpp \
     src/engine/physics/ShapeCollider.cpp \
@@ -77,11 +74,17 @@ SOURCES += \
     src/minecraft/MinecraftApplication.cpp \
     src/minecraft/MinecraftGameScreen.cpp \
     src/minecraft/MinecraftWorld.cpp \
-    src/minecraft/Chunk.cpp \
-    src/minecraft/PerlinNoise.cpp \
-    src/minecraft/ChunkManager.cpp \
+    src/engine/voxel/Chunk.cpp \
+    src/engine/voxel/PerlinNoise.cpp \
+    src/engine/voxel/ChunkManager.cpp \
     src/minecraft/PlayerMoveComponent.cpp \
-    src/minecraft/Player.cpp
+    src/minecraft/Player.cpp \
+    src/engine/components/InputComponent.cpp \
+    src/engine/systems/InputSystem.cpp \
+    src/engine/systems/CollisionSystem.cpp \
+    src/minecraft/Enemy.cpp \
+    src/minecraft/MinecraftEnemyAI.cpp \
+    src/minecraft/EnemyCollider.cpp
 
 HEADERS += \
     libs/glew-1.10.0/include/GL/glew.h \
@@ -136,8 +139,6 @@ HEADERS += \
     src/engine/components/GraphicsShapeComponent.h \
     src/engine/systems/TimingSystem.h \
     src/engine/components/TickComponent.h \
-    src/engine/components/FixedTickComponent.h \
-    src/engine/systems/PhysicsSystem.h \
     src/engine/physics/Collision.h \
     src/engine/physics/RigidBody.h \
     src/engine/physics/ShapeCollider.h \
@@ -153,11 +154,17 @@ HEADERS += \
     src/minecraft/MinecraftApplication.h \
     src/minecraft/MinecraftGameScreen.h \
     src/minecraft/MinecraftWorld.h \
-    src/minecraft/Chunk.h \
-    src/minecraft/PerlinNoise.h \
-    src/minecraft/ChunkManager.h \
+    src/engine/voxel/Chunk.h \
+    src/engine/voxel/PerlinNoise.h \
+    src/engine/voxel/ChunkManager.h \
     src/minecraft/PlayerMoveComponent.h \
-    src/minecraft/Player.h
+    src/minecraft/Player.h \
+    src/engine/components/InputComponent.h \
+    src/engine/systems/InputSystem.h \
+    src/engine/systems/CollisionSystem.h \
+    src/minecraft/Enemy.h \
+    src/minecraft/MinecraftEnemyAI.h \
+    src/minecraft/EnemyCollider.h
 
 FORMS += src/mainwindow.ui
 

@@ -25,4 +25,8 @@ MinecraftApplication::MinecraftApplication()
     textureAtlas.textureName = "terrain";
     textureAtlas.textureRepeat = glm::vec2(1, 1);
     graphics->addMaterial("terrain", textureAtlas);
+
+    Material enemy;
+    enemy.color = glm::vec3(1, 0, 0);
+    graphics->addMaterial("enemy", enemy);
 }

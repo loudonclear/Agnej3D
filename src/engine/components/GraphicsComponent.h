@@ -9,7 +9,7 @@
 
 class Transform;
 
-class GraphicsComponent : public Component
+class GraphicsComponent : public virtual Component
 {
 public:
     GraphicsComponent(GameObject *parent, const std::string &materialName = "default");

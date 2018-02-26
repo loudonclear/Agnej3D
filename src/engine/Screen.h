@@ -21,6 +21,8 @@ public:
 
     virtual void onKeyPressed(QKeyEvent *event) {}
     virtual void onKeyReleased(QKeyEvent *event) {}
+    virtual void onMousePressed(QMouseEvent *event) {}
+    virtual void onMouseReleased(QMouseEvent *event) {}
     virtual void onMouseMoved(glm::vec2 &delta) {}
     virtual void onMouseWheelMoved(QWheelEvent *event) {}
 

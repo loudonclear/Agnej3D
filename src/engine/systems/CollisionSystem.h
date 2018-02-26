@@ -1,14 +1,14 @@
-#ifndef PHYSICSSYSTEM_H
-#define PHYSICSSYSTEM_H
+#ifndef COLLISIONSYSTEM_H
+#define COLLISIONSYSTEM_H
 
 #include "System.h"
 
 class ShapeCollider;
 
-class PhysicsSystem : public System
+class CollisionSystem : public System
 {
 public:
-    PhysicsSystem();
+    CollisionSystem();
 
     void addGameObject(const std::shared_ptr<GameObject> &go);
     void removeGameObject(const std::shared_ptr<GameObject> &go);
@@ -20,4 +20,4 @@ private:
     std::vector<std::shared_ptr<ShapeCollider>> m_components;
 };
 
-#endif // PHYSICSSYSTEM_H
+#endif // COLLISIONSYSTEM_H

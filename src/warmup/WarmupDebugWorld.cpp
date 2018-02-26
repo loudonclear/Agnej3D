@@ -3,7 +3,6 @@
 #include "engine/components/Transform.h"
 #include "engine/components/GraphicsShapeComponent.h"
 #include "engine/components/TickComponent.h"
-#include "engine/components/FixedTickComponent.h"
 #include "engine/physics/ShapeCollider.h"
 #include "engine/physics/CylinderCollider.h"
 #include "engine/physics/BoxCollider.h"
@@ -14,7 +13,7 @@ WarmupDebugWorld::WarmupDebugWorld() : elapsedTime(0), fixedTickTime(1.f/60.f)
 {
     m_timingSystem = std::make_shared<TimingSystem>();
     m_graphicsSystem = std::make_shared<GraphicsSystem>();
-    m_physicsSystem = std::make_shared<PhysicsSystem>();
+    m_physicsSystem = std::make_shared<CollisionSystem>();
 
     addSystem(m_timingSystem);
     addSystem(m_graphicsSystem);

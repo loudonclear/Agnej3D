@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "Enemy.h"
 #include "engine/components/GraphicsComponent.h"
 #include "engine/components/GraphicsShapeComponent.h"
 #include "engine/physics/BoxCollider.h"
@@ -7,27 +7,23 @@
 #include "engine/physics/RigidBody.h"
 #include "minecraft/PlayerMoveComponent.h"
 #include "minecraft/MinecraftGameScreen.h"
-#include "engine/graphics/Camera.h"
+#include "minecraft/MinecraftEnemyAI.h"
+#include "minecraft/EnemyCollider.h"
 
-Player::Player(const std::string &name) : GameObject(name)
+Enemy::Enemy(const std::string &name, const glm::vec3 &pos) : GameObject(name)
 {
-    std::shared_ptr<GraphicsComponent> comp = std::make_shared<GraphicsShapeComponent>(this, "cube", "default", false);
+    std::shared_ptr<GraphicsComponent> comp = std::make_shared<GraphicsShapeComponent>(this, "cube", "enemy", false);
 
     std::shared_ptr<Transform> trans = std::make_shared<Transform>(this);
-    trans->setPosition(glm::vec3(0*32, 40.f, 0*32));
+    trans->setPosition(pos);
     trans->setScale(glm::vec3(0.8f, 1.8f, 0.8f));
-    std::shared_ptr<Camera> c = MinecraftGameScreen::camera;
-    c->setLook(glm::vec3(1, -1, 1));
 
-    std::shared_ptr<ShapeCollider> sc = std::make_shared<BoxCollider>(this);
+    std::shared_ptr<ShapeCollider> sc = std::make_shared<EnemyCollider>(this);
     std::shared_ptr<RigidBody> rb = std::make_shared<RigidBody>(this, false);
-    std::shared_ptr<PlayerMoveComponent> pm = std::make_shared<PlayerMoveComponent>(this);
-    std::shared_ptr<TickComponent> tc = pm;
-    std::shared_ptr<InputComponent> in = pm;
+    std::shared_ptr<TickComponent> tc = std::make_shared<MinecraftEnemyAI>(this);
 
     addComponent(comp);
     addComponent(tc);
-    addComponent(in);
     addComponent(trans);
     addComponent(sc);
     addComponent(rb);

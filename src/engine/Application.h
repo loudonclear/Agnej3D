@@ -16,6 +16,7 @@ public:
     void addScreen(const std::string &name, const std::shared_ptr<Screen> &screen);
     void removeScreen(const std::string &name);
     void setScreen(const std::string &name);
+    std::shared_ptr<Screen> getScreen(const std::string &name);
     std::shared_ptr<Screen> getActiveScreen();
 
     virtual void tick(float seconds);
@@ -24,6 +25,8 @@ public:
 
     virtual void onKeyPressed(QKeyEvent *event);
     virtual void onKeyReleased(QKeyEvent *event);
+    virtual void onMousePressed(QMouseEvent *event);
+    virtual void onMouseReleased(QMouseEvent *event);
     virtual void onMouseMoved(glm::vec2 delta);
     virtual void onMouseWheelMoved(QWheelEvent *event);
 

@@ -27,6 +27,13 @@ void MinecraftGameScreen::resize(glm::vec2 &size) {
     camera->setScreenSize(size);
 }
 
+void MinecraftGameScreen::onMousePressed(QMouseEvent *event) {
+    m_world->onMousePressed(event);
+}
+
+void MinecraftGameScreen::onMouseReleased(QMouseEvent *event) {
+    m_world->onMouseReleased(event);
+}
 
 void MinecraftGameScreen::onMouseMoved(glm::vec2 &delta) {
     m_world->onMouseMoved(delta);
@@ -38,6 +45,7 @@ void MinecraftGameScreen::onMouseWheelMoved(QWheelEvent *event) {
 
 void MinecraftGameScreen::onKeyPressed(QKeyEvent *event) {
     if (event->key() == Qt::Key_Escape) {
+        m_world = std::make_shared<MinecraftWorld>();
         application->setScreen("menu");
     }
 }

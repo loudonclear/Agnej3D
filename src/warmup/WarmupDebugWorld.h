@@ -20,7 +20,7 @@ private:
 
     std::shared_ptr<TimingSystem> m_timingSystem;
     std::shared_ptr<GraphicsSystem> m_graphicsSystem;
-    std::shared_ptr<PhysicsSystem> m_physicsSystem;
+    std::shared_ptr<CollisionSystem> m_physicsSystem;
 
     std::shared_ptr<Transform> shapeTransform;
     std::shared_ptr<GameObject> interaction;

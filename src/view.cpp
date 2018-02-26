@@ -99,7 +99,7 @@ void View::paintGL()
 {
     /** SUPPORT CODE START **/
 
-    m_graphics->setClearColor(glm::vec3(0, 0, 0));
+    m_graphics->setClearColor(glm::vec3(126/255.f, 192/255.f, 238/255.f));
     m_graphics->clearScreen(Graphics::CLEAR_FLAG::ALL);
     m_graphics->clearShader();
     m_graphics->setDefaultMaterial();
@@ -135,7 +135,7 @@ void View::resizeGL(int w, int h)
 void View::mousePressEvent(QMouseEvent *event)
 {
     Input::onMousePressed(event);
-    //m_app->onMousePressed(event);
+    m_app->onMousePressed(event);
 }
 
 void View::mouseMoveEvent(QMouseEvent *event)
@@ -169,7 +169,7 @@ void View::mouseMoveEvent(QMouseEvent *event)
 void View::mouseReleaseEvent(QMouseEvent *event)
 {
     Input::onMouseReleased(event);
-    //m_app->onMouseReleased(event);
+    m_app->onMouseReleased(event);
 }
 
 void View::wheelEvent(QWheelEvent *event)

@@ -1,9 +1,13 @@
 #include "CylinderCollider.h"
 
-#include <iostream>
 
-CylinderCollider::CylinderCollider(GameObject *parent, Transform colliderTransform) : ShapeCollider(parent, colliderTransform)
+CylinderCollider::CylinderCollider(GameObject *parent, Transform colliderTransform) : Component(parent), ShapeCollider(parent, colliderTransform)
 {
+}
+
+bool CylinderCollider::pointInside(const glm::vec3 &point) {
+    glm::vec3 localPoint = m_transform->inverseTransformPoint(point);
+    return localPoint.y > -0.5f && localPoint.y < 0.5f && localPoint.x*localPoint.x + localPoint.z * localPoint.z < 0.25f ? true : false;
 }
 
 glm::vec3 CylinderCollider::getSupport(const glm::vec3 &dir) {
@@ -23,4 +27,5 @@ glm::vec3 CylinderCollider::getSupport(const glm::vec3 &dir) {
 
     return m_transform->transformPoint(m_colliderTransform.transformPoint(support));
 }
+
 

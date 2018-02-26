@@ -1,6 +1,6 @@
 #include "GoalComponent.h"
 
-GoalComponent::GoalComponent(GameObject *parent, int &score) : BoxCollider(parent), score(score)
+GoalComponent::GoalComponent(GameObject *parent, int &score) : Component(parent), BoxCollider(parent), score(score)
 {
 }
 

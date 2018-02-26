@@ -3,7 +3,7 @@
 #include "engine/world/World.h"
 
 
-EnemyFollowComponent::EnemyFollowComponent(GameObject *parent) : TickComponent(parent)
+EnemyFollowComponent::EnemyFollowComponent(GameObject *parent) : Component(parent), TickComponent(parent)
 {
 }
 

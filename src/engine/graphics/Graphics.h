@@ -170,7 +170,6 @@ public:
     void drawShape(std::shared_ptr<Shape> shape);
     void drawEllipse(glm::vec2 size);
     void drawLine2D(glm::vec2 start, glm::vec2 end, float width);
-    void drawLine(const glm::vec3 &p1, const glm::vec3 &p2);
 
     /**
      * @brief setUniform
