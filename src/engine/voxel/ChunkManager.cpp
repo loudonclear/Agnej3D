@@ -109,8 +109,8 @@ bool ChunkManager::isPassable(int x, int y, int z) {
 }
 
 Block* ChunkManager::getBlock(int x, int y, int z) {
-    int cx = x < 0 ? (x / (chunkx + 1)) - 1 : x / chunkx;
-    int cz = z < 0 ? (z / (chunkz + 1)) - 1 : z / chunkz;
+    int cx = x < 0 ? (x + 1) / chunkx - 1 : x / chunkx;
+    int cz = z < 0 ? (z + 1) / chunkz - 1 : z / chunkz;
 
     std::shared_ptr<Chunk> chunk = getChunk(cx, cz);
     if (chunk == nullptr) return nullptr;
@@ -122,18 +122,14 @@ Block* ChunkManager::getBlock(int x, int y, int z) {
 }
 
 void ChunkManager::setBlock(int x, int y, int z, Block& block) {
-    int cx = x < 0 ? (x / (chunkx + 1)) - 1 : x / chunkx;
-    int cz = z < 0 ? (z / (chunkz + 1)) - 1 : z / chunkz;
+    int cx = x < 0 ? (x + 1) / chunkx - 1 : x / chunkx;
+    int cz = z < 0 ? (z + 1) / chunkz - 1 : z / chunkz;
 
     std::shared_ptr<Chunk> chunk = getChunk(cx, cz);
     if (chunk == nullptr) return;
 
     int newx = (x < 0) ? x - (cx * chunkx) : x % chunkx;
     int newz = (z < 0) ? z - (cz * chunkz) : z % chunkz;
-
-    std::cout << cx << " " << cz << std::endl;
-    std::cout << newx << " " << newz << std::endl;
-    std::cout << std::endl;
 
     chunk->setBlock(newx, y, newz, block);
     chunk->update();
