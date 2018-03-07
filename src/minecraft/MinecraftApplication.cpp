@@ -29,4 +29,8 @@ MinecraftApplication::MinecraftApplication()
     Material enemy;
     enemy.color = glm::vec3(1, 0, 0);
     graphics->addMaterial("enemy", enemy);
+
+    Material green;
+    green.color = glm::vec3(0, 1, 0);
+    graphics->addMaterial("green", green);
 }

@@ -1,4 +1,5 @@
 QT += core gui opengl
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 TARGET = cs195u_engine
 TEMPLATE = app
@@ -76,7 +77,6 @@ SOURCES += \
     src/minecraft/MinecraftWorld.cpp \
     src/engine/voxel/Chunk.cpp \
     src/engine/voxel/PerlinNoise.cpp \
-    src/engine/voxel/ChunkManager.cpp \
     src/minecraft/PlayerMoveComponent.cpp \
     src/minecraft/Player.cpp \
     src/engine/components/InputComponent.cpp \
@@ -84,7 +84,17 @@ SOURCES += \
     src/engine/systems/CollisionSystem.cpp \
     src/minecraft/Enemy.cpp \
     src/minecraft/MinecraftEnemyAI.cpp \
-    src/minecraft/EnemyCollider.cpp
+    src/minecraft/EnemyCollider.cpp \
+    src/engine/components/SoundComponent.cpp \
+    src/engine/voxel/ChunkSystem.cpp \
+    src/engine/components/UIComponent.cpp \
+    src/minecraft/NPCText.cpp \
+    src/minecraft/HealthBar.cpp \
+    src/engine/components/OrthographicUIComponent.cpp \
+    src/engine/components/HUDComponent.cpp \
+    src/minecraft/HUDText.cpp \
+    src/engine/components/Button.cpp \
+    src/minecraft/MenuWorld.cpp
 
 HEADERS += \
     libs/glew-1.10.0/include/GL/glew.h \
@@ -156,7 +166,6 @@ HEADERS += \
     src/minecraft/MinecraftWorld.h \
     src/engine/voxel/Chunk.h \
     src/engine/voxel/PerlinNoise.h \
-    src/engine/voxel/ChunkManager.h \
     src/minecraft/PlayerMoveComponent.h \
     src/minecraft/Player.h \
     src/engine/components/InputComponent.h \
@@ -164,21 +173,40 @@ HEADERS += \
     src/engine/systems/CollisionSystem.h \
     src/minecraft/Enemy.h \
     src/minecraft/MinecraftEnemyAI.h \
-    src/minecraft/EnemyCollider.h
+    src/minecraft/EnemyCollider.h \
+    src/engine/components/SoundComponent.h \
+    src/engine/voxel/ChunkSystem.h \
+    src/engine/components/UIComponent.h \
+    src/minecraft/NPCText.h \
+    src/minecraft/HealthBar.h \
+    src/engine/components/OrthographicUIComponent.h \
+    src/engine/components/HUDComponent.h \
+    src/minecraft/HUDText.h \
+    src/engine/components/Button.h \
+    src/minecraft/MenuWorld.h
 
 FORMS += src/mainwindow.ui
 
 RESOURCES += \
     res/shaders/shaders.qrc \
     res/fonts/fonts.qrc \
-    res/images/images.qrc
+    res/images/images.qrc \
+    res/sounds/sounds.qrc
 
 OTHER_FILES += \
     res/images/grass.png \
 
 DISTFILES += \
     res/shaders/shader.vert \
-    res/shaders/shader.frag
+    res/shaders/shader.frag \
+    res/sounds/grass.mp3 \
+    res/minecraft/skybox/negx.png \
+    res/minecraft/skybox/negy.png \
+    res/minecraft/skybox/negz.png \
+    res/minecraft/skybox/posx.png \
+    res/minecraft/skybox/posy.png \
+    res/minecraft/skybox/posz.png \
+    res/minecraft/pig.png
 
 INCLUDEPATH += src libs glm libs/glew-1.10.0/include
 DEPENDPATH += src libs glm libs/glew-1.10.0/include

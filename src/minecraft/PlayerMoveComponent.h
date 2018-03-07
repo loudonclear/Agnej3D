@@ -3,12 +3,13 @@
 
 #include "engine/components/TickComponent.h"
 #include "engine/components/InputComponent.h"
-#include "engine/voxel/ChunkManager.h"
+#include "engine/voxel/ChunkSystem.h"
 #include "glm/glm.hpp"
 
 class Transform;
 class Camera;
 class RigidBody;
+class SoundComponent;
 
 class PlayerMoveComponent : public virtual TickComponent, public virtual InputComponent
 {
@@ -17,6 +18,7 @@ public:
     void init();
 
     void tick(float seconds);
+    void fixedTick(float seconds);
     void lateTick(float seconds);
 
     //void onMousePressed(QMouseEvent *event);
@@ -27,9 +29,10 @@ public:
 private:
     std::shared_ptr<Transform> m_transform;
     std::shared_ptr<RigidBody> m_rigidbody;
+    std::shared_ptr<SoundComponent> m_soundComponent;
     std::shared_ptr<ShapeCollider> m_shapeCollider;
 
-    std::shared_ptr<ChunkManager> m_chunkManager;
+    std::shared_ptr<ChunkSystem> m_chunkManager;
 
     std::shared_ptr<Camera> m_camera;
 

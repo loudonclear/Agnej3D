@@ -19,6 +19,8 @@ public:
     std::shared_ptr<Screen> getScreen(const std::string &name);
     std::shared_ptr<Screen> getActiveScreen();
 
+    bool captureMouse = true;
+
     virtual void tick(float seconds);
     virtual void draw(Graphics *g);
     virtual void resize(glm::vec2 size);

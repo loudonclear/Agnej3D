@@ -10,7 +10,7 @@ void MinecraftEnemyAI::init() {
     m_transform = m_gameObject->getComponent<Transform>();
     m_rigidbody = m_gameObject->getComponent<RigidBody>();
     m_shapeCollider = m_gameObject->getComponent<ShapeCollider>();
-    m_chunkManager = m_gameObject->getWorld()->getSystem<ChunkManager>();
+    m_chunkManager = m_gameObject->getWorld()->getSystem<ChunkSystem>();
     m_target = m_gameObject->getWorld()->getGameObject("player")->getComponent<Transform>();
 
     m_rigidbody->force = glm::vec3(0, -20, 0);

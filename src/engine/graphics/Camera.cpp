@@ -206,6 +206,14 @@ bool Camera::frustumCull(std::shared_ptr<ShapeCollider> sc) {
     return false;
 }
 
+glm::vec3 Camera::convertToScreenSpace(glm::vec3 pos) {
+    glm::vec4 fourVec = glm::vec4(pos.x, pos.y, pos.z, 1);
+    fourVec = getProjection() * getView() * fourVec;
+    glm::vec3 clipSpace = glm::vec3(fourVec.x / fourVec.w, fourVec.y / fourVec.w, fourVec.z);
+
+    return glm::vec3((clipSpace.x + 1) * 0.5f * m_screenSize.x, (1 - (1 - clipSpace.y) * 0.5f * m_screenSize.y), clipSpace.z);
+}
+
 glm::mat4 Camera::getUIView() {
     return glm::mat4();
 }

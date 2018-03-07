@@ -30,12 +30,7 @@ View::View(QWidget *parent) : QGLWidget(ViewFormat(), parent),
     setMouseTracking(true);
 
     // Hide the cursor since this is a fullscreen app
-    if(m_captureMouse) {
-        QApplication::setOverrideCursor(Qt::BlankCursor);
-    }
-    else {
-        QApplication::setOverrideCursor(Qt::ArrowCursor);
-    }
+
 
     // View needs keyboard focus
     setFocusPolicy(Qt::StrongFocus);
@@ -152,7 +147,14 @@ void View::mouseMoveEvent(QMouseEvent *event)
     int deltaX = event->x() - width() / 2;
     int deltaY = event->y() - height() / 2;
 
-    if(m_captureMouse) {
+    if(m_app->captureMouse) {
+        QApplication::setOverrideCursor(Qt::BlankCursor);
+    }
+    else {
+        QApplication::setOverrideCursor(Qt::ArrowCursor);
+    }
+
+    if(m_app->captureMouse) {
 
         if (deltaX == 0 && deltaY == 0) {
             return;
@@ -163,6 +165,7 @@ void View::mouseMoveEvent(QMouseEvent *event)
 
     /** SUPPORT CODE END **/
 
+    Input::setMousePosition(glm::ivec2(event->x(), event->y()));
     m_app->onMouseMoved(glm::vec2(deltaX, deltaY));
 }
 

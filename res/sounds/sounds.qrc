@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>grass.mp3</file>
+        <file>grass.wav</file>
+    </qresource>
+</RCC>

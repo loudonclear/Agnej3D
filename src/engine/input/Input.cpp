@@ -5,6 +5,7 @@ Input::Input()
 
 }
 
+static glm::ivec2 mousePos;
 static std::map<int, bool> keys;
 static std::map<int, bool> mouse;
 
@@ -30,4 +31,12 @@ bool Input::isMouseButtonDown(int mouseButton) {
 
 bool Input::isKeyDown(int key) {
     return keys[key];
+}
+
+glm::ivec2 Input::getMousePosition() {
+    return mousePos;
+}
+
+void Input::setMousePosition(glm::ivec2 mp) {
+    mousePos = mp;
 }

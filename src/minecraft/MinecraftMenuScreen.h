@@ -1,7 +1,8 @@
 #ifndef MINECRAFTMENUSCREEN_H
 #define MINECRAFTMENUSCREEN_H
 
-
+#include "engine/systems/TimingSystem.h"
+#include "engine/systems/GraphicsSystem.h"
 #include "engine/Screen.h"
 
 class Camera;
@@ -16,8 +17,14 @@ public:
     void draw(Graphics *g);
 
     void onKeyPressed(QKeyEvent *event);
+    void onMousePressed(QMouseEvent *event);
+    void onMouseReleased(QMouseEvent *event);
+    void onMouseMoved(glm::vec2 &delta);
+    void onMouseWheelMoved(QWheelEvent *event);
 
 private:
     std::shared_ptr<Camera> m_camera;
+    std::shared_ptr<World> m_world;
+
 };
 #endif // MINECRAFTMENUSCREEN_H

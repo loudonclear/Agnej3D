@@ -1,4 +1,4 @@
-#include "ChunkManager.h"
+#include "ChunkSystem.h"
 #include "engine/physics/ShapeCollider.h"
 #include "engine/physics/BoxCollider.h"
 #include "engine/graphics/Graphics.h"
@@ -7,14 +7,14 @@
 
 const int chunkRadius = 5;
 
-ChunkManager::ChunkManager(World* world, std::map<char, Block> *blockTypes, std::function<int(int, int)> heightFunction, const int chunkx, const int chunky, const int chunkz) : m_world(world), m_blockTypes(blockTypes), m_heightFunction(heightFunction), chunkx(chunkx), chunky(chunky), chunkz(chunkz)
+ChunkSystem::ChunkSystem(World* world, std::map<char, Block> *blockTypes, std::function<int(int, int)> heightFunction, const int chunkx, const int chunky, const int chunkz) : m_world(world), m_blockTypes(blockTypes), m_heightFunction(heightFunction), chunkx(chunkx), chunky(chunky), chunkz(chunkz)
 {
     m_noise = std::make_shared<PerlinNoise>(4);
     lastPlayerChunk = glm::ivec3(-1);
 }
 
 
-void ChunkManager::addChunk(int i, int j) {
+void ChunkSystem::addChunk(int i, int j) {
     if (m_world->getGameObject("chunk" + std::to_string(i) + " " + std::to_string(j)) != nullptr) return;
     const float roughness = 1.5f;
 
@@ -48,19 +48,19 @@ void ChunkManager::addChunk(int i, int j) {
     m_world->addGameObject("chunk" + std::to_string(i) + " " + std::to_string(j), chunkObj);
 }
 
-std::shared_ptr<Chunk> ChunkManager::getChunk(int i, int j) {
+std::shared_ptr<Chunk> ChunkSystem::getChunk(int i, int j) {
     std::shared_ptr<GameObject> chunkObj = m_world->getGameObject("chunk" + std::to_string(i) + " " + std::to_string(j));
     if (chunkObj == nullptr) return nullptr;
 
     return chunkObj->getComponent<Chunk>();
 }
 
-void ChunkManager::removeChunk(int i, int j) {
+void ChunkSystem::removeChunk(int i, int j) {
     m_world->removeGameObject("chunk" + std::to_string(i) + " " + std::to_string(j));
 }
 
 
-void ChunkManager::update(const glm::vec3 &playerPosition, const bool loadAll) {
+void ChunkSystem::update(const glm::vec3 &playerPosition, const bool loadAll) {
 
     if (!chunksToAdd.empty()) {
         std::pair<int, int> chunkPos = *chunksToAdd.begin();
@@ -103,12 +103,12 @@ void ChunkManager::update(const glm::vec3 &playerPosition, const bool loadAll) {
 }
 
 
-bool ChunkManager::isPassable(int x, int y, int z) {
+bool ChunkSystem::isPassable(int x, int y, int z) {
     Block *block = getBlock(x, y, z);
     return block == nullptr ? true : block->passable;
 }
 
-Block* ChunkManager::getBlock(int x, int y, int z) {
+Block* ChunkSystem::getBlock(int x, int y, int z) {
     int cx = x < 0 ? (x + 1) / chunkx - 1 : x / chunkx;
     int cz = z < 0 ? (z + 1) / chunkz - 1 : z / chunkz;
 
@@ -121,7 +121,7 @@ Block* ChunkManager::getBlock(int x, int y, int z) {
     return chunk->getBlock(newx, y, newz);
 }
 
-void ChunkManager::setBlock(int x, int y, int z, Block& block) {
+void ChunkSystem::setBlock(int x, int y, int z, Block& block) {
     int cx = x < 0 ? (x + 1) / chunkx - 1 : x / chunkx;
     int cz = z < 0 ? (z + 1) / chunkz - 1 : z / chunkz;
 
@@ -135,7 +135,7 @@ void ChunkManager::setBlock(int x, int y, int z, Block& block) {
     chunk->update();
 }
 
-bool ChunkManager::raycast(const glm::vec3 &o, const glm::vec3 &d, const float maxt, glm::ivec3 &position, glm::vec3 &normal) {
+bool ChunkSystem::raycast(const glm::vec3 &o, const glm::vec3 &d, const float maxt, glm::ivec3 &position, glm::vec3 &normal) {
     const glm::vec3 r = glm::normalize(d);
     const glm::ivec3 dir = glm::ivec3(glm::sign(r));
 
@@ -191,7 +191,7 @@ bool ChunkManager::raycast(const glm::vec3 &o, const glm::vec3 &d, const float m
     return true;
 }
 
-void ChunkManager::sweep(float seconds, std::shared_ptr<ShapeCollider> collider) {
+void ChunkSystem::sweep(float seconds, std::shared_ptr<ShapeCollider> collider) {
 
     std::shared_ptr<RigidBody> rb = collider->getRigidBody();
     if (rb == nullptr) return;

@@ -5,9 +5,11 @@
 #include "engine/components/Transform.h"
 #include "engine/world/GameObject.h"
 #include "engine/physics/RigidBody.h"
+#include "engine/components/SoundComponent.h"
 #include "engine/components/InputComponent.h"
+#include "minecraft/HealthBar.h"
 #include "engine/world/World.h"
-
+#include <iostream>
 
 PlayerMoveComponent::PlayerMoveComponent(GameObject *parent) : Component(parent), TickComponent(parent), InputComponent(parent)
 {
@@ -17,7 +19,8 @@ void PlayerMoveComponent::init() {
     m_transform = m_gameObject->getComponent<Transform>();
     m_rigidbody = m_gameObject->getComponent<RigidBody>();
     m_shapeCollider = m_gameObject->getComponent<ShapeCollider>();
-    m_chunkManager = m_gameObject->getWorld()->getSystem<ChunkManager>();
+    m_chunkManager = m_gameObject->getWorld()->getSystem<ChunkSystem>();
+    m_soundComponent = m_gameObject->getComponent<SoundComponent>();
 
     m_camera = MinecraftGameScreen::camera;
     m_rigidbody->force = glm::vec3(0, -20, 0);
@@ -50,7 +53,18 @@ void PlayerMoveComponent::tick(float seconds) {
         m_rigidbody->isGrounded = false;
     }
 
-    m_chunkManager->sweep(seconds, m_shapeCollider);
+
+    if (!m_rigidbody->isGrounded || (m_rigidbody->velocity.x == 0 && m_rigidbody->velocity.z == 0)) {
+        m_soundComponent->setVolume(0.f);
+    } else {
+        m_soundComponent->setVolume(0.5f);
+    }
+
+     m_chunkManager->sweep(seconds, m_shapeCollider);
+}
+
+void PlayerMoveComponent::fixedTick(float seconds) {
+
 }
 
 void PlayerMoveComponent::lateTick(float seconds) {

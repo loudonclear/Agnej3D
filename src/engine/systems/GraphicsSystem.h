@@ -5,6 +5,7 @@
 
 class GraphicsComponent;
 class Graphics;
+class UIComponent;
 
 class GraphicsSystem : public System
 {
@@ -19,6 +20,7 @@ public:
 private:
 
     std::vector<std::shared_ptr<GraphicsComponent>> m_components;
+    std::vector<std::shared_ptr<UIComponent>> m_uiComponents;
 };
 
 #endif // GRAPHICSSYSTEM_H

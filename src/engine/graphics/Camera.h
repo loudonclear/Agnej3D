@@ -98,6 +98,7 @@ public:
     virtual glm::mat4 getUIProjection();
 
     virtual bool frustumCull(std::shared_ptr<ShapeCollider> sc);
+    virtual glm::vec3 convertToScreenSpace(glm::vec3 pos);
 
 protected:
     float m_yaw, m_pitch;

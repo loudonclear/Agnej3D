@@ -5,6 +5,7 @@
 #include "engine/input/Input.h"
 #include "engine/world/World.h"
 #include "minecraft/MinecraftWorld.h"
+#include "view.h"
 
 std::shared_ptr<Camera> MinecraftGameScreen::camera;
 
@@ -15,6 +16,7 @@ MinecraftGameScreen::MinecraftGameScreen()
 }
 
 void MinecraftGameScreen::tick(float seconds) {
+    application->captureMouse = true;
     m_world->tick(seconds);
 }
 

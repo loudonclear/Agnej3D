@@ -1,5 +1,5 @@
-#ifndef CHUNKMANAGER_H
-#define CHUNKMANAGER_H
+#ifndef CHUNKSYSTEM_H
+#define CHUNKSYSTEM_H
 
 #include "engine/systems/System.h"
 #include "glm/glm.hpp"
@@ -9,10 +9,10 @@
 #include "PerlinNoise.h"
 #include <set>
 
-class ChunkManager : public System
+class ChunkSystem : public System
 {
 public:
-    ChunkManager(World* world, std::map<char, Block> *blockTypes, std::function<int(int, int)> heightFunction, const int chunkx, const int chunky, const int chunkz);
+    ChunkSystem(World* world, std::map<char, Block> *blockTypes, std::function<int(int, int)> heightFunction, const int chunkx, const int chunky, const int chunkz);
 
     void addGameObject(const std::shared_ptr<GameObject> &go) {}
     void removeGameObject(const std::shared_ptr<GameObject> &go) {}
@@ -44,4 +44,4 @@ private:
     const int chunkx, chunky, chunkz;
 };
 
-#endif // CHUNKMANAGER_H
+#endif // CHUNKSYSTEM_H

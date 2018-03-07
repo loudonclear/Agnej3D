@@ -8,7 +8,7 @@
 #include "engine/physics/RigidBody.h"
 #include "minecraft/MinecraftGameScreen.h"
 #include "engine/graphics/Camera.h"
-#include "engine/voxel/ChunkManager.h"
+#include "engine/voxel/ChunkSystem.h"
 #include "engine/voxel/PerlinNoise.h"
 #include "minecraft/Enemy.h"
 #include "minecraft/Player.h"
@@ -52,8 +52,8 @@ MinecraftWorld::MinecraftWorld() : elapsedTime(0), fixedTickTime(1.f/60.f) {
     blockTypes.insert(std::pair<char, Block>(2, TOPGRASS));
     blockTypes.insert(std::pair<char, Block>(3, STONE));
 
-    m_chunkManager = std::make_shared<ChunkManager>(this, &blockTypes, heightFunction, 32, 32, 32);
-    addSystem(m_chunkManager);
+    m_chunkSystem = std::make_shared<ChunkSystem>(this, &blockTypes, heightFunction, 32, 32, 32);
+    addSystem(m_chunkSystem);
 
 
     std::shared_ptr<GameObject> player = std::make_shared<Player>("player");
@@ -68,7 +68,7 @@ MinecraftWorld::MinecraftWorld() : elapsedTime(0), fixedTickTime(1.f/60.f) {
 
     init();
     std::shared_ptr<Camera> c = MinecraftGameScreen::camera;
-    m_chunkManager->update(c->getEye(), true);
+    m_chunkSystem->update(c->getEye(), true);
 }
 
 
@@ -78,7 +78,7 @@ void MinecraftWorld::tick(float seconds) {
     std::shared_ptr<Camera> c = MinecraftGameScreen::camera;
 
     m_timingSystem->tick(seconds);
-    m_chunkManager->update(c->getEye());
+    m_chunkSystem->update(c->getEye());
 
     while (elapsedTime >= fixedTickTime) {
         m_timingSystem->fixedTick(fixedTickTime);
@@ -88,7 +88,7 @@ void MinecraftWorld::tick(float seconds) {
     } 
 
 
-    if (m_chunkManager->raycast(c->getEye(), c->getLook(), 20, position, normal)) visualBlock = true;
+    if (m_chunkSystem->raycast(c->getEye(), c->getLook(), 20, position, normal)) visualBlock = true;
     else visualBlock = false;
 
     m_timingSystem->lateTick(seconds);
