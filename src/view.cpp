@@ -165,7 +165,7 @@ void View::mouseMoveEvent(QMouseEvent *event)
 
     /** SUPPORT CODE END **/
 
-    Input::setMousePosition(glm::ivec2(event->x(), event->y()));
+    Input::setMousePosition(glm::vec2((float)event->x() / width(), (float)event->y() / height()));
     m_app->onMouseMoved(glm::vec2(deltaX, deltaY));
 }
 

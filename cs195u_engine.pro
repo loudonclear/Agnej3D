@@ -1,5 +1,5 @@
 QT += core gui opengl
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = cs195u_engine
 TEMPLATE = app
@@ -94,7 +94,8 @@ SOURCES += \
     src/engine/components/HUDComponent.cpp \
     src/minecraft/HUDText.cpp \
     src/engine/components/Button.cpp \
-    src/minecraft/MenuWorld.cpp
+    src/minecraft/MenuWorld.cpp \
+    src/minecraft/MenuButton.cpp
 
 HEADERS += \
     libs/glew-1.10.0/include/GL/glew.h \
@@ -183,7 +184,8 @@ HEADERS += \
     src/engine/components/HUDComponent.h \
     src/minecraft/HUDText.h \
     src/engine/components/Button.h \
-    src/minecraft/MenuWorld.h
+    src/minecraft/MenuWorld.h \
+    src/minecraft/MenuButton.h
 
 FORMS += src/mainwindow.ui
 

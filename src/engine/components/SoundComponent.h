@@ -2,7 +2,9 @@
 #define SOUNDCOMPONENT_H
 
 #include "Component.h"
-#include <QSoundEffect>
+#include "qurl.h"
+
+//#include <QSoundEffect>
 
 class SoundComponent : public virtual Component
 {
@@ -18,7 +20,7 @@ public:
     void setVolume(qreal amt);
 
 private:
-    QSoundEffect m_soundEffect;
+    //QSoundEffect m_soundEffect;
 };
 
 #endif // SOUNDCOMPONENT_H

@@ -18,8 +18,8 @@ public:
     static bool isMouseButtonDown(int mouseButton);
     static bool isKeyDown(int key);
 
-    static glm::ivec2 getMousePosition();
-    static void setMousePosition(glm::ivec2 mp);
+    static glm::vec2 getMousePosition();
+    static void setMousePosition(glm::vec2 mp);
 };
 
 #endif // INPUT_H

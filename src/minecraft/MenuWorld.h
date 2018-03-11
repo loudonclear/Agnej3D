@@ -3,7 +3,8 @@
 
 
 #include "engine/world/World.h"
-
+#include "engine/Application.h"
+#include "minecraft/MenuButton.h"
 
 class MenuWorld : public World
 {
@@ -19,6 +20,10 @@ public:
     void onMouseMoved(glm::vec2 &delta);
     void onMouseWheelMoved(QWheelEvent *event);
 
+    void setApplication(Application *app) {
+        button->setApplication(app);
+    }
+
 private:
     float elapsedTime;
     float fixedTickTime;
@@ -26,6 +31,8 @@ private:
     std::shared_ptr<TimingSystem> m_timingSystem;
     std::shared_ptr<GraphicsSystem> m_graphicsSystem;
     std::shared_ptr<InputSystem> m_inputSystem;
+
+    std::shared_ptr<MenuButton> button;
 };
 
 #endif // MENUWORLD_H

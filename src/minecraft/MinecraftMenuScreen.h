@@ -4,6 +4,7 @@
 #include "engine/systems/TimingSystem.h"
 #include "engine/systems/GraphicsSystem.h"
 #include "engine/Screen.h"
+#include "minecraft/MenuWorld.h"
 
 class Camera;
 class Graphics;
@@ -24,7 +25,7 @@ public:
 
 private:
     std::shared_ptr<Camera> m_camera;
-    std::shared_ptr<World> m_world;
+    std::shared_ptr<MenuWorld> m_world;
 
 };
 #endif // MINECRAFTMENUSCREEN_H

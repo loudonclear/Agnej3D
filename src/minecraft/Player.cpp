@@ -28,8 +28,6 @@ Player::Player(const std::string &name) : GameObject(name)
     std::shared_ptr<TickComponent> tc = pm;
     std::shared_ptr<InputComponent> in = pm;
 
-    QSoundEffect se;
-    se.setLoopCount(QSoundEffect::Infinite);
     std::shared_ptr<SoundComponent> soundComp = std::make_shared<SoundComponent>(this);
     soundComp->setSource(QUrl::fromLocalFile(":/grass.wav"));
     soundComp->setVolume(0.f);

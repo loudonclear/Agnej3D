@@ -1,5 +1,4 @@
 #include "MenuWorld.h"
-#include "engine/components/Button.h"
 
 MenuWorld::MenuWorld() : elapsedTime(0), fixedTickTime(1.f/60.f) {
     m_timingSystem = std::make_shared<TimingSystem>();
@@ -12,8 +11,8 @@ MenuWorld::MenuWorld() : elapsedTime(0), fixedTickTime(1.f/60.f) {
 
 
     std::shared_ptr<GameObject> mainButton = std::make_shared<GameObject>("button");
-    std::shared_ptr<Button> button = std::make_shared<Button>(mainButton.get(), "default", glm::ivec2(0, 0), glm::ivec2(100, 100));
 
+    button = std::make_shared<MenuButton>(mainButton.get(), "green", glm::vec2(0.35f, 0.4f), glm::vec2(0.3f, 0.2f));
     std::shared_ptr<TickComponent> tc = button;
     std::shared_ptr<UIComponent> ui = button;
     std::shared_ptr<InputComponent> in = button;
@@ -22,9 +21,9 @@ MenuWorld::MenuWorld() : elapsedTime(0), fixedTickTime(1.f/60.f) {
     mainButton->addComponent(ui);
     mainButton->addComponent(in);
 
-    init();
+    //init();
+    addGameObject("button", mainButton);
 }
-
 
 void MenuWorld::tick(float seconds) {
     elapsedTime += seconds;

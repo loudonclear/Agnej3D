@@ -8,17 +8,19 @@
 class Button : public virtual TickComponent, public virtual InputComponent, public virtual HUDComponent
 {
 public:
-    Button(GameObject *parent, const std::string &materialName, glm::ivec2 offset, glm::ivec2 length);
+    Button(GameObject *parent, const std::string &materialName, glm::vec2 offset, glm::vec2 length);
 
-    void tick(float seconds);
-    void draw(Graphics *g);
+    virtual void tick(float seconds);
+    virtual void draw(Graphics *g);
+    virtual void onMouseReleased(QMouseEvent *event);
 
-    virtual void onClick();
+    virtual void onClick() = 0;
 
 private:
 
-    glm::ivec2 m_offset;
-    glm::ivec2 m_length;
+    glm::vec2 m_offset;
+    glm::vec2 m_length;
+    bool canClick;
 };
 
 #endif // BUTTON_H

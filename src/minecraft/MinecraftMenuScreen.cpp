@@ -16,6 +16,7 @@ MinecraftMenuScreen::MinecraftMenuScreen()
 
 void MinecraftMenuScreen::tick(float seconds) {
     application->captureMouse = false;
+    m_world->setApplication(application);
     if (Input::isKeyDown(Qt::Key_Space)) {
         application->setScreen("game");
     }
@@ -23,28 +24,9 @@ void MinecraftMenuScreen::tick(float seconds) {
 }
 
 void MinecraftMenuScreen::draw(Graphics *g) {
-
-    //m_camera->setUI(true);
     g->setCamera(m_camera);
 
     m_world->draw(g);
-
-//    std::string text = "Press Space to start";
-
-//    glm::vec2 screenSize = g->getActiveCamera()->getScreenSize();
-//    g->getActiveCamera()->setScreenSize(glm::vec2(1));
-//    g->getActiveCamera()->setUI(true);
-//    g->setCamera(g->getActiveCamera());
-//    g->clearTransform();
-//    g->setDefaultMaterial();
-
-//    float lineSize = .1;
-//    g->translate(glm::vec3(0.17f, 0.5f, 0));
-//    g->drawText(text, lineSize);
-
-//    g->getActiveCamera()->setUI(false);
-//    g->getActiveCamera()->setScreenSize(screenSize);
-//    g->setCamera(g->getActiveCamera());
 }
 
 void MinecraftMenuScreen::onMousePressed(QMouseEvent *event) {

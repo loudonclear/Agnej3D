@@ -59,7 +59,6 @@ void ChunkSystem::removeChunk(int i, int j) {
     m_world->removeGameObject("chunk" + std::to_string(i) + " " + std::to_string(j));
 }
 
-
 void ChunkSystem::update(const glm::vec3 &playerPosition, const bool loadAll) {
 
     if (!chunksToAdd.empty()) {
