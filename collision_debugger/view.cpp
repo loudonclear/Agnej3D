@@ -4,6 +4,13 @@
 #include <QApplication>
 #include <QKeyEvent>
 #include <iostream>
+#include <memory>
+
+#include "Transform.h"
+#include "collision/Collision.h"
+#include "collision/TriangleShape.h"
+#include "collision/SphereShape.h"
+#include "RigidBody.h"
 
 static void drawWireCube(const glm::vec3 &min, const glm::vec3 &max)
 {
@@ -68,7 +75,7 @@ static void drawCursor(const glm::vec3 &center, const glm::vec3 &normal)
 }
 
 View::View(QWidget *parent) : QGLWidget(ViewFormat(), parent), dragCenter(NULL),
-    draggingCamera(false), radius(0.5, 1, 0.5), quad(NULL)
+    draggingCamera(false), radius(0.5f, 1, 0.5f), quad(NULL)
 {
     /** SUPPORT CODE START **/
     // View needs all mouse move events, not just mouse drag events
@@ -128,6 +135,10 @@ void View::initializeGL()
     time.start();
     timer.start(1000 / 60);
     /** SUPPORT CODE END **/
+
+    //0.767049
+    centers[ELLIPSOID_START] = glm::vec3(0.310609f, 4.932258f, 0.f);
+    centers[ELLIPSOID_END] = glm::vec3(-0.664281f, -0.325403f, 14.731380f);
 }
 
 void View::drawScene()
@@ -235,7 +246,28 @@ void View::paintGL()
     // TODO: Replace this with your code that calculates the intersection point
     // from collision detection and (in week 2) the resulting location from
     // collision response
-    centers[ELLIPSOID_HIT] = (centers[ELLIPSOID_START] + centers[ELLIPSOID_END]) / 2.f;
+
+    std::shared_ptr<SphereShape> ellipsoid = std::make_shared<SphereShape>();
+    std::shared_ptr<Transform> etrans = std::make_shared<Transform>();
+    etrans->setPosition(centers[ELLIPSOID_START]);
+    etrans->setScale(radius);
+    float lambda = FLT_MAX;
+
+    for (Triangle* tri : triangles) {
+        std::shared_ptr<TriangleShape> trishape = std::make_shared<TriangleShape>(tri->vertices[0], tri->vertices[1], tri->vertices[2]);
+
+        float test = Collision::continuousConvexCollision(ellipsoid, etrans, trishape, centers[ELLIPSOID_START], centers[ELLIPSOID_END]);
+        if (test >= 0.f && test < lambda) {
+            lambda = test;
+        }
+    }
+    if (lambda >= 0.f && lambda <= 1.f) {
+        centers[ELLIPSOID_HIT] = centers[ELLIPSOID_START] + lambda*(centers[ELLIPSOID_END] - centers[ELLIPSOID_START]);
+    } else {
+        centers[ELLIPSOID_HIT] = centers[ELLIPSOID_END];
+    }
+
+    //centers[ELLIPSOID_HIT] = (centers[ELLIPSOID_START] + centers[ELLIPSOID_END]) / 2.f;
     centers[ELLIPSOID_RESULT] = centers[ELLIPSOID_END];
 
     /** SUPPORT CODE START **/

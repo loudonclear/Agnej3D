@@ -25,13 +25,28 @@ SOURCES += main.cpp \
     raytracer.cpp \
     triangle.cpp \
     libs/glew-1.10.0/src/glew.c \
-    viewformat.cpp
+    viewformat.cpp \
+    collision/SphereShape.cpp \
+    collision/TriangleShape.cpp \
+    collision/Collision.cpp \
+    Transform.cpp \
+    RigidBody.cpp
 
 HEADERS += mainwindow.h \
     view.h \
     raytracer.h \
     triangle.h \
     libs/glew-1.10.0/include/GL/glew.h \
-    viewformat.h
+    viewformat.h \
+    collision/CollisionShape.h \
+    collision/ConvexShape.h \
+    collision/SphereShape.h \
+    collision/PolyhedralConvexShape.h \
+    collision/TriangleShape.h \
+    collision/Collision.h \
+    Transform.h \
+    Ray.h \
+    RigidBody.h \
+    RaycastResult.h
 
 FORMS += mainwindow.ui
