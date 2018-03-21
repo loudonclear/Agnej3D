@@ -136,9 +136,8 @@ void View::initializeGL()
     timer.start(1000 / 60);
     /** SUPPORT CODE END **/
 
-    //0.767049
-    centers[ELLIPSOID_START] = glm::vec3(0.310609f, 4.932258f, 0.f);
-    centers[ELLIPSOID_END] = glm::vec3(-0.664281f, -0.325403f, 14.731380f);
+    centers[ELLIPSOID_START] = glm::vec3(5.310609f, 4.932258f, 5.f);
+    centers[ELLIPSOID_END] = glm::vec3(-4.664281f, -0.325403f, 5.731380f);
 }
 
 void View::drawScene()
@@ -251,24 +250,38 @@ void View::paintGL()
     std::shared_ptr<Transform> etrans = std::make_shared<Transform>();
     etrans->setPosition(centers[ELLIPSOID_START]);
     etrans->setScale(radius);
-    float lambda = FLT_MAX;
+    RaycastResult lambda;
+    lambda.t = FLT_MAX;
 
     for (Triangle* tri : triangles) {
         std::shared_ptr<TriangleShape> trishape = std::make_shared<TriangleShape>(tri->vertices[0], tri->vertices[1], tri->vertices[2]);
 
-        float test = Collision::continuousConvexCollision(ellipsoid, etrans, trishape, centers[ELLIPSOID_START], centers[ELLIPSOID_END]);
-        if (test >= 0.f && test < lambda) {
+        RaycastResult test = Collision::continuousConvexCollision(ellipsoid, etrans, trishape, centers[ELLIPSOID_START], centers[ELLIPSOID_END]);
+        if (test.t >= 0.f && test.t < lambda.t) {
             lambda = test;
         }
+
     }
-    if (lambda >= 0.f && lambda <= 1.f) {
-        centers[ELLIPSOID_HIT] = centers[ELLIPSOID_START] + lambda*(centers[ELLIPSOID_END] - centers[ELLIPSOID_START]);
+    if (lambda.t >= 0.f && lambda.t <= 1.f) {
+        centers[ELLIPSOID_HIT] = centers[ELLIPSOID_START] + lambda.t*(centers[ELLIPSOID_END] - centers[ELLIPSOID_START]) + 0.001f * lambda.normal;
+        glm::vec3 v = (centers[ELLIPSOID_END] - centers[ELLIPSOID_HIT]);
+
+        float ndotup = glm::dot(lambda.normal, glm::vec3(0, 1, 0));
+        glm::vec3 dir;
+        if (ndotup > 0.0001f) {
+            dir = v - glm::dot(lambda.normal, v) / ndotup * glm::vec3(0, 1, 0);
+        } else {
+            dir = v - glm::dot(lambda.normal, v) * lambda.normal;
+        }
+
+        centers[ELLIPSOID_RESULT] = centers[ELLIPSOID_HIT] + dir;
     } else {
         centers[ELLIPSOID_HIT] = centers[ELLIPSOID_END];
+        centers[ELLIPSOID_RESULT] = centers[ELLIPSOID_END];
     }
 
-    //centers[ELLIPSOID_HIT] = (centers[ELLIPSOID_START] + centers[ELLIPSOID_END]) / 2.f;
-    centers[ELLIPSOID_RESULT] = centers[ELLIPSOID_END];
+
+
 
     /** SUPPORT CODE START **/
 

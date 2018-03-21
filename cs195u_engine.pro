@@ -48,15 +48,11 @@ SOURCES += \
     src/engine/graphics/Light.cpp \
     src/engine/Application.cpp \
     src/engine/Screen.cpp \
-    src/warmup/WarmupApplication.cpp \
-    src/warmup/WarmupMenuScreen.cpp \
-    src/warmup/WarmupGameScreen.cpp \
     src/engine/input/Input.cpp \
     src/engine/world/World.cpp \
     src/engine/world/GameObject.cpp \
     src/engine/components/Transform.cpp \
     src/engine/components/GraphicsComponent.cpp \
-    src/warmup/WarmupGameWorld.cpp \
     src/engine/systems/GraphicsSystem.cpp \
     src/engine/components/GraphicsShapeComponent.cpp \
     src/engine/systems/TimingSystem.cpp \
@@ -66,36 +62,28 @@ SOURCES += \
     src/engine/physics/CylinderCollider.cpp \
     src/engine/physics/BoxCollider.cpp \
     src/engine/physics/SphereCollider.cpp \
-    src/warmup/WarmupDebugScreen.cpp \
-    src/warmup/WarmupDebugWorld.cpp \
-    src/warmup/EnemyFollowComponent.cpp \
-    src/warmup/components/GoalComponent.cpp \
-    src/warmup/components/VisualCollide.cpp \
-    src/minecraft/MinecraftMenuScreen.cpp \
-    src/minecraft/MinecraftApplication.cpp \
-    src/minecraft/MinecraftGameScreen.cpp \
-    src/minecraft/MinecraftWorld.cpp \
     src/engine/voxel/Chunk.cpp \
     src/engine/voxel/PerlinNoise.cpp \
-    src/minecraft/PlayerMoveComponent.cpp \
-    src/minecraft/Player.cpp \
     src/engine/components/InputComponent.cpp \
     src/engine/systems/InputSystem.cpp \
     src/engine/systems/CollisionSystem.cpp \
-    src/minecraft/Enemy.cpp \
-    src/minecraft/MinecraftEnemyAI.cpp \
-    src/minecraft/EnemyCollider.cpp \
     src/engine/components/SoundComponent.cpp \
     src/engine/voxel/ChunkSystem.cpp \
     src/engine/components/UIComponent.cpp \
-    src/minecraft/NPCText.cpp \
-    src/minecraft/HealthBar.cpp \
     src/engine/components/OrthographicUIComponent.cpp \
     src/engine/components/HUDComponent.cpp \
-    src/minecraft/HUDText.cpp \
     src/engine/components/Button.cpp \
-    src/minecraft/MenuWorld.cpp \
-    src/minecraft/MenuButton.cpp
+    src/engine/graphics/Obj.cpp \
+    src/platformer/PlatformerApplication.cpp \
+    src/platformer/PlatformerScreen.cpp \
+    src/platformer/PlatformerWorld.cpp \
+    src/platformer/Player.cpp \
+    src/platformer/PlayerMoveComponent.cpp \
+    src/engine/physics/TriangleCollider.cpp \
+    src/engine/systems/OBJCollisionSystem.cpp \
+    src/platformer/PlatformerMenuScreen.cpp \
+    src/platformer/MenuWorld.cpp \
+    src/platformer/MenuButton.cpp
 
 HEADERS += \
     libs/glew-1.10.0/include/GL/glew.h \
@@ -132,9 +120,6 @@ HEADERS += \
     src/engine/graphics/Constants.h \
     src/engine/Application.h \
     src/engine/Screen.h \
-    src/warmup/WarmupApplication.h \
-    src/warmup/WarmupMenuScreen.h \
-    src/warmup/WarmupGameScreen.h \
     src/engine/input/Input.h \
     src/engine/world/World.h \
     src/engine/world/GameObject.h \
@@ -145,7 +130,6 @@ HEADERS += \
     src/engine/physics/Ray.h \
     src/engine/physics/RaycastResult.h \
     src/engine/components/GraphicsComponent.h \
-    src/warmup/WarmupGameWorld.h \
     src/engine/systems/GraphicsSystem.h \
     src/engine/components/GraphicsShapeComponent.h \
     src/engine/systems/TimingSystem.h \
@@ -156,36 +140,28 @@ HEADERS += \
     src/engine/physics/CylinderCollider.h \
     src/engine/physics/BoxCollider.h \
     src/engine/physics/SphereCollider.h \
-    src/warmup/WarmupDebugScreen.h \
-    src/warmup/WarmupDebugWorld.h \
-    src/warmup/EnemyFollowComponent.h \
-    src/warmup/components/GoalComponent.h \
-    src/warmup/components/VisualCollide.h \
-    src/minecraft/MinecraftMenuScreen.h \
-    src/minecraft/MinecraftApplication.h \
-    src/minecraft/MinecraftGameScreen.h \
-    src/minecraft/MinecraftWorld.h \
     src/engine/voxel/Chunk.h \
     src/engine/voxel/PerlinNoise.h \
-    src/minecraft/PlayerMoveComponent.h \
-    src/minecraft/Player.h \
     src/engine/components/InputComponent.h \
     src/engine/systems/InputSystem.h \
     src/engine/systems/CollisionSystem.h \
-    src/minecraft/Enemy.h \
-    src/minecraft/MinecraftEnemyAI.h \
-    src/minecraft/EnemyCollider.h \
     src/engine/components/SoundComponent.h \
     src/engine/voxel/ChunkSystem.h \
     src/engine/components/UIComponent.h \
-    src/minecraft/NPCText.h \
-    src/minecraft/HealthBar.h \
     src/engine/components/OrthographicUIComponent.h \
     src/engine/components/HUDComponent.h \
-    src/minecraft/HUDText.h \
     src/engine/components/Button.h \
-    src/minecraft/MenuWorld.h \
-    src/minecraft/MenuButton.h
+    src/engine/graphics/Obj.h \
+    src/platformer/PlatformerApplication.h \
+    src/platformer/PlatformerScreen.h \
+    src/platformer/PlatformerWorld.h \
+    src/platformer/Player.h \
+    src/platformer/PlayerMoveComponent.h \
+    src/engine/physics/TriangleCollider.h \
+    src/engine/systems/OBJCollisionSystem.h \
+    src/platformer/PlatformerMenuScreen.h \
+    src/platformer/MenuWorld.h \
+    src/platformer/MenuButton.h
 
 FORMS += src/mainwindow.ui
 
@@ -193,7 +169,8 @@ RESOURCES += \
     res/shaders/shaders.qrc \
     res/fonts/fonts.qrc \
     res/images/images.qrc \
-    res/sounds/sounds.qrc
+    res/sounds/sounds.qrc \
+    res/platformer/platformer.qrc
 
 OTHER_FILES += \
     res/images/grass.png \
@@ -201,14 +178,6 @@ OTHER_FILES += \
 DISTFILES += \
     res/shaders/shader.vert \
     res/shaders/shader.frag \
-    res/sounds/grass.mp3 \
-    res/minecraft/skybox/negx.png \
-    res/minecraft/skybox/negy.png \
-    res/minecraft/skybox/negz.png \
-    res/minecraft/skybox/posx.png \
-    res/minecraft/skybox/posy.png \
-    res/minecraft/skybox/posz.png \
-    res/minecraft/pig.png
 
 INCLUDEPATH += src libs glm libs/glew-1.10.0/include
 DEPENDPATH += src libs glm libs/glew-1.10.0/include

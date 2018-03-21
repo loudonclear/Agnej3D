@@ -20,6 +20,7 @@ class FBO;
 class Shape;
 class Camera;
 class FontMetrics;
+class OBJ;
 
 /**
  * @brief The Graphics class
@@ -336,6 +337,15 @@ public:
     void addTexture(const std::string &name, Texture2D &&tex);
 
     /**
+     * @brief addOBJ
+     *
+     * Adds an OBJ to storage.
+     */
+    void addOBJ(const std::string &name, const std::shared_ptr<OBJ> &obj);
+
+    std::shared_ptr<OBJ> getOBJ(const std::string &name);
+
+    /**
      * @brief removeTexture
      *
      * Removes a texture from storage
@@ -548,6 +558,7 @@ private:
     std::map<std::string, Material> m_materials;
     std::map<std::string, std::shared_ptr<Shape>> m_shapes;
     std::map<std::string, std::shared_ptr<Texture2D>> m_textures;
+    std::map<std::string, std::shared_ptr<OBJ>> m_objs;
     std::map<std::string, std::shared_ptr<Font>> m_fonts;
     std::map<std::string, std::shared_ptr<FBO>> m_framebuffers;
 

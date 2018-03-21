@@ -7,8 +7,7 @@
 #include "engine/graphics/Material.h"
 #include "engine/Application.h"
 #include "engine/input/Input.h"
-//#include "warmup/WarmupApplication.h"
-#include "minecraft/MinecraftApplication.h"
+#include "platformer/PlatformerApplication.h"
 
 #include <QApplication>
 #include <QKeyEvent>
@@ -16,13 +15,14 @@
 using namespace std;
 using namespace glm;
 
+std::shared_ptr<Application> View::app;
+
 View::View(QWidget *parent) : QGLWidget(ViewFormat(), parent),
     m_window(parent->parentWidget()),
     m_time(), m_timer(),
     m_captureMouse(true),
     m_fps(0), m_frameIndex(0),
-    m_graphics(nullptr),
-    m_app(nullptr)
+    m_graphics(nullptr)
 {
     /** SUPPORT CODE START **/
 
@@ -87,7 +87,7 @@ void View::initializeGL()
 
     /** SUPPORT CODE END **/
 
-    m_app = std::make_shared<MinecraftApplication>();
+    app = std::make_shared<PlatformerApplication>();
 }
 
 void View::paintGL()
@@ -102,7 +102,7 @@ void View::paintGL()
     /** SUPPORT CODE END **/
 
 
-    m_app->draw(m_graphics);
+    app->draw(m_graphics);
 
 
     /** SUPPORT CODE START **/
@@ -124,13 +124,13 @@ void View::resizeGL(int w, int h)
 
     /** SUPPORT CODE END **/
 
-    m_app->resize(glm::vec2(w, h));
+    app->resize(glm::vec2(w, h));
 }
 
 void View::mousePressEvent(QMouseEvent *event)
 {
     Input::onMousePressed(event);
-    m_app->onMousePressed(event);
+    app->onMousePressed(event);
 }
 
 void View::mouseMoveEvent(QMouseEvent *event)
@@ -147,14 +147,14 @@ void View::mouseMoveEvent(QMouseEvent *event)
     int deltaX = event->x() - width() / 2;
     int deltaY = event->y() - height() / 2;
 
-    if(m_app->captureMouse) {
+    if(app->captureMouse) {
         QApplication::setOverrideCursor(Qt::BlankCursor);
     }
     else {
         QApplication::setOverrideCursor(Qt::ArrowCursor);
     }
 
-    if(m_app->captureMouse) {
+    if(app->captureMouse) {
 
         if (deltaX == 0 && deltaY == 0) {
             return;
@@ -166,18 +166,18 @@ void View::mouseMoveEvent(QMouseEvent *event)
     /** SUPPORT CODE END **/
 
     Input::setMousePosition(glm::vec2((float)event->x() / width(), (float)event->y() / height()));
-    m_app->onMouseMoved(glm::vec2(deltaX, deltaY));
+    app->onMouseMoved(glm::vec2(deltaX, deltaY));
 }
 
 void View::mouseReleaseEvent(QMouseEvent *event)
 {
     Input::onMouseReleased(event);
-    m_app->onMouseReleased(event);
+    app->onMouseReleased(event);
 }
 
 void View::wheelEvent(QWheelEvent *event)
 {
-    m_app->onMouseWheelMoved(event);
+    app->onMouseWheelMoved(event);
 }
 
 void View::keyPressEvent(QKeyEvent *event)
@@ -193,7 +193,7 @@ void View::keyPressEvent(QKeyEvent *event)
     /** SUPPORT CODE END **/
 
     Input::onKeyPressed(event);
-    m_app->onKeyPressed(event);
+    app->onKeyPressed(event);
 }
 
 void View::keyRepeatEvent(QKeyEvent *event)
@@ -213,7 +213,7 @@ void View::keyReleaseEvent(QKeyEvent *event)
     /** SUPPORT CODE END **/
 
     Input::onKeyReleased(event);
-    m_app->onKeyReleased(event);
+    app->onKeyReleased(event);
 }
 
 void View::tick()
@@ -240,7 +240,7 @@ void View::tick()
     /** SUPPORT CODE END **/
 
 
-    m_app->tick(seconds);
+    app->tick(seconds);
 
 
     /** SUPPORT CODE START **/

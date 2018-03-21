@@ -7,6 +7,7 @@
 struct RaycastResult
 {
 public:
+    RaycastResult() {}
     RaycastResult(float tvalue, glm::vec3 p, glm::vec3 n) :
     t(tvalue), point(p), normal(n) {}
 

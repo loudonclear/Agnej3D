@@ -26,6 +26,8 @@ public:
     View(QWidget *parent);
     ~View();
 
+    static std::shared_ptr<Application> app;
+
 private:
     static const int FRAMES_TO_AVERAGE = 30;
 
@@ -53,8 +55,6 @@ private:
     float m_frameTimes[FRAMES_TO_AVERAGE];
 
     Graphics* m_graphics;
-
-    std::shared_ptr<Application> m_app;
 
 private slots:
     void tick();

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "glm/gtx/string_cast.hpp"
 
-bool Collision::edgeTest(const glm::vec3 &A, const glm::vec3 &B, const glm::vec3 &C, const glm::vec3 &D, const glm::vec3 &P, float &t) {
+bool Collision::edgeTest(const glm::vec3 &A, const glm::vec3 &B, const glm::vec3 &C, const glm::vec3 &D, const glm::vec3 &P, float &t, glm::vec3 &pp) {
     const glm::vec3 AB = B - A;
     const glm::vec3 CD = D - C;
     const glm::vec3 CA = A - C;
@@ -18,6 +18,9 @@ bool Collision::edgeTest(const glm::vec3 &A, const glm::vec3 &B, const glm::vec3
         const float a = glm::dot(ABcrossCD, ABcrossCD);
         const float b = 2.f*glm::dot(ABcrossCD, CAcrossCD);
         const float c = glm::dot(CAcrossCD, CAcrossCD) - CDdotCD;
+
+        pp = C + glm::dot(CP, CD) / CDdotCD * CD;
+
         return SolveQuadratic(a, b, c, t);
     }
     return false;
@@ -33,35 +36,62 @@ bool Collision::vertexTest(const glm::vec3 &A, const glm::vec3 &B, const glm::ve
     return SolveQuadratic(a, b, c, t);
 }
 
-float Collision::continuousConvexCollision(std::shared_ptr<SphereShape> &s1, std::shared_ptr<Transform> &s1t, std::shared_ptr<TriangleShape> &s2, glm::vec3 a, glm::vec3 b) {
-    const glm::vec3 n = s2->getNormal();
+RaycastResult Collision::continuousConvexCollision(std::shared_ptr<SphereShape> &s1, std::shared_ptr<Transform> &s1t, std::shared_ptr<TriangleShape> &s2, glm::vec3 a, glm::vec3 b) {
+    RaycastResult res;
+    res.t = -1;
+
+    const glm::vec3 scale = s1t->getScale();
+
+    TriangleShape scaled = TriangleShape(s2->getV0() / scale, s2->getV1() / scale, s2->getV2() / scale);
+    const glm::vec3 n = scaled.getNormal();
+
+    a /= scale;
+    b /= scale;
+
     glm::vec3 ab = b - a;
     const float ndotab = glm::dot(n, ab);
-    if (fabs(ndotab) < FLOAT_EPSILON) return -1;
+    if (fabs(ndotab) < FLOAT_EPSILON) return res;
 
-    float t = -glm::dot(n, (a - n) - s2->getV0()) / ndotab;
-    if (t < 0.f) return -1;
-    glm::vec3 point = a + t * (ab);
+    float t = -glm::dot(n, (a - n) - s2->getV0() / scale) / ndotab;
+    if (t < 0.f) return res;
+    glm::vec3 point = a - n + t * (ab);
 
-    std::shared_ptr<TriangleShape> scaled = std::make_shared<TriangleShape>(s2->getV0() / s1t->getScale(), s2->getV1() / s1t->getScale(), s2->getV2() / s1t->getScale());
 
-    if (s2->pointWithinEdges(point)) {
-        return t;
+    if (scaled.pointWithinEdges(point)) {
+        res.t = t;
+        res.point = point;
     } else {
-        t = FLT_MAX;
-        float test;
-        if (edgeTest(a, b, scaled->getV0(), scaled->getV1(), point, test) && test < t) t = test;
-        if (edgeTest(a, b, scaled->getV1(), scaled->getV2(), point, test) && test < t) t = test;
-        if (edgeTest(a, b, scaled->getV2(), scaled->getV0(), point, test) && test < t) t = test;
+        glm::vec3 pp;
+        res.t = FLT_MAX;
+        if (edgeTest(a, b, scaled.getV0(), scaled.getV1(), point, t, pp) && t < res.t) {
+            res.t = t;
+            res.point = pp;
+        }
+        if (edgeTest(a, b, scaled.getV1(), scaled.getV2(), point, t, pp) && t < res.t) {
+            res.t = t;
+            res.point = pp;
+        }
+        if (edgeTest(a, b, scaled.getV2(), scaled.getV0(), point, t, pp) && t < res.t) {
+            res.t = t;
+            res.point = pp;
+        }
 
-        if (vertexTest(a, b, scaled->getV0(), point, test) && test < t) t = test;
-        if (vertexTest(a, b, scaled->getV1(), point, test) && test < t) t = test;
-        if (vertexTest(a, b, scaled->getV2(), point, test) && test < t) t = test;
+        if (vertexTest(a, b, scaled.getV0(), point, t) && t < res.t) {
+            res.t = t;
+            res.point = scaled.getV0();
+        }
+        if (vertexTest(a, b, scaled.getV1(), point, t) && t < res.t) {
+            res.t = t;
+            res.point = scaled.getV1();
+        }
+        if (vertexTest(a, b, scaled.getV2(), point, t) && t < res.t) {
+            res.t = t;
+            res.point = scaled.getV2();
+        }
     }
 
-    if (t == FLT_MAX) {
-        return -1;
-    } else {
-        return t;
-    }
+    res.normal = glm::normalize((a + t * (ab) - res.point) / scale);
+    res.point = res.point * scale;
+
+    return res;
 }

@@ -9,7 +9,7 @@ public:
     SphereCollider(GameObject *parent, Transform colliderTransform = Transform(nullptr));
 
     virtual bool pointInside(const glm::vec3 &point);
-    //virtual bool raycast(const Ray &ray, RaycastResult &result);
+    virtual bool raycast(const Ray &ray, std::shared_ptr<Transform> t, RaycastResult &result);
 
     glm::vec3 getSupport(const glm::vec3 &dir);
 };

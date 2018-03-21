@@ -4,9 +4,9 @@
 #include <QTextStream>
 #include <iostream>
 
-OBJ::OBJ(QString path) : vertexCount(0)
+OBJ::OBJ(std::string path) : vertexCount(0)
 {
-    read(path);
+    read(QString::fromStdString(path));
 }
 
 OBJ::~OBJ()

@@ -14,6 +14,7 @@
 #include "engine/graphics/Camera.h"
 #include "engine/graphics/Material.h"
 #include "engine/graphics/Light.h"
+#include "engine/graphics/Obj.h"
 #include <QImage>
 #include <QString>
 #include <QGLWidget>
@@ -549,6 +550,14 @@ void Graphics::setMaterial(std::string name) {
 
 void Graphics::setDefaultMaterial() {
     setMaterial("default");
+}
+
+void Graphics::addOBJ(const string &name, const std::shared_ptr<OBJ> &obj) {
+    m_objs[name] = obj;
+}
+
+std::shared_ptr<OBJ> Graphics::getOBJ(const std::string &name) {
+    return m_objs[name];
 }
 
 void Graphics::addTexture(const string &name, const string &file)

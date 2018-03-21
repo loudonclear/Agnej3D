@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/platformer">
+        <file>level_easy.obj</file>
+        <file>level_easy.png</file>
+        <file>level_easy_channels.png</file>
+        <file>level_easy_navmesh.obj</file>
+        <file>level_hard.obj</file>
+        <file>level_hard.png</file>
+        <file>level_hard_channels.png</file>
+        <file>level_island.obj</file>
+        <file>level_island.png</file>
+        <file>level_island_channels.png</file>
+        <file>level_island_navmesh.obj</file>
+        <file>level_island_navmesh_eroded.obj</file>
+    </qresource>
+</RCC>

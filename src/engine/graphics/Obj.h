@@ -70,7 +70,7 @@ public:
     };
 
     // The constructor automatically reads the given file.
-    OBJ(QString path);
+    OBJ(std::string path);
     ~OBJ();
 
     // 1D arrays indexed by the Index structs. You shouldn't need to use these.
