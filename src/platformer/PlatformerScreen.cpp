@@ -10,10 +10,10 @@
 
 std::shared_ptr<Camera> PlatformerScreen::camera;
 
-PlatformerScreen::PlatformerScreen(std::string level)
+PlatformerScreen::PlatformerScreen(std::string level, std::string levelNav)
 {
     camera = std::make_shared<Camera>();
-    m_world = std::make_shared<PlatformerWorld>(level);
+    m_world = std::make_shared<PlatformerWorld>(level, levelNav);
 }
 
 void PlatformerScreen::tick(float seconds) {
@@ -50,4 +50,9 @@ void PlatformerScreen::onKeyPressed(QKeyEvent *event) {
     if (event->key() == Qt::Key_Escape) {
         application->setScreen("menu");
     }
+    m_world->onKeyPressed(event);
+}
+
+void PlatformerScreen::onKeyReleased(QKeyEvent *event) {
+    m_world->onKeyReleased(event);
 }

@@ -83,7 +83,8 @@ SOURCES += \
     src/engine/systems/OBJCollisionSystem.cpp \
     src/platformer/PlatformerMenuScreen.cpp \
     src/platformer/MenuWorld.cpp \
-    src/platformer/MenuButton.cpp
+    src/platformer/MenuButton.cpp \
+    src/engine/world/NavMesh.cpp
 
 HEADERS += \
     libs/glew-1.10.0/include/GL/glew.h \
@@ -161,7 +162,9 @@ HEADERS += \
     src/engine/systems/OBJCollisionSystem.h \
     src/platformer/PlatformerMenuScreen.h \
     src/platformer/MenuWorld.h \
-    src/platformer/MenuButton.h
+    src/platformer/MenuButton.h \
+    src/engine/world/NavMesh.h \
+    src/engine/world/Graph.h
 
 FORMS += src/mainwindow.ui
 

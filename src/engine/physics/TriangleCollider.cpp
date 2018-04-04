@@ -41,7 +41,7 @@ bool TriangleCollider::pointInside(const glm::vec3 &point, std::shared_ptr<Trans
 bool TriangleCollider::raycast(const Ray &ray, std::shared_ptr<Transform> t, RaycastResult &result) {
 
     const float ndotd = glm::dot(normal, ray.direction);
-    if (fabs(ndotd) < FLOAT_EPSILON) return false;
+    if (fabs(ndotd) < 0.f) return false;
 
     float tvalue = -glm::dot(normal, ray.start - vertices[0]) / ndotd;
     result.t = tvalue;

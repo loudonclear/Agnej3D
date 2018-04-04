@@ -23,7 +23,7 @@ void OBJCollisionSystem::collide(std::shared_ptr<ShapeCollider> ellipsoid, float
         return;
     }
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 6; i++) {
         RaycastResult lambda;
         lambda.t = FLT_MAX;
 

@@ -3,6 +3,7 @@
 
 
 #include "engine/world/World.h"
+#include "engine/world/NavMesh.h"
 
 class RigidBody;
 class OBJCollisionSystem;
@@ -10,12 +11,14 @@ class OBJCollisionSystem;
 class PlatformerWorld : public World
 {
 public:
-    PlatformerWorld(std::string level);
+    PlatformerWorld(std::string level, std::string levelNav);
 
     void tick(float seconds);
     void draw(Graphics *g);
     void reset();
 
+    void onKeyPressed(QKeyEvent *event);
+    void onKeyReleased(QKeyEvent *event);
     void onMousePressed(QMouseEvent *event);
     void onMouseReleased(QMouseEvent *event);
     void onMouseMoved(glm::vec2 &delta);
@@ -24,7 +27,13 @@ public:
 private:
     float elapsedTime;
     float fixedTickTime;
-    std::string m_level;
+    std::string m_level, m_levelNav;
+    bool showNavMesh;
+    std::shared_ptr<NavMesh> m_navMesh;
+
+    OBJ::Triangle *start, *end;
+    RaycastResult sr, er;
+    std::shared_ptr<Transform> pt;
 
     std::shared_ptr<TimingSystem> m_timingSystem;
     std::shared_ptr<GraphicsSystem> m_graphicsSystem;

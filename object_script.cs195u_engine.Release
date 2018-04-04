@@ -62,6 +62,7 @@ INPUT(
 ./release\PlatformerMenuScreen.o
 ./release\MenuWorld.o
 ./release\MenuButton.o
+./release\NavMesh.o
 ./release\qrc_shaders.o
 ./release\qrc_fonts.o
 ./release\qrc_images.o

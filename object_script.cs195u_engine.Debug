@@ -62,6 +62,7 @@ INPUT(
 ./debug\PlatformerMenuScreen.o
 ./debug\MenuWorld.o
 ./debug\MenuButton.o
+./debug\NavMesh.o
 ./debug\qrc_shaders.o
 ./debug\qrc_fonts.o
 ./debug\qrc_images.o
