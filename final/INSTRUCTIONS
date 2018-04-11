@@ -1,0 +1,16 @@
+
+Menu:
+- Press ESC to quit (a swell option).
+- Press Space to play:
+	- Move with WASD and use the mouse to pan.
+	- Mouse wheel switches between 1st and 3rd person.
+	- Attempt to score the ball in the opposite goal!
+	- Press R to restart or ESC to go back to the menu.
+- Press ; for debugger:
+	- WASD and mouse move the camera.
+	- Q/E shrink/grow the interactable collision shape.
+	- R rotates it.
+	- Space switches the collision shape.
+	- Sphere collisions sometimes don't register! That's fun!
+	- Press ESC to go back to the menu.
+	

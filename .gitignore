@@ -7,7 +7,6 @@ Makefile
 Makefile.debug
 Makefile.release
 .qmake.*
-final
 fontconfig/*
 moc_*
 qrc_resources.cpp
