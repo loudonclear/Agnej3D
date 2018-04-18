@@ -1,15 +1,15 @@
-#ifndef WARMUPMENUSCREEN_H
-#define WARMUPMENUSCREEN_H
+#ifndef FINALMENUSCREEN_H
+#define FINALMENUSCREEN_H
 
 #include "engine/Screen.h"
 
 class Camera;
 class Graphics;
 
-class WarmupMenuScreen : public Screen
+class FinalMenuScreen : public Screen
 {
 public:
-    WarmupMenuScreen();
+    FinalMenuScreen();
 
     void tick(float seconds);
     void draw(Graphics *g);
@@ -20,4 +20,4 @@ private:
     std::shared_ptr<Camera> m_camera;
 };
 
-#endif // WARMUPMENUSCREEN_H
+#endif // FINALMENUSCREEN_H

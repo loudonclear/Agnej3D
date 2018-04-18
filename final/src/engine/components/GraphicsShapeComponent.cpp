@@ -2,20 +2,35 @@
 #include "engine/components/Transform.h"
 #include "engine/physics/ShapeCollider.h"
 #include "engine/physics/Collision.h"
+#include "engine/graphics/Camera.h"
 
 #include <iostream>
 #include <glm/gtx/string_cast.hpp>
 
-GraphicsShapeComponent::GraphicsShapeComponent(std::shared_ptr<GameObject> &parent, const std::string &shapeName, const std::string &materialName) :
-    GraphicsComponent(parent, materialName), m_shapeName(shapeName)
+GraphicsShapeComponent::GraphicsShapeComponent(GameObject *parent, const std::string &shapeName, const std::string &materialName, bool frustumCull) :
+    Component(parent), GraphicsComponent(parent, materialName), m_frustumCull(frustumCull)
+{
+    Graphics *g = Graphics::getGlobalInstance();
+    m_shape = g->getShape(shapeName);
+}
+
+GraphicsShapeComponent::GraphicsShapeComponent(GameObject *parent, std::shared_ptr<Shape> shape, const std::string &materialName, bool frustumCull) :
+    Component(parent), GraphicsComponent(parent, materialName), m_shape(shape), m_frustumCull(frustumCull)
 {
 }
 
+void GraphicsShapeComponent::init() {
+    m_shapeCollider = m_gameObject->getComponent<ShapeCollider>();
+    if (!m_shapeCollider) m_frustumCull = false;
+    GraphicsComponent::init();
+}
 
 void GraphicsShapeComponent::draw(Graphics *g) {
 
-    g->clearTransform();
-    g->setMaterial(m_materialName);
-    g->setTransform(m_transform->getTransformMatrix());
-    g->drawShape(m_shapeName);
+    if (m_shape != nullptr) {
+        g->clearTransform();
+        g->setMaterial(m_materialName);
+        g->setTransform(m_transform->getTransformMatrix());
+        g->drawShape(m_shape);
+    }
 }

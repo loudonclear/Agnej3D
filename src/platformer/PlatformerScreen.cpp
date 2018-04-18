@@ -10,10 +10,10 @@
 
 std::shared_ptr<Camera> PlatformerScreen::camera;
 
-PlatformerScreen::PlatformerScreen(std::string level, std::string levelNav)
+PlatformerScreen::PlatformerScreen()
 {
     camera = std::make_shared<Camera>();
-    m_world = std::make_shared<PlatformerWorld>(level, levelNav);
+    m_world = std::make_shared<PlatformerWorld>();
 }
 
 void PlatformerScreen::tick(float seconds) {

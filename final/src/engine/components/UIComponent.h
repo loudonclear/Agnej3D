@@ -1,5 +1,5 @@
-#ifndef GRAPHICSCOMPONENT_H
-#define GRAPHICSCOMPONENT_H
+#ifndef UICOMPONENT_H
+#define UICOMPONENT_H
 
 
 #include <string>
@@ -9,10 +9,10 @@
 
 class Transform;
 
-class GraphicsComponent : public virtual Component
+class UIComponent : public virtual Component
 {
 public:
-    GraphicsComponent(GameObject *parent, const std::string &materialName = "default");
+    UIComponent(GameObject *parent, const std::string &materialName = "default");
 
     virtual void init();
     virtual void draw(Graphics *g) = 0;
@@ -24,4 +24,4 @@ protected:
     std::shared_ptr<Transform> m_transform;
 };
 
-#endif // GRAPHICSCOMPONENT_H
+#endif // UICOMPONENT_H

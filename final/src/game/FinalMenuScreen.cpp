@@ -1,22 +1,22 @@
-#include "WarmupMenuScreen.h"
+#include "FinalMenuScreen.h"
 #include "engine/graphics/Graphics.h"
 #include "engine/graphics/Camera.h"
 #include "engine/input/Input.h"
 #include "QApplication"
 
 
-WarmupMenuScreen::WarmupMenuScreen()
+FinalMenuScreen::FinalMenuScreen()
 {
     m_camera = std::make_shared<Camera>();
 }
 
-void WarmupMenuScreen::tick(float seconds) {
+void FinalMenuScreen::tick(float seconds) {
     if (Input::isKeyDown(Qt::Key_Space)) {
         application->setScreen("debug");
     }
 }
 
-void WarmupMenuScreen::draw(Graphics *g) {
+void FinalMenuScreen::draw(Graphics *g) {
 
     m_camera->setUI(true);
     g->setCamera(m_camera);
@@ -28,7 +28,7 @@ void WarmupMenuScreen::draw(Graphics *g) {
     g->drawText("default", "Press Space for debug mode", 0.1f);
 }
 
-void WarmupMenuScreen::onKeyPressed(QKeyEvent *event) {
+void FinalMenuScreen::onKeyPressed(QKeyEvent *event) {
     if (event->key() == Qt::Key_Escape) QApplication::quit();
 }
 

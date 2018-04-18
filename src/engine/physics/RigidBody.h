@@ -5,33 +5,38 @@
 #include "engine/physics/Collision.h"
 #include "engine/components/Transform.h"
 
+class ShapeCollider;
+
 class RigidBody : public virtual Component
 {
 public:
-    RigidBody(GameObject *parent, bool isStatic, float mass = 1);
+    RigidBody(GameObject *parent, float mass = 1);
 
     void init();
-    bool isStatic() { return m_isStatic; }
-    virtual void onCollide(Collision::ContactData cd);
 
-    void setMass(float mass) { m_mass = mass; m_invMass = 1.f / mass; }
-    float getMass() { return m_mass; }
+    void setMass(float mass) { mass = mass; invMass = 1.f / mass; }
+    float getMass() { return mass; }
 
-    void integrateVelocities(float dt);
-    void integrateForces(float dt);
+    void addForceAtPoint(const glm::vec3 &f, const glm::vec3 &p);
 
+    std::shared_ptr<ShapeCollider> getShapeCollider() { return m_collider; }
+
+    bool isStatic;
+    float mass, invMass;
+    float motion;
     glm::vec3 velocity;
+    glm::vec3 angularVelocity;
     glm::vec3 force;
+    glm::vec3 torque;
+    glm::vec3 lastAcceleration;
+    glm::mat4x4 invInertialTensor;
 
-    bool isGrounded;
+    bool canSleep, awake;
 
 protected:
 
     std::shared_ptr<Transform> m_transform;
-
-private:
-    bool m_isStatic;
-    float m_mass, m_invMass;
+    std::shared_ptr<ShapeCollider> m_collider;
 };
 
 #endif // RIGIDBODY_H

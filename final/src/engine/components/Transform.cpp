@@ -2,7 +2,7 @@
 #include <glm/gtx/string_cast.hpp>
 #include <iostream>
 
-Transform::Transform(std::shared_ptr<GameObject> &parent) : Component(parent), m_scale(1, 1, 1)
+Transform::Transform(GameObject *parent) : Component(parent), m_scale(1, 1, 1)
 {
 }
 
@@ -25,11 +25,17 @@ glm::mat4x4 Transform::getTransformMatrix() {
         glm::mat4x4 scale = glm::scale(m_scale);
 
         m_transformMatrix = trans * rot * scale;
+        m_inverseTransformMatrix = glm::inverse(m_transformMatrix);
         m_inverseTransposeMatrix = glm::inverse(glm::transpose(m_transformMatrix));
         m_rebuild = false;
     }
 
     return m_transformMatrix;
+}
+
+glm::mat4x4 Transform::getInverseTransformMatrix() {
+    if (m_rebuild) getTransformMatrix();
+    return m_inverseTransformMatrix;
 }
 
 glm::mat4x4 Transform::getInverseTransposeMatrix() {
@@ -69,6 +75,11 @@ void Transform::scale(glm::vec3 scale) {
 
 glm::vec3 Transform::transformPoint(const glm::vec3 &point) {
     glm::vec4 result = getTransformMatrix() * glm::vec4(point[0], point[1], point[2], 1.0f);
+    return glm::vec3(result[0], result[1], result[2]) / result[3];
+}
+
+glm::vec3 Transform::inverseTransformPoint(const glm::vec3 &point) {
+    glm::vec4 result = getInverseTransformMatrix() * glm::vec4(point[0], point[1], point[2], 1.0f);
     return glm::vec3(result[0], result[1], result[2]) / result[3];
 }
 

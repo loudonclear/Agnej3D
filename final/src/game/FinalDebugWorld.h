@@ -1,13 +1,13 @@
-#ifndef WARMUPDEBUGWORLD_H
-#define WARMUPDEBUGWORLD_H
+#ifndef FINALDEBUGWORLD_H
+#define FINALDEBUGWORLD_H
 
 
 #include "engine/world/World.h"
 
-class WarmupDebugWorld : public World
+class FinalDebugWorld : public World
 {
 public:
-    WarmupDebugWorld();
+    FinalDebugWorld();
 
     void tick(float seconds);
     void draw(Graphics *g);
@@ -28,4 +28,4 @@ private:
     int shapeType = 0;
 };
 
-#endif // WARMUPDEBUGWORLD_H
+#endif // FINALDEBUGWORLD_H

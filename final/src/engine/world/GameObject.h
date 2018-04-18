@@ -24,7 +24,7 @@ public:
     std::shared_ptr<ComponentType> getComponent() {
         auto it = m_components.find<ComponentType>();
         if (it == m_components.end()) return nullptr;
-        return std::static_pointer_cast<ComponentType>(it->second);
+        return std::dynamic_pointer_cast<ComponentType>(it->second);
     }
 
     template <typename ComponentType>

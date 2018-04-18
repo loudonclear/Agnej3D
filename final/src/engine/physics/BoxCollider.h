@@ -6,9 +6,9 @@
 class BoxCollider : public ShapeCollider
 {
 public:
-    BoxCollider(std::shared_ptr<GameObject> &parent);
+    BoxCollider(GameObject *parent);
 
-//    bool pointInside(const glm::vec3 &point);
+    bool pointInside(const glm::vec3 &point);
 //    bool raycast(const Ray &ray, RaycastResult &result);
     glm::vec3 getSupport(const glm::vec3 &dir);
 

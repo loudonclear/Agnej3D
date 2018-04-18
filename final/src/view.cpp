@@ -7,7 +7,7 @@
 #include "engine/graphics/Material.h"
 #include "engine/Application.h"
 #include "engine/input/Input.h"
-#include "warmup/WarmupApplication.h"
+#include "game/FinalApplication.h"
 
 #include <QApplication>
 #include <QKeyEvent>
@@ -91,7 +91,7 @@ void View::initializeGL()
 
     /** SUPPORT CODE END **/
 
-    m_app = std::make_unique<WarmupApplication>();
+    m_app = std::make_unique<FinalApplication>();
 }
 
 void View::paintGL()

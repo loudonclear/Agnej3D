@@ -10,7 +10,7 @@ class World;
 class PlatformerScreen : public Screen
 {
 public:
-    PlatformerScreen(std::string level, std::string levelNav);
+    PlatformerScreen();
 
     static std::shared_ptr<Camera> camera;
 

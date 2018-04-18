@@ -61,14 +61,11 @@ SOURCES += \
     src/engine/physics/ShapeCollider.cpp \
     src/engine/physics/CylinderCollider.cpp \
     src/engine/physics/BoxCollider.cpp \
-    src/engine/physics/SphereCollider.cpp \
     src/engine/voxel/Chunk.cpp \
     src/engine/voxel/PerlinNoise.cpp \
     src/engine/components/InputComponent.cpp \
     src/engine/systems/InputSystem.cpp \
-    src/engine/systems/CollisionSystem.cpp \
     src/engine/components/SoundComponent.cpp \
-    src/engine/voxel/ChunkSystem.cpp \
     src/engine/components/UIComponent.cpp \
     src/engine/components/OrthographicUIComponent.cpp \
     src/engine/components/HUDComponent.cpp \
@@ -79,12 +76,11 @@ SOURCES += \
     src/platformer/PlatformerWorld.cpp \
     src/platformer/Player.cpp \
     src/platformer/PlayerMoveComponent.cpp \
-    src/engine/physics/TriangleCollider.cpp \
-    src/engine/systems/OBJCollisionSystem.cpp \
     src/platformer/PlatformerMenuScreen.cpp \
     src/platformer/MenuWorld.cpp \
     src/platformer/MenuButton.cpp \
-    src/engine/world/NavMesh.cpp
+    src/engine/systems/PhysicsSystem.cpp \
+    src/engine/physics/Contact.cpp
 
 HEADERS += \
     libs/glew-1.10.0/include/GL/glew.h \
@@ -140,14 +136,11 @@ HEADERS += \
     src/engine/physics/ShapeCollider.h \
     src/engine/physics/CylinderCollider.h \
     src/engine/physics/BoxCollider.h \
-    src/engine/physics/SphereCollider.h \
     src/engine/voxel/Chunk.h \
     src/engine/voxel/PerlinNoise.h \
     src/engine/components/InputComponent.h \
     src/engine/systems/InputSystem.h \
-    src/engine/systems/CollisionSystem.h \
     src/engine/components/SoundComponent.h \
-    src/engine/voxel/ChunkSystem.h \
     src/engine/components/UIComponent.h \
     src/engine/components/OrthographicUIComponent.h \
     src/engine/components/HUDComponent.h \
@@ -158,13 +151,12 @@ HEADERS += \
     src/platformer/PlatformerWorld.h \
     src/platformer/Player.h \
     src/platformer/PlayerMoveComponent.h \
-    src/engine/physics/TriangleCollider.h \
-    src/engine/systems/OBJCollisionSystem.h \
     src/platformer/PlatformerMenuScreen.h \
     src/platformer/MenuWorld.h \
     src/platformer/MenuButton.h \
-    src/engine/world/NavMesh.h \
-    src/engine/world/Graph.h
+    src/engine/world/Graph.h \
+    src/engine/systems/PhysicsSystem.h \
+    src/engine/physics/Contact.h
 
 FORMS += src/mainwindow.ui
 

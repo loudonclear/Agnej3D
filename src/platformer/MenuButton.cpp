@@ -28,7 +28,7 @@ void MenuButton::onMouseReleased(QMouseEvent *event) {
 }
 
 void MenuButton::onClick() {
-    View::app->addScreen(m_text, std::make_shared<PlatformerScreen>(m_text, m_text + "Nav"));
+    View::app->addScreen(m_text, std::make_shared<PlatformerScreen>());
     View::app->setScreen(m_text);
 }
 

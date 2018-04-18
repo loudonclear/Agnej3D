@@ -1,6 +1,7 @@
 #ifndef SHAPECOLLIDER_H
 #define SHAPECOLLIDER_H
 
+#include "engine/physics/Contact.h"
 #include "engine/components/Component.h"
 #include "engine/components/Transform.h"
 #include "engine/physics/RigidBody.h"
@@ -17,21 +18,22 @@ const float FLOAT_EPSILON = 1e-4f;
 class ShapeCollider : public virtual Component
 {
 public:
-    virtual void init();
+    friend class RigidBody;
 
-    virtual void onCollide(Collision::ContactData cd);
-    bool isColliding();
-    void setColliding(bool val);
-    bool isStatic();
+    virtual void init();
 
     std::shared_ptr<Transform> getTransform();
     std::shared_ptr<RigidBody> getRigidBody();
 
-    virtual bool pointInside(const glm::vec3 &point) = 0;
-    //virtual bool raycast(const Ray &ray) = 0;
+    bool isStatic();
+
+    //virtual float volume() = 0;
     virtual glm::vec3 getSupport(const glm::vec3 &dir) = 0;
-    //virtual glm::vec3 getDimensions();
-    virtual glm::vec3 getCenter();
+    virtual glm::vec3 getCenterOfMass();
+    //virtual bool pointInside(const glm::vec3 &point) = 0;
+    //virtual bool raycast(const Ray &ray) = 0;
+
+    std::vector<Contact *> contacts;
 
 protected:
     ShapeCollider(GameObject *parent, Transform colliderTransform);
@@ -50,8 +52,8 @@ protected:
 
 private:
 
-    Collision::ContactData collisionData;
-    bool colliding;
+    glm::vec3 com;
+
 };
 
 #endif // SHAPECOLLIDER_H

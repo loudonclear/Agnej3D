@@ -3,7 +3,6 @@
 
 
 #include "System.h"
-#include <list>
 
 class RigidBody;
 class ShapeCollider;
@@ -23,10 +22,6 @@ public:
 
     void generateContacts();
     void resolveContacts();
-
-    void resolveCluster(std::list<Contact *> &cluster);
-    float calcDesiredDeltaVelocity(Contact *c);
-    glm::vec3 calculateImpulse(Contact* contact);
 
 private:
     std::vector<std::shared_ptr<RigidBody>> m_components;

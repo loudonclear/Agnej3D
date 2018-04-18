@@ -1,6 +1,7 @@
 #ifndef SHAPECOLLIDER_H
 #define SHAPECOLLIDER_H
 
+#include "engine/physics/Contact.h"
 #include "engine/components/Component.h"
 #include "engine/components/Transform.h"
 #include "engine/physics/RigidBody.h"
@@ -14,26 +15,31 @@
 const float FLOAT_EPSILON = 1e-4f;
 #define SIGN(n) ((n)<0 ? -1:1)
 
-class ShapeCollider : public Component
+class ShapeCollider : public virtual Component
 {
 public:
-    ShapeCollider(std::shared_ptr<GameObject> &parent);
+    friend class RigidBody;
 
-    void init();
-
-    virtual void onCollide(Collision::ContactData cd);
-    bool isColliding();
-    void setColliding(bool val);
-    bool isStatic();
+    virtual void init();
 
     std::shared_ptr<Transform> getTransform();
+    std::shared_ptr<RigidBody> getRigidBody();
 
+    bool isStatic();
+
+    //virtual float volume() = 0;
+    virtual glm::vec3 getSupport(const glm::vec3 &dir) = 0;
+    virtual glm::vec3 getCenterOfMass();
     //virtual bool pointInside(const glm::vec3 &point) = 0;
     //virtual bool raycast(const Ray &ray) = 0;
-    virtual glm::vec3 getSupport(const glm::vec3 &dir) = 0;
-    virtual glm::vec3 getCenter();
+
+    std::vector<Contact *> contacts;
+    void *contactCluster;
+
 
 protected:
+    ShapeCollider(GameObject *parent);
+
     std::shared_ptr<Transform> m_transform;
     std::shared_ptr<RigidBody> m_rigidbody;
 
@@ -45,9 +51,8 @@ protected:
     }
 
 private:
+    glm::vec3 com;
 
-    Collision::ContactData collisionData;
-    bool colliding;
 };
 
 #endif // SHAPECOLLIDER_H

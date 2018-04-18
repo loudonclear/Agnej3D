@@ -4,7 +4,6 @@
 #include "System.h"
 
 class TickComponent;
-class FixedTickComponent;
 
 class TimingSystem : public System
 {
@@ -16,10 +15,10 @@ public:
 
     void tick(float seconds);
     void fixedTick(float seconds);
+    void lateTick(float seconds);
 
 private:
     std::vector<std::shared_ptr<TickComponent>> m_tickComponents;
-    std::vector<std::shared_ptr<FixedTickComponent>> m_fixedTickComponents;
 };
 
 #endif // TIMINGSYSTEM_H

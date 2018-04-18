@@ -6,23 +6,11 @@
 #include <glm/glm.hpp>
 
 class ShapeCollider;
+class ContactBasicData;
 
 class Collision
 {
 public:
-
-    struct ContactData {
-        ShapeCollider *s1;
-        ShapeCollider *s2;
-
-        glm::vec3 contactPoint;
-        glm::vec3 contactNormal;
-        float penetration;
-    };
-
-    static bool collide(ContactData &cd);
-
-private:
 
     struct SupportPoint {
         glm::vec3 v;
@@ -89,10 +77,11 @@ private:
         *u = 1.0f - *v - *w;
     }
 
-    static bool gjk(ShapeCollider *s1, ShapeCollider *s2, Simplex &simplex, int *uniqueIdCounter);
-    static bool epa(ShapeCollider *s1, ShapeCollider *s2, Simplex &simplex, int *uniqueIdCounter, ContactData &contactData);
-    static SupportPoint generateSupport(ShapeCollider *s1, ShapeCollider *s2, glm::vec3 &dir, int *uniqueIdCounter = 0);
-    static bool extrapolateContactInfo(const Triangle *triangle, ContactData &contactData);
+    static bool gjk(std::shared_ptr<ShapeCollider> s1, std::shared_ptr<ShapeCollider> s2, Simplex &simplex, int *uniqueIdCounter);
+    static bool epa(std::shared_ptr<ShapeCollider> s1, std::shared_ptr<ShapeCollider> s2, Simplex &simplex, int *uniqueIdCounter, ContactBasicData *contactData);
+    static SupportPoint generateSupport(std::shared_ptr<ShapeCollider> s1, std::shared_ptr<ShapeCollider> s2, glm::vec3 &dir, int *uniqueIdCounter = 0);
+    static bool extrapolateContactInfo(const Triangle *triangle, ContactBasicData *contactData);
+    //bool extrapolateContactInfo(ContactBasicData *contactData);
 };
 
 #endif // COLLISION_H

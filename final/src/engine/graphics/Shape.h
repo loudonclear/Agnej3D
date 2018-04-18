@@ -88,8 +88,8 @@ public:
 
     bool printDebug();
 
-private:
     void build();
+
 
 private:
     std::vector<float> m_positions;

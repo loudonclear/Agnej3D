@@ -7,7 +7,7 @@
 class ConvexTriangleMeshCollider : public ShapeCollider
 {
 public:
-    ConvexTriangleMeshCollider(std::shared_ptr<GameObject> &parent, std::vector<glm::vec3> vertices);
+    ConvexTriangleMeshCollider(GameObject *parent, std::vector<glm::vec3> vertices);
 
     //bool pointInside(const glm::vec3 &point);
     //bool raycast(const Ray &ray, RaycastResult &result);

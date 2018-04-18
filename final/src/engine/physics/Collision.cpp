@@ -8,21 +8,7 @@
 #include <cfloat>
 #include <list>
 
-#include "engine/graphics/Graphics.h"
-
-
-bool Collision::collide(ContactData &cd) {
-    Simplex simplex;
-    int spNextUniqueId = 0;
-
-    if (gjk(cd.s1, cd.s2, simplex, &spNextUniqueId) && epa(cd.s1, cd.s2, simplex, &spNextUniqueId, cd)) {
-        return true;
-    }
-    return false;
-}
-
 glm::vec3 tripleCrossProduct(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &oldDir) {
-
     glm::vec3 dir = glm::cross(glm::cross(v1, v2), v1);
 //    if (glm::length2(dir) <= FLOAT_EPSILON) {
 //        dir = glm::cross(v1, glm::vec3(1, 0, 0));
@@ -33,18 +19,17 @@ glm::vec3 tripleCrossProduct(const glm::vec3 &v1, const glm::vec3 &v2, const glm
 //    if (glm::length2(dir) <= FLOAT_EPSILON) {
 //        dir = glm::cross(v1, glm::vec3(0, 0, 1));
 //    }
-
     return dir;
 }
 
 // hacktank.net && mollyrocket.com/849
-bool Collision::gjk(ShapeCollider *s1, ShapeCollider *s2, Simplex &simplex, int *uniqueIdCounter) {
+bool Collision::gjk(std::shared_ptr<ShapeCollider> s1, std::shared_ptr<ShapeCollider> s2, Simplex &simplex, int *uniqueIdCounter) {
 
     const unsigned GJK_ITERATION_LIMIT = 20;
     unsigned ITER = 0;
 
     simplex.clear();
-    glm::vec3 dir = s1->getCenter() - s2->getCenter();
+    glm::vec3 dir = s1->getCenterOfMass() - s2->getCenterOfMass();
     if (glm::length2(dir) <= FLOAT_EPSILON) {
         dir = glm::vec3(1, 0, 0);
     }
@@ -130,7 +115,7 @@ bool Collision::gjk(ShapeCollider *s1, ShapeCollider *s2, Simplex &simplex, int 
     return true;
 }
 
-bool Collision::epa(ShapeCollider *s1, ShapeCollider *s2, Simplex &simplex, int *uniqueIdCounter, ContactData &contactData) {
+bool Collision::epa(std::shared_ptr<ShapeCollider> s1, std::shared_ptr<ShapeCollider> s2, Simplex &simplex, int *uniqueIdCounter, ContactBasicData *contactData) {
 
     const float GROWTH_THRESHOLD = 0.001f;
     const unsigned EPA_ITERATION_LIMIT = 40;
@@ -197,7 +182,7 @@ bool Collision::epa(ShapeCollider *s1, ShapeCollider *s2, Simplex &simplex, int 
     return false;
 }
 
-Collision::SupportPoint Collision::generateSupport(ShapeCollider *s1, ShapeCollider *s2, glm::vec3 &dir, int* uniqueIdCounter) {
+Collision::SupportPoint Collision::generateSupport(std::shared_ptr<ShapeCollider> s1, std::shared_ptr<ShapeCollider> s2, glm::vec3 &dir, int* uniqueIdCounter) {
     dir = glm::normalize(dir);
 
     SupportPoint res(uniqueIdCounter ? (*uniqueIdCounter)++ : 0);
@@ -208,7 +193,7 @@ Collision::SupportPoint Collision::generateSupport(ShapeCollider *s1, ShapeColli
     return res;
 }
 
-bool Collision::extrapolateContactInfo(const Triangle *triangle, ContactData &contactData) {
+bool Collision::extrapolateContactInfo(const Triangle *triangle, ContactBasicData *contactData) {
 
     float originDistance = glm::dot(triangle->n, triangle->points[0].v);
 
@@ -222,10 +207,16 @@ bool Collision::extrapolateContactInfo(const Triangle *triangle, ContactData &co
     const glm::vec3 collisionNormal = -triangle->n;
     const float penetration = originDistance;
 
-    contactData.contactPoint = collisionPoint;
-    contactData.contactNormal = collisionNormal;
-    contactData.penetration = penetration;
+    contactData->point = collisionPoint;
+    contactData->normal = collisionNormal;
+    contactData->penetration = penetration;
+
+    //contactData->triangle = *triangle;
 
     return true;
 }
+
+//bool Collision::extrapolateContactInfo(ContactBasicData *contactData) {
+//    return extrapolateContactInfo(contactData->triangle, contactData);
+//}
 

@@ -1,8 +1,9 @@
 #include "ShapeCollider.h"
+#include <iostream>
 
-ShapeCollider::ShapeCollider(std::shared_ptr<GameObject> &parent) : Component(parent)
+ShapeCollider::ShapeCollider(GameObject *parent) : Component(parent), m_transform(nullptr), m_rigidbody(nullptr)
 {
-
+    com = glm::vec3(0, 0, 0);
 }
 
 void ShapeCollider::init() {
@@ -11,28 +12,18 @@ void ShapeCollider::init() {
 }
 
 
-glm::vec3 ShapeCollider::getCenter() {
-    return m_transform->getPosition();
+glm::vec3 ShapeCollider::getCenterOfMass() {
+    return m_transform->transformPoint(com);
 }
 
 std::shared_ptr<Transform> ShapeCollider::getTransform() {
     return m_transform;
 }
 
-void ShapeCollider::onCollide(Collision::ContactData cd) {
-    if (!isStatic()) {
-        m_rigidbody->onCollide(cd);
-    }
-}
-
-bool ShapeCollider::isColliding() {
-    return colliding;
-}
-
-void ShapeCollider::setColliding(bool val) {
-    colliding = val;
+std::shared_ptr<RigidBody> ShapeCollider::getRigidBody() {
+    return m_rigidbody;
 }
 
 bool ShapeCollider::isStatic() {
-    return m_rigidbody ? m_rigidbody->isStatic() : true;
+    return m_rigidbody ? m_rigidbody->isStatic : true;
 }

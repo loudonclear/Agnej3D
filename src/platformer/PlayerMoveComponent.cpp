@@ -9,7 +9,6 @@
 #include "engine/physics/RigidBody.h"
 #include "engine/components/InputComponent.h"
 #include "engine/world/World.h"
-#include "engine/systems/OBJCollisionSystem.h"
 
 #include "PlatformerScreen.h"
 
@@ -52,15 +51,7 @@ void PlayerMoveComponent::tick(float seconds) {
     if (Input::isKeyDown(Qt::Key_A)) {
         m_rigidbody->velocity += perp*moveSpeed;
     }
-    if (Input::isKeyDown(Qt::Key_Space) && m_rigidbody->isGrounded) {
-        m_rigidbody->velocity.y += 7.5f;
-        m_rigidbody->isGrounded = false;
-    }
-//    if (Input::isKeyDown(Qt::Key_Shift)) {
-//        m_rigidbody->velocity.y -= 7.5f;
-//    }
 
-    m_objCollisionSystem->collide(m_shapeCollider, seconds);
 }
 
 void PlayerMoveComponent::fixedTick(float seconds) {

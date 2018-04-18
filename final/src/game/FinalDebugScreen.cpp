@@ -1,20 +1,20 @@
-#include "WarmupDebugScreen.h"
+#include "FinalDebugScreen.h"
 #include "engine/graphics/Camera.h"
 #include "engine/graphics/Graphics.h"
 #include "engine/input/Input.h"
 #include "engine/world/World.h"
-#include "warmup/WarmupDebugWorld.h"
+#include "game/FinalDebugWorld.h"
 
-WarmupDebugScreen::WarmupDebugScreen()
+FinalDebugScreen::FinalDebugScreen()
 {
-    m_world = std::make_shared<WarmupDebugWorld>();
+    m_world = std::make_shared<FinalDebugWorld>();
 
     m_camera = std::make_shared<Camera>();
     m_camera->setEye(glm::vec3(0, 3, -7));
     m_camera->setLook(glm::vec3(0, 0, 1));
 }
 
-void WarmupDebugScreen::tick(float seconds) {
+void FinalDebugScreen::tick(float seconds) {
     glm::vec3 look = m_camera->getLook();
 
     glm::vec3 dir = glm::normalize(glm::vec3(look.x, look.y, look.z));
@@ -28,35 +28,31 @@ void WarmupDebugScreen::tick(float seconds) {
     m_world->tick(seconds);
 }
 
-void WarmupDebugScreen::draw(Graphics *g) {
+void FinalDebugScreen::draw(Graphics *g) {
 
     g->setCamera(m_camera);
-
     g->clearTransform();
-    g->scale(20);
-    g->setMaterial("grass");
-    g->drawShape("quad");
 
     m_world->draw(g);
 }
 
-void WarmupDebugScreen::resize(glm::vec2 &size) {
+void FinalDebugScreen::resize(glm::vec2 &size) {
     m_camera->setScreenSize(size);
 }
 
 
-void WarmupDebugScreen::onMouseMoved(glm::vec2 &delta) {
+void FinalDebugScreen::onMouseMoved(glm::vec2 &delta) {
     m_camera->rotate(-delta.x / 100.f, -delta.y / 100.f);
     m_world->onMouseMoved(delta);
 }
 
-void WarmupDebugScreen::onMouseWheelMoved(QWheelEvent *event) {
+void FinalDebugScreen::onMouseWheelMoved(QWheelEvent *event) {
     m_world->onMouseWheelMoved(event);
 }
 
-void WarmupDebugScreen::onKeyPressed(QKeyEvent *event) {
+void FinalDebugScreen::onKeyPressed(QKeyEvent *event) {
     if (event->key() == Qt::Key_Escape) {
-        m_world = std::make_shared<WarmupDebugWorld>();
+        m_world = std::make_shared<FinalDebugWorld>();
         application->setScreen("menu");
     }
     m_world->onKeyPressed(event);

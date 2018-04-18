@@ -1,18 +1,15 @@
-#include "WarmupApplication.h"
+#include "FinalApplication.h"
 
-#include "WarmupMenuScreen.h"
-#include "WarmupGameScreen.h"
-#include "WarmupDebugScreen.h"
+#include "FinalMenuScreen.h"
+#include "FinalDebugScreen.h"
 #include "engine/graphics/Material.h"
 #include "engine/graphics/Graphics.h"
+#include "engine/graphics/Shape.h"
 
-WarmupApplication::WarmupApplication()
+#include <iostream>
+
+FinalApplication::FinalApplication()
 {
-    addScreen("menu", std::make_shared<WarmupMenuScreen>());
-    addScreen("game", std::make_shared<WarmupGameScreen>());
-    addScreen("debug", std::make_shared<WarmupDebugScreen>());
-    setScreen("menu");
-
     Graphics *graphics = Graphics::getGlobalInstance();
 
     Material grass;
@@ -78,6 +75,10 @@ WarmupApplication::WarmupApplication()
     verts.push_back(n2.x); verts.push_back(n1.y); verts.push_back(n1.z);
     verts.push_back(t2.x); verts.push_back(t1.y);
 
-
     graphics->addShape("tetrahedron", verts);
+
+
+    addScreen("menu", std::make_shared<FinalMenuScreen>());
+    addScreen("debug", std::make_shared<FinalDebugScreen>());
+    setScreen("menu");
 }

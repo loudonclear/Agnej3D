@@ -2,29 +2,18 @@
 #include "engine/world/GameObject.h"
 #include "engine/physics/ShapeCollider.h"
 
-RigidBody::RigidBody(GameObject *parent, bool isStatic, float mass) : Component(parent), m_isStatic(isStatic), m_mass(mass), m_invMass(1.f/mass), isGrounded(false)
+RigidBody::RigidBody(GameObject *parent, float mass) : Component(parent), isStatic(isStatic), mass(mass), invMass(1.f/mass)
 {
 }
 
 void RigidBody::init() {
     m_transform = m_gameObject->getComponent<Transform>();
+    m_collider = m_gameObject->getComponent<ShapeCollider>();
 }
 
-void RigidBody::onCollide(Collision::ContactData cd) {
+void RigidBody::addForceAtPoint(const glm::vec3 &f, const glm::vec3 &p) {
+    const glm::vec3 ctp = p - m_transform->getPosition();
 
-    if (cd.s2->isStatic()) {
-        m_transform->translate(cd.contactNormal * cd.penetration);
-    } else {
-        m_transform->translate(cd.contactNormal * cd.penetration / 2.f);
-    }
-}
-
-void RigidBody::integrateVelocities(float dt) {
-    m_transform->translate(dt * velocity);
-}
-
-void RigidBody::integrateForces(float dt) {
-    if (m_invMass == 0.f) return;
-
-    velocity += (force * dt * m_invMass);
+    force += f;
+    torque += glm::cross(ctp, f);
 }

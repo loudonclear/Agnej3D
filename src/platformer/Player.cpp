@@ -7,7 +7,6 @@
 #include "engine/physics/ShapeCollider.h"
 #include "engine/physics/RigidBody.h"
 #include "engine/graphics/Camera.h"
-#include "engine/systems/OBJCollisionSystem.h"
 
 #include "PlatformerScreen.h"
 #include "platformer/PlayerMoveComponent.h"

@@ -1,6 +1,6 @@
 #include "ConvexTriangleMeshCollider.h"
 
-ConvexTriangleMeshCollider::ConvexTriangleMeshCollider(std::shared_ptr<GameObject> &parent, std::vector<glm::vec3> vertices) : ShapeCollider(parent), vertices(vertices)
+ConvexTriangleMeshCollider::ConvexTriangleMeshCollider(GameObject *parent, std::vector<glm::vec3> vertices) : Component(parent), ShapeCollider(parent), vertices(vertices)
 {
 }
 
