@@ -30,6 +30,7 @@ public:
 
     void translate(glm::vec3 trans);
     void rotate(glm::quat rot);
+    void rotateAngularAmt(const glm::vec3 &angularAmt);
     void scale(glm::vec3 scale);
 
     glm::vec3 transformPoint(const glm::vec3 &point);
@@ -38,6 +39,9 @@ public:
     Ray transformRay(const Ray &ray);
     glm::vec3 transformNormal(const glm::vec3 &normal);
     glm::vec3 inverseRotateVector(const glm::vec3 &vec);
+
+    static glm::vec3 transformPoint(const glm::vec3 &point, const glm::mat4x4 &m);
+    static glm::vec3 transformVector(const glm::vec3 &vec, const glm::mat4x4 &m);
 
 private:
 

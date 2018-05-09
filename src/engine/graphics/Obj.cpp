@@ -28,6 +28,8 @@ bool OBJ::read(const QString &path)
     QTextStream f(&file);
     QString line;
 
+    glm::vec3 avg = glm::vec3(0.f);
+
     // Read the file
     QRegExp spaces("\\s+");
     do {
@@ -36,7 +38,9 @@ bool OBJ::read(const QString &path)
         if (parts.isEmpty()) continue;
 
         if (parts[0] == "v" && parts.count() >= 4) {
-            vertices += glm::vec3(parts[1].toFloat(), parts[2].toFloat(), parts[3].toFloat());
+            glm::vec3 vert = glm::vec3(parts[1].toFloat(), parts[2].toFloat(), parts[3].toFloat());
+            vertices += vert;
+            avg += vert;
         } else if (parts[0] == "vt" && parts.count() >= 3) {
             coords += glm::vec2(parts[1].toFloat(), parts[2].toFloat());
         } else if (parts[0] == "vn" && parts.count() >= 4) {
@@ -49,11 +53,13 @@ bool OBJ::read(const QString &path)
                 Index c = getIndex(parts[i]);
 
                 Triangle* curr;
-                if (normals.size() > 0)
+                if (normals.size() > 0) {
                     curr = new Triangle(a, b, c, vertices.at(a.vertexIndex), vertices.at(b.vertexIndex), vertices.at(c.vertexIndex), normals.at(a.normalIndex));
-                else
+                } else {
                     curr = new Triangle(a, b, c, vertices.at(a.vertexIndex), vertices.at(b.vertexIndex), vertices.at(c.vertexIndex));
+                }
 
+                faces.append(glm::ivec3(a.vertexIndex, b.vertexIndex, c.vertexIndex));
                 triangles.append(curr);
                 addTriangleFloats(curr);
 
@@ -61,6 +67,11 @@ bool OBJ::read(const QString &path)
             }
         }
     } while (!line.isNull());
+
+//    avg /= static_cast<float>(vertices.size());
+//    for (glm::vec3 &v : vertices) {
+//        v -= avg;
+//    }
 
     return true;
 }

@@ -1,42 +1,48 @@
 #ifndef RIGIDBODY_H
 #define RIGIDBODY_H
 
-#include "engine/components/Component.h"
-#include "engine/physics/Collision.h"
-#include "engine/components/Transform.h"
+#include "components/Component.h"
+#include <glm/glm.hpp>
 
 class ShapeCollider;
+class Transform;
 
-class RigidBody : public virtual Component
-{
+class RigidBody : public virtual Component {
+
 public:
-    RigidBody(GameObject *parent, float mass = 1);
+    RigidBody(GameObject* parent, float density = 1.f);
+    virtual ~RigidBody() {}
 
     void init();
 
-    void setMass(float mass) { mass = mass; invMass = 1.f / mass; }
-    float getMass() { return mass; }
+    void addForce(const glm::vec3 &f);
+    void addForceWorld(const glm::vec3 &f, const glm::vec3 &p);
+    void addTorque(const glm::vec3 &t);
 
-    void addForceAtPoint(const glm::vec3 &f, const glm::vec3 &p);
 
-    std::shared_ptr<ShapeCollider> getShapeCollider() { return m_collider; }
+    std::shared_ptr<ShapeCollider> getCollider() { return collider; }
+    std::shared_ptr<Transform> getTransform() { return transform; }
 
-    bool isStatic;
-    float mass, invMass;
+
+	float density;
+    bool awake;
     float motion;
+    bool isStatic;
+    bool canSleep;
+    bool interaction;
+
     glm::vec3 velocity;
     glm::vec3 angularVelocity;
+
+    glm::vec3 acceleration;
     glm::vec3 force;
     glm::vec3 torque;
-    glm::vec3 lastAcceleration;
-    glm::mat4x4 invInertialTensor;
-
-    bool canSleep, awake;
 
 protected:
 
-    std::shared_ptr<Transform> m_transform;
-    std::shared_ptr<ShapeCollider> m_collider;
+    std::shared_ptr<Transform> transform;
+    std::shared_ptr<ShapeCollider> collider;
+
 };
 
 #endif // RIGIDBODY_H

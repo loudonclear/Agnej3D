@@ -3,7 +3,6 @@
 
 #include <map>
 #include <QKeyEvent>
-#include <glm/glm.hpp>
 
 class Input
 {
@@ -18,8 +17,6 @@ public:
     static bool isMouseButtonDown(int mouseButton);
     static bool isKeyDown(int key);
 
-    static glm::vec2 getMousePosition();
-    static void setMousePosition(glm::vec2 mp);
 };
 
 #endif // INPUT_H

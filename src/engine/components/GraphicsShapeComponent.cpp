@@ -1,7 +1,6 @@
 #include "GraphicsShapeComponent.h"
 #include "engine/components/Transform.h"
-#include "engine/physics/ShapeCollider.h"
-#include "engine/physics/Collision.h"
+#include "engine/world/GameObject.h"
 #include "engine/graphics/Camera.h"
 
 #include <iostream>
@@ -20,21 +19,12 @@ GraphicsShapeComponent::GraphicsShapeComponent(GameObject *parent, std::shared_p
 }
 
 void GraphicsShapeComponent::init() {
-    m_shapeCollider = m_gameObject->getComponent<ShapeCollider>();
-    if (!m_shapeCollider) m_frustumCull = false;
     GraphicsComponent::init();
 }
 
 void GraphicsShapeComponent::draw(Graphics *g) {
 
-    if (m_frustumCull) {
-        if (!g->getActiveCamera()->frustumCull(m_shapeCollider)) {
-            g->clearTransform();
-            g->setMaterial(m_materialName);
-            g->setTransform(m_transform->getTransformMatrix());
-            g->drawShape(m_shape);
-        }
-    } else {
+    if (m_shape != nullptr) {
         g->clearTransform();
         g->setMaterial(m_materialName);
         g->setTransform(m_transform->getTransformMatrix());

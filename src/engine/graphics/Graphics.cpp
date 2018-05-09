@@ -179,7 +179,7 @@ void Graphics::addCube() {
     std::vector<float> cubeData;
     cubeData.resize(cubeVertexCount * 8);
     std::copy(&cubeVertexBufferData[0], &cubeVertexBufferData[cubeVertexCount * 8 - 1], cubeData.begin());
-    addShape("cube", cubeData);
+    addShape("oldcube", cubeData);
 }
 
 void Graphics::addShader(const string &name, const string &vertexName,

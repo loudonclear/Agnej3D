@@ -68,6 +68,11 @@ void Transform::rotate(glm::quat rot) {
     m_rebuild = true;
 }
 
+void Transform::rotateAngularAmt(const glm::vec3 &angularAmt) {
+    m_rotation = glm::normalize(m_rotation + 0.5f * glm::quat(0, angularAmt.x, angularAmt.y, angularAmt.z) * m_rotation);
+    m_rebuild = true;
+}
+
 void Transform::scale(glm::vec3 scale) {
     m_scale += scale;
     m_rebuild = true;
@@ -98,6 +103,17 @@ glm::vec3 Transform::transformNormal(const glm::vec3 &normal) {
 }
 
 glm::vec3 Transform::inverseRotateVector(const glm::vec3 &vec) {
-    glm::vec4 result = glm::transpose(glm::toMat4(m_rotation)) * glm::vec4(vec[0], vec[1], vec[2], 0.0f);
+    glm::vec4 result = glm::inverse(glm::scale(m_scale)) * glm::transpose(glm::toMat4(m_rotation)) * glm::vec4(vec[0], vec[1], vec[2], 0.0f);
+    return glm::vec3(result[0], result[1], result[2]);
+}
+
+
+glm::vec3 Transform::transformPoint(const glm::vec3 &point, const glm::mat4x4 &m) {
+    glm::vec4 result = m * glm::vec4(point[0], point[1], point[2], 1.0f);
+    return glm::vec3(result[0], result[1], result[2]) / result[3];
+}
+
+glm::vec3 Transform::transformVector(const glm::vec3 &vec, const glm::mat4x4 &m) {
+    glm::vec4 result = m * glm::vec4(vec[0], vec[1], vec[2], 0.0f);
     return glm::vec3(result[0], result[1], result[2]);
 }

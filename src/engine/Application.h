@@ -16,10 +16,7 @@ public:
     void addScreen(const std::string &name, const std::shared_ptr<Screen> &screen);
     void removeScreen(const std::string &name);
     void setScreen(const std::string &name);
-    std::shared_ptr<Screen> getScreen(const std::string &name);
     std::shared_ptr<Screen> getActiveScreen();
-
-    bool captureMouse = true;
 
     virtual void tick(float seconds);
     virtual void draw(Graphics *g);

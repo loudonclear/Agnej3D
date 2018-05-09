@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>rhombicuboctahedron.obj</file>
+        <file>cube.obj</file>
+        <file>tetrahedron.obj</file>
+    </qresource>
+</RCC>

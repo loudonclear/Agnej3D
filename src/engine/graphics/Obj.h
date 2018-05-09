@@ -78,6 +78,8 @@ public:
     QVector<glm::vec2> coords;
     QVector<glm::vec3> normals;
 
+    QVector<glm::ivec3> faces;
+
     /* Use these to construct your VBO's. The VBO data is formatted like our Cylinder and Ellipsoid headers:
      * interleaved vertex, normal, and tex coords. */
     QVector<float> vboData;
