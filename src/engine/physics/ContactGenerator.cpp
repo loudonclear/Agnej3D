@@ -7,8 +7,10 @@
 
 #include <numeric>
 #include <iostream>
+#include <glm/gtx/string_cast.hpp>
 
-const float minPenetration = -8.f;
+const float minPenetration = -1.f;
+const float maxContactDist = 0.05f;
 
 glm::vec3 tripleCrossProduct(const glm::vec3 &v1, const glm::vec3 &v2) {
     return glm::cross(glm::cross(v1, v2), v1);
@@ -270,12 +272,14 @@ void ContactGenerator::updatePersistentContacts(pool_vector<Contact> &contacts) 
 
     for (Contact &c : contacts) {
         if (c.isValid()) {
-            if ((c.colliders[0]->isStatic() || c.colliders[0]->getRigidBody() == nullptr || !c.colliders[0]->getRigidBody()->awake) &&
-                (c.colliders[1]->isStatic() || c.colliders[1]->getRigidBody() == nullptr || !c.colliders[1]->getRigidBody()->awake)) {
+            if ((c.colliders[0]->isStatic() || c.colliders[0]->getRigidBody() == nullptr || !c.colliders[0]->getRigidBody()->awake || c.colliders[0]->getRigidBody()->interaction) &&
+                (c.colliders[1]->isStatic() || c.colliders[1]->getRigidBody() == nullptr || !c.colliders[1]->getRigidBody()->awake || c.colliders[1]->getRigidBody()->interaction)) {
                 c.invalidate();
             } else {
                 if (extrapolateContactInformation(&c)) {
                     if (c.penetration < minPenetration) {
+                        c.invalidate();
+                    } else if (glm::length2(c.point - c.initialContactPoint) > maxContactDist) {
                         c.invalidate();
                     }
                 } else {
@@ -297,6 +301,8 @@ void ContactGenerator::frame(std::vector<std::shared_ptr<RigidBody>> &bodies, po
         std::shared_ptr<ShapeCollider> const colliderA = bodies.at(i)->getCollider();
         for (unsigned int j = i+1; j < bodies.size(); j++) {
             std::shared_ptr<ShapeCollider> const colliderB = bodies.at(j)->getCollider();
+
+            if (colliderA->getRigidBody()->interaction || colliderB->getRigidBody()->interaction) continue;
 
             if ((colliderA->isStatic() || !colliderA->getRigidBody()->awake) &&
                 (colliderB->isStatic() || !colliderB->getRigidBody()->awake)) continue;
@@ -322,8 +328,8 @@ void ContactGenerator::frame(std::vector<std::shared_ptr<RigidBody>> &bodies, po
 
             if ((contact->colliders[0] == colliderA && contact->colliders[1] == colliderB) ||
                 (contact->colliders[0] == colliderB && contact->colliders[1] == colliderA)) {
-                if (glm::dot(contact->normal, testData.normal) > 0.95f) {
-                    if (glm::length(contact->point - testData.point) < 5.0f) {
+                if (glm::dot(contact->normal, testData.normal) > 0.97f) {
+                    if (glm::length2(contact->point - testData.point) < 0.05f) {
                         contact->invalidate();
                         break;
                     }

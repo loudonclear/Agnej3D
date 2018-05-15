@@ -22,6 +22,8 @@ public:
     bool raycast(const Ray &ray, RaycastResult &res, std::shared_ptr<RigidBody> &hit);
     void update(float dt);
 
+    std::vector<std::shared_ptr<RigidBody>> getComponents() { return m_components; }
+
 private:
     std::vector<std::shared_ptr<RigidBody>> m_components;
     pool_vector<Contact> contacts;

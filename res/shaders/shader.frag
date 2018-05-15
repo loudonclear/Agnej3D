@@ -39,15 +39,18 @@ uniform Material material = Material(1, vec3(1), 1, vec3(0), 1, 1, vec2(1), vec2
 uniform FontMaterial font = FontMaterial(0, vec2(0), vec2(1));
 
 // Lighting
-const int MAX_NUM_LIGHTS = 1;
+const int MAX_NUM_LIGHTS = 10;
 uniform int numLights = 0;
 uniform Light lights[MAX_NUM_LIGHTS];
+
+uniform sampler2D shadowMap;
 
 // Additional information for lighting
 in vec4 normal_worldSpace;
 in vec4 position_worldSpace;
 in vec4 eye_worldSpace;
 in vec2 texc;
+in vec4 FragPosLightSpace;
 
 vec3 get_contribution_ambient(Light light, vec3 material_color) {
     return light.color * material_color;
@@ -72,8 +75,23 @@ vec3 get_contribution(vec3 light_dir, vec3 light_color, vec3 material_color) {
     return result;
 }
 
+float shadow_calc(vec4 fragPosLightSpace) {
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    // transform to [0,1] range
+    projCoords = projCoords * 0.5 + 0.5;
+    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    float closestDepth = texture(shadowMap, projCoords.xy).r;
+    // get depth of current fragment from light's perspective
+    float currentDepth = projCoords.z;
+    // check whether current frag pos is in shadow
+    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
+
+    return shadow;
+}
+
 vec3 get_contribution_directional(Light light, vec3 material_color) {
-    return get_contribution(normalize(light.dir), light.color, material_color);
+    float shadow = 0.f; //shadow_calc(FragPosLightSpace);
+    return (1.0 - shadow) * get_contribution(normalize(light.dir), light.color, material_color);
 }
 
 vec3 get_contribution_point(Light light, vec3 material_color) {

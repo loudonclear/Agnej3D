@@ -255,6 +255,10 @@ void Graphics::setShader(const std::shared_ptr<Shader> &shader) {
     Graphics::setTransform(m_transform);
 }
 
+void Graphics::setDefaultShader() {
+    setShader("default");
+}
+
 void Graphics::clearShader() {
     m_activeShader = nullptr;
     m_activeShaderName = "";
@@ -305,7 +309,7 @@ void Graphics::drawShape(std::shared_ptr<Shape> shape) {
 #if GRAPHICS_DEBUG_LEVEL > 0
     if(!shape->m_built) {
         if(!shape->printDebug()) {
-            std::cerr << "The above warnings pertain to shape '" << name << "'" << std::endl;
+            //std::cerr << "The above warnings pertain to shape '" << name << "'" << std::endl;
             std::cerr << std::endl;
         }
     }
@@ -750,21 +754,23 @@ void Graphics::drawFramebuffer(const std::string &name, const glm::vec2 &pos, co
 }
 
 void Graphics::drawFramebuffer(const std::shared_ptr<FBO> &fbo, const glm::vec2 &pos, const glm::vec2 &size) {
-    if(m_activeCamera != nullptr && m_activeCamera->isUI()) {
+    //if(m_activeCamera != nullptr && m_activeCamera->isUI()) {
         // Transform
         glm::mat4 lastTransform = getTransform();
         glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(pos.x, pos.y, 0));
         model = glm::scale(model, glm::vec3(size.x, size.y, 1));
         setTransform(model);
 
+        //setTransform(glm::mat4x4(1.f));
+
         // Other uniforms
         setUseTexture(1);
-        m_activeShader->setTexture("material.tex", fbo->getColorAttachment(0));
-        drawShape("quad");
+        m_activeShader->setTexture("tex", fbo->getColorAttachment(0));
+        drawShape("uiquad");
 
         // Reset transform
         setTransform(lastTransform);
-    }
+    //}
 }
 
 void Graphics::setLightUniforms(const Light &light, int index) {

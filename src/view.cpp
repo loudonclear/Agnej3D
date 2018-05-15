@@ -9,6 +9,7 @@
 #include "engine/input/Input.h"
 #include "game/FinalApplication.h"
 
+#include <QMainWindow>
 #include <QApplication>
 #include <QKeyEvent>
 
@@ -188,6 +189,10 @@ void View::keyPressEvent(QKeyEvent *event)
 
     /** SUPPORT CODE END **/
 
+    if (event->key() == Qt::Key_F) {
+        m_window->isFullScreen() ? m_window->showNormal() : m_window->showFullScreen();
+    }
+
     Input::onKeyPressed(event);
     m_app->onKeyPressed(event);
 }
@@ -229,7 +234,7 @@ void View::tick()
     m_fps = 1.f / m_fps;
 
     // Display fps
-    QString title = "CS195U Engine";
+    QString title = "AGNEJ";
 
     m_window->setWindowTitle(title + ", FPS: " + QString::number(m_fps, 'f', 3));
 

@@ -13,6 +13,8 @@ FinalApplication::FinalApplication()
 {
     Graphics *graphics = Graphics::getGlobalInstance();
 
+    graphics->addFont("dragon", ":/fonts/dragonslapper.ttf");
+
     Material grass;
     grass.textureName = "grass";
     grass.textureRepeat = glm::vec2(10, 10);
@@ -25,6 +27,13 @@ FinalApplication::FinalApplication()
         graphics->addOBJ(shape, shapeOBJ);
         graphics->addShape(shape, shapeOBJ->vboData.toStdVector());
     }
+
+    Light light2(Light::LIGHT_TYPE::AMBIENT, glm::vec3(0.35f), glm::vec3(1.f), glm::vec3(0), glm::vec2(0, 0));
+    Graphics::getGlobalInstance()->addLight(light2);
+
+    Light light(Light::LIGHT_TYPE::DIRECTIONAL, glm::vec3(1), glm::vec3(-0.1f, -0.5f, 1), glm::vec3(0), glm::vec2(0, 0));
+    Graphics::getGlobalInstance()->addLight(light);
+
 
 
     addScreen("menu", std::make_shared<FinalMenuScreen>());

@@ -7,7 +7,7 @@
 
 #include <algorithm>
 
-ShapeCollider::ShapeCollider(GameObject *parent) : Component(parent), restitution(0.35f), friction(0.8f), transform(nullptr), rigidBody(nullptr) {
+ShapeCollider::ShapeCollider(GameObject *parent) : Component(parent), restitution(0.25f), friction(0.85f), transform(nullptr), rigidBody(nullptr) {
 
 }
 

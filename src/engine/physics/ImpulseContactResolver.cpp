@@ -187,7 +187,7 @@ void ImpulseContactResolver::resolveContactCluster(std::list<Contact*> &cluster)
 
         Contact* contactHighestDeltaVelocity = nullptr;
         for (Contact *contact : cluster) {
-            if (contact->penetration < -0.1f) continue;
+            if (contact->penetration < -0.01f) continue;
 
             if (contactHighestDeltaVelocity == nullptr || contact->desiredDeltaVelocity < contactHighestDeltaVelocity->desiredDeltaVelocity) {
                 contactHighestDeltaVelocity = contact;

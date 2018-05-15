@@ -36,6 +36,8 @@ public:
 
 
     glm::vec3 initialContactPoint;
+    glm::vec3 initialNormal;
+
     glm::mat4x4 matContactToWorld;
     glm::mat4x4 matWorldToContact;
     glm::vec3 closingVelocity_world;

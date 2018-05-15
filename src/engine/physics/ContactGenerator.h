@@ -12,7 +12,10 @@ class Contact;
 class RigidBody;
 
 class ContactGenerator {
-private:
+
+
+public:
+
     struct Arbiter {
         std::shared_ptr<ShapeCollider> colliders[2];
     };
@@ -66,6 +69,11 @@ private:
         }
     };
 
+    static bool GJK(Simplex* simplex, ContactBasicData* contactData, int* idCounter);
+    static void frame(std::vector<std::shared_ptr<RigidBody>> &bodies, pool_vector<Contact> &contacts);
+
+private:
+
     // from Real-Time Collision Detection
     static void barycentric(const glm::vec3 &p, const glm::vec3 &a, const glm::vec3 &b, const glm::vec3 &c, float *u, float *v, float *w) {
         glm::vec3 v0 = b - a, v1 = c - a, v2 = p - a;
@@ -88,14 +96,9 @@ private:
 
     static SupportPoint generateSupport(glm::vec3 directionWorld, std::shared_ptr<ShapeCollider> sca, std::shared_ptr<ShapeCollider> scb, int* idCounter = 0);
 
-    static bool GJK(Simplex* simplex, ContactBasicData* contactData, int* idCounter);
     static bool EPA(const Simplex* simplex, ContactBasicData* contactData, int* idCounter);
 
     static void updatePersistentContacts(pool_vector<Contact> &contacts);
-
-public:
-
-    static void frame(std::vector<std::shared_ptr<RigidBody>> &bodies, pool_vector<Contact> &contacts);
 };
 
 #endif // CONTACTGENERATOR_H

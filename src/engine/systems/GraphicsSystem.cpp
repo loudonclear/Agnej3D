@@ -32,7 +32,10 @@ void GraphicsSystem::removeGameObject(const std::shared_ptr<GameObject> &go) {
 
 void GraphicsSystem::draw(Graphics *g) {
     for (auto iter = m_components.begin(); iter != m_components.end(); ++iter) {
-        iter->get()->draw(g);
+        if (iter->get()->alpha >= 1.f) iter->get()->draw(g);
+    }
+    for (auto iter = m_components.begin(); iter != m_components.end(); ++iter) {
+        if (iter->get()->alpha < 1.f) iter->get()->draw(g);
     }
     for (auto iter = m_uiComponents.begin(); iter != m_uiComponents.end(); ++iter) {
         iter->get()->draw(g);

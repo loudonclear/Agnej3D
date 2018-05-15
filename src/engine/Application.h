@@ -33,6 +33,8 @@ private:
     std::shared_ptr<Screen> m_activeScreen;
     std::map<std::string, std::shared_ptr<Screen>> m_screens;
 
+    glm::vec2 m_size;
+
 };
 
 #endif // APPLICATION_H

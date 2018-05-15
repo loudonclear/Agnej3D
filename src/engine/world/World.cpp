@@ -1,5 +1,6 @@
 #include "World.h"
 #include <algorithm>
+#include <iostream>
 
 World::World()
 {
@@ -27,8 +28,10 @@ std::shared_ptr<GameObject> World::getGameObject(const std::string &name) {
 }
 
 void World::removeGameObject(const std::string &name) {
+    std::shared_ptr<GameObject> go = m_gameObjects[name];
+    if (!go) return;
     for (auto iter = m_systems.begin(); iter != m_systems.end(); ++iter) {
-        iter->second->removeGameObject(m_gameObjects[name]);
+        iter->second->removeGameObject(go);
     }
     m_gameObjects.erase(m_gameObjects.find(name));
 }

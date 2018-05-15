@@ -1,6 +1,7 @@
 #include "FinalDebugScreen.h"
 #include "engine/graphics/Camera.h"
 #include "engine/graphics/Graphics.h"
+#include "engine/graphics/FBO.h"
 #include "engine/input/Input.h"
 #include "engine/world/World.h"
 #include "game/FinalDebugWorld.h"
@@ -28,7 +29,6 @@ void FinalDebugScreen::tick(float seconds) {
 }
 
 void FinalDebugScreen::draw(Graphics *g) {
-
     g->setCamera(m_camera);
     g->clearTransform();
 
@@ -37,6 +37,8 @@ void FinalDebugScreen::draw(Graphics *g) {
 
 void FinalDebugScreen::resize(glm::vec2 &size) {
     m_camera->setScreenSize(size);
+    Graphics::getGlobalInstance()->setCamera(m_camera);
+    Graphics::getGlobalInstance()->addFramebuffer("displayBuffer", std::make_shared<FBO>((int)size.x, (int)size.y));
 }
 
 void FinalDebugScreen::onMousePressed(QMouseEvent *event) {

@@ -26,7 +26,11 @@ void GraphicsShapeComponent::draw(Graphics *g) {
 
     if (m_shape != nullptr) {
         g->clearTransform();
-        g->setMaterial(m_materialName);
+        if (g->getActiveShader()->id() == g->getShader("default")->id()) {
+            Material m = g->getMaterial(m_materialName);
+            m.alpha = alpha;
+            g->setMaterial(m);
+        }
         g->setTransform(m_transform->getTransformMatrix());
         g->drawShape(m_shape);
     }

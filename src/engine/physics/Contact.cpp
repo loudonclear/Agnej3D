@@ -15,6 +15,7 @@ Contact::Contact(const ContactBasicData& data) : ContactBasicData(data) {
     colliderIterators[1] = colliders[1]->contactInvolvement.insert(this);
 
 	initialContactPoint = point;
+    initialNormal = normal;
 }
 
 Contact::Contact(Contact&& other) {
@@ -107,14 +108,14 @@ void Contact::calcData() {
     matContactToWorld = glm::mat4x4(orthoNormalize(temp));
     matWorldToContact = glm::transpose(matContactToWorld);
 
-    const float restitutionLow = (std::min)(colliders[0]->restitution,colliders[1]->restitution);
-    const float restitutionHigh = (std::max)(colliders[0]->restitution,colliders[1]->restitution);
+    const float restitutionLow = (std::min)(colliders[0]->restitution, colliders[1]->restitution);
+    const float restitutionHigh = (std::max)(colliders[0]->restitution, colliders[1]->restitution);
 
-    const float frictionLow = (std::min)(colliders[0]->friction,colliders[1]->friction);
-    const float frictionHigh = (std::max)(colliders[0]->friction,colliders[1]->friction);
+    const float frictionLow = (std::min)(colliders[0]->friction, colliders[1]->friction);
+    const float frictionHigh = (std::max)(colliders[0]->friction, colliders[1]->friction);
 
-    const float targetRestitution = glm::mix(restitutionLow,restitutionHigh,0.15f);
-    const float targetFriction = glm::mix(frictionLow,frictionHigh,0.15f);
+    const float targetRestitution = glm::mix(restitutionLow, restitutionHigh, 0.15f);
+    const float targetFriction = glm::mix(frictionLow, frictionHigh, 0.15f);
 
     closingVelocity_world = glm::vec3(0.f);
     closingVelocity_contact = glm::vec3(0.f);
