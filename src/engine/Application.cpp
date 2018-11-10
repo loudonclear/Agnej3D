@@ -15,10 +15,7 @@ void Application::addScreen(const std::string &name, const std::shared_ptr<Scree
 
 void Application::setScreen(const std::string &name) {
     m_activeScreen = m_screens[name];
-}
-
-std::shared_ptr<Screen> Application::getScreen(const std::string &name) {
-    return m_screens[name];
+    m_activeScreen->resize(m_size);
 }
 
 void Application::removeScreen(const std::string &name) {
@@ -40,6 +37,7 @@ void Application::draw(Graphics *g) {
 
 void Application::resize(glm::vec2 size) {
     m_activeScreen->resize(size);
+    m_size = size;
 }
 
 void Application::onKeyPressed(QKeyEvent *event) {
@@ -65,5 +63,4 @@ void Application::onMouseMoved(glm::vec2 delta) {
 void Application::onMouseWheelMoved(QWheelEvent *event) {
     m_activeScreen->onMouseWheelMoved(event);
 }
-
 

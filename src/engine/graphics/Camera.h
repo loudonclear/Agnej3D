@@ -2,7 +2,6 @@
 #define CAMERA_H
 
 #include "engine/util/CommonIncludes.h"
-#include "engine/physics/ShapeCollider.h"
 
 const static float nearPlane = 0.1;
 const static float farPlane = 200.0;
@@ -97,9 +96,6 @@ public:
     virtual glm::mat4 getUIView();
     virtual glm::mat4 getUIProjection();
 
-    virtual bool frustumCull(std::shared_ptr<ShapeCollider> sc);
-    virtual glm::vec3 convertToScreenSpace(glm::vec3 pos);
-
 protected:
     float m_yaw, m_pitch;
     float m_fov;
@@ -111,12 +107,6 @@ protected:
 
     bool m_ui;
     bool m_inverted;
-
-    glm::mat4x4 m_proj, m_view;
-    bool m_viewDirty, m_projDirty;
-    bool m_cullDirty;
-
-    glm::vec4 m_clipPlanes[6];
 };
 
 #endif // CAMERA_H

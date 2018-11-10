@@ -17,7 +17,7 @@ static constexpr float LIGHT_THRESHOLD = 0.05f;
  *
  * The maximum number of lights allowed in the shader
  */
-static constexpr int MAX_NUM_LIGHTS = 1;
+static constexpr int MAX_NUM_LIGHTS = 10;
 }
 
 #endif // CONSTANTS_H

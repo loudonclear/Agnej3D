@@ -1,5 +1,4 @@
 QT += core gui opengl
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = cs195u_engine
 TEMPLATE = app
@@ -56,31 +55,23 @@ SOURCES += \
     src/engine/systems/GraphicsSystem.cpp \
     src/engine/components/GraphicsShapeComponent.cpp \
     src/engine/systems/TimingSystem.cpp \
-    src/engine/physics/Collision.cpp \
+    src/engine/systems/PhysicsSystem.cpp \
+    src/game/FinalApplication.cpp \
+    src/game/FinalDebugScreen.cpp \
+    src/game/FinalDebugWorld.cpp \
+    src/game/FinalMenuScreen.cpp \
+    src/engine/components/UIComponent.cpp \
+    src/engine/physics/Contact.cpp \
+    src/engine/physics/EulerIntegrator.cpp \
+    src/engine/physics/ImpulseContactResolver.cpp \
+    src/engine/physics/PhysicsIntegrator.cpp \
     src/engine/physics/RigidBody.cpp \
     src/engine/physics/ShapeCollider.cpp \
-    src/engine/physics/CylinderCollider.cpp \
-    src/engine/physics/BoxCollider.cpp \
-    src/engine/voxel/Chunk.cpp \
-    src/engine/voxel/PerlinNoise.cpp \
-    src/engine/components/InputComponent.cpp \
-    src/engine/systems/InputSystem.cpp \
-    src/engine/components/SoundComponent.cpp \
-    src/engine/components/UIComponent.cpp \
-    src/engine/components/OrthographicUIComponent.cpp \
-    src/engine/components/HUDComponent.cpp \
-    src/engine/components/Button.cpp \
-    src/engine/graphics/Obj.cpp \
-    src/platformer/PlatformerApplication.cpp \
-    src/platformer/PlatformerScreen.cpp \
-    src/platformer/PlatformerWorld.cpp \
-    src/platformer/Player.cpp \
-    src/platformer/PlayerMoveComponent.cpp \
-    src/platformer/PlatformerMenuScreen.cpp \
-    src/platformer/MenuWorld.cpp \
-    src/platformer/MenuButton.cpp \
-    src/engine/systems/PhysicsSystem.cpp \
-    src/engine/physics/Contact.cpp
+    src/engine/physics/volume/BoxCollider.cpp \
+    src/engine/physics/ContactGenerator.cpp \
+    src/engine/physics/volume/ConvexCollider.cpp \
+    src/engine/physics/volume/ConvexHull.cpp \
+    src/engine/graphics/Obj.cpp
 
 HEADERS += \
     libs/glew-1.10.0/include/GL/glew.h \
@@ -131,32 +122,31 @@ HEADERS += \
     src/engine/components/GraphicsShapeComponent.h \
     src/engine/systems/TimingSystem.h \
     src/engine/components/TickComponent.h \
-    src/engine/physics/Collision.h \
+    src/engine/systems/PhysicsSystem.h \
+    src/game/FinalApplication.h \
+    src/game/FinalDebugScreen.h \
+    src/game/FinalDebugWorld.h \
+    src/game/FinalMenuScreen.h \
+    src/engine/components/UIComponent.h \
+    src/engine/pool_vector.h \
+    src/engine/custom_iterator.h \
+    src/engine/physics/Ray.h \
+    src/engine/physics/RaycastResult.h \
+    src/engine/physics/Contact.h \
+    src/engine/physics/Ray.h \
+    src/engine/physics/RaycastResult.h \
+    src/engine/physics/EulerIntegrator.h \
+    src/engine/physics/ImpulseContactResolver.h \
+    src/engine/physics/PhysicsIntegrator.h \
+    src/engine/physics/Ray.h \
+    src/engine/physics/RaycastResult.h \
     src/engine/physics/RigidBody.h \
     src/engine/physics/ShapeCollider.h \
-    src/engine/physics/CylinderCollider.h \
-    src/engine/physics/BoxCollider.h \
-    src/engine/voxel/Chunk.h \
-    src/engine/voxel/PerlinNoise.h \
-    src/engine/components/InputComponent.h \
-    src/engine/systems/InputSystem.h \
-    src/engine/components/SoundComponent.h \
-    src/engine/components/UIComponent.h \
-    src/engine/components/OrthographicUIComponent.h \
-    src/engine/components/HUDComponent.h \
-    src/engine/components/Button.h \
-    src/engine/graphics/Obj.h \
-    src/platformer/PlatformerApplication.h \
-    src/platformer/PlatformerScreen.h \
-    src/platformer/PlatformerWorld.h \
-    src/platformer/Player.h \
-    src/platformer/PlayerMoveComponent.h \
-    src/platformer/PlatformerMenuScreen.h \
-    src/platformer/MenuWorld.h \
-    src/platformer/MenuButton.h \
-    src/engine/world/Graph.h \
-    src/engine/systems/PhysicsSystem.h \
-    src/engine/physics/Contact.h
+    src/engine/physics/volume/BoxCollider.h \
+    src/engine/physics/ContactGenerator.h \
+    src/engine/physics/volume/ConvexCollider.h \
+    src/engine/physics/volume/ConvexHull.h \
+    src/engine/graphics/Obj.h
 
 FORMS += src/mainwindow.ui
 
@@ -164,18 +154,17 @@ RESOURCES += \
     res/shaders/shaders.qrc \
     res/fonts/fonts.qrc \
     res/images/images.qrc \
-    res/sounds/sounds.qrc \
-    res/platformer/platformer.qrc
+    res/shapes/shapes.qrc
 
 OTHER_FILES += \
     res/images/grass.png \
 
 DISTFILES += \
     res/shaders/shader.vert \
-    res/shaders/shader.frag \
+    res/shaders/shader.frag
 
-INCLUDEPATH += src libs glm libs/glew-1.10.0/include
-DEPENDPATH += src libs glm libs/glew-1.10.0/include
+INCLUDEPATH += src src/engine libs glm libs/glew-1.10.0/include
+DEPENDPATH += src src/engine libs glm libs/glew-1.10.0/include
 
 # Don't add the -pg flag unless you know what you are doing. It makes QThreadPool freeze on Mac OS X
 QMAKE_CXXFLAGS_RELEASE -= -O2

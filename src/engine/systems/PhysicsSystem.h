@@ -3,6 +3,9 @@
 
 
 #include "System.h"
+#include "pool_vector.h"
+#include <list>
+#include "physics/RaycastResult.h"
 
 class RigidBody;
 class ShapeCollider;
@@ -16,16 +19,14 @@ public:
     void addGameObject(const std::shared_ptr<GameObject> &go);
     void removeGameObject(const std::shared_ptr<GameObject> &go);
 
+    bool raycast(const Ray &ray, RaycastResult &res, std::shared_ptr<RigidBody> &hit);
     void update(float dt);
-    void integrate(float dt);
-    void updateSleepWake(std::shared_ptr<RigidBody> &rb, std::shared_ptr<ShapeCollider> &sc, const glm::vec3 &dp, const glm::vec3 &dr, float dt);
 
-    void generateContacts();
-    void resolveContacts();
+    std::vector<std::shared_ptr<RigidBody>> getComponents() { return m_components; }
 
 private:
     std::vector<std::shared_ptr<RigidBody>> m_components;
-    std::vector<Contact> contacts;
+    pool_vector<Contact> contacts;
 };
 
 #endif // PHYSICSSYSTEM_H

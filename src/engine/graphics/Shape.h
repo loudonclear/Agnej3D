@@ -90,6 +90,7 @@ public:
 
     void build();
 
+
 private:
     std::vector<float> m_positions;
     std::vector<float> m_normals;

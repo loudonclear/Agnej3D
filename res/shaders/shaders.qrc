@@ -2,5 +2,13 @@
     <qresource prefix="/shaders">
         <file>shader.frag</file>
         <file>shader.vert</file>
+        <file>fxaa.frag</file>
+        <file>quad.vert</file>
+        <file>skybox.frag</file>
+        <file>skybox.vert</file>
+        <file>line.frag</file>
+        <file>line.vert</file>
+        <file>shadow.frag</file>
+        <file>shadow.vert</file>
     </qresource>
 </RCC>

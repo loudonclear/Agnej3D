@@ -122,6 +122,8 @@ public:
     void setShader(const std::string &name);
     void setShader(const std::shared_ptr<Shader> &shader);
 
+    void setDefaultShader();
+
     /**
      * @brief clearShader
      *

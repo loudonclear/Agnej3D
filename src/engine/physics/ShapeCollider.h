@@ -1,59 +1,63 @@
 #ifndef SHAPECOLLIDER_H
 #define SHAPECOLLIDER_H
 
-#include "engine/physics/Contact.h"
-#include "engine/components/Component.h"
-#include "engine/components/Transform.h"
-#include "engine/physics/RigidBody.h"
-#include "engine/world/GameObject.h"
-#include "engine/physics/Collision.h"
-#include "RaycastResult.h"
+#include "components/Component.h"
+#include <vector>
+#include <glm/glm.hpp>
+#include "pool_vector.h"
 #include "Ray.h"
+#include "RaycastResult.h"
 
-#include <cmath>
+class PhysicalMaterial;
+class RigidBody;
+class Transform;
 
-const float FLOAT_EPSILON = 1e-4f;
 #define SIGN(n) ((n)<0 ? -1:1)
+const float FLOAT_EPSILON = 0.0001f;
 
-class ShapeCollider : public virtual Component
-{
+class ShapeCollider : public virtual Component {
+
 public:
-    friend class RigidBody;
+    ShapeCollider(GameObject *parent);
+    virtual ~ShapeCollider() {}
+    void onInvalidate();
 
-    virtual void init();
+    void init();
 
-    std::shared_ptr<Transform> getTransform();
-    std::shared_ptr<RigidBody> getRigidBody();
+    std::shared_ptr<RigidBody> getRigidBody() { return rigidBody; }
+    std::shared_ptr<Transform> getTransform() { return transform; }
 
-    bool isStatic();
+	bool isStatic() const;
+	bool isDynamic() const;
 
-    //virtual float volume() = 0;
-    virtual glm::vec3 getSupport(const glm::vec3 &dir) = 0;
-    virtual glm::vec3 getCenterOfMass();
-    //virtual bool pointInside(const glm::vec3 &point) = 0;
-    //virtual bool raycast(const Ray &ray) = 0;
+    virtual glm::vec3 getSupportPointLocal(const glm::vec3 &dirWorldSpace) const = 0;
+    virtual glm::vec3 getCenterOfMass() const = 0;
+    virtual bool raycast(const Ray &ray, RaycastResult &res) const = 0;
 
-    std::vector<Contact *> contacts;
+    void* cluster;
+    pool_vector<class Contact*> contactInvolvement;
+
+    float extent;
+    float mass;
+    float inverseMass;
+    glm::mat4x4 inertialTensor;
+    glm::mat4x4 invInertialTensor;
+    float restitution;
+    float friction;
 
 protected:
-    ShapeCollider(GameObject *parent, Transform colliderTransform);
+    glm::vec3 _worldToLocal(const glm::vec3 &dirWorldSpace) const;
 
-    std::shared_ptr<Transform> m_transform;
-    std::shared_ptr<RigidBody> m_rigidbody;
+    inline float Min(const glm::vec3 &a) const { return std::min(std::min(a[0], a[1]), a[2]); }
+    inline float Max(const glm::vec3 &a) const { return std::max(std::max(a[0], a[1]), a[2]); }
 
-    Transform m_colliderTransform;
+    inline glm::vec3 Min(const glm::vec3 &a, const glm::vec3 &b) const
+        { return glm::vec3(std::min(a[0], b[0]), std::min(a[1], b[1]), std::min(a[2], b[2])); }
+    inline glm::vec3 Max(const glm::vec3 &a, const glm::vec3 &b) const
+        { return glm::vec3(std::max(a[0], b[0]), std::max(a[1], b[1]), std::max(a[2], b[2])); }
 
-    bool SolveQuadratic(float a, float b, float c, float &t) {
-        float discriminant = b * b - 4.0 * a * c;
-        if (discriminant < 0.0) return false;
-        t = (-b - sqrt(discriminant)) / (2.0 * a);
-        return (t > -FLOAT_EPSILON);
-    }
-
-private:
-
-    glm::vec3 com;
-
+    std::shared_ptr<Transform> transform;
+    std::shared_ptr<RigidBody> rigidBody;
 };
 
 #endif // SHAPECOLLIDER_H

@@ -238,7 +238,7 @@ void Shape::build() {
     VBO normalVBO(m_normals.data(), m_normals.size(), normalMarkers, m_vboTriangleLayout);
 
     std::vector<VBOAttribMarker> texMarkers;
-    texMarkers.push_back(VBOAttribMarker(ShaderAttrib::TANGENT, 2, 0));
+    texMarkers.push_back(VBOAttribMarker(ShaderAttrib::TEXCOORD0, 2, 0));
     VBO texVBO(m_texCoords.data(), m_texCoords.size(), texMarkers, m_vboTriangleLayout);
 
     // IBO

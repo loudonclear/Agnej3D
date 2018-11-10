@@ -1,29 +1,37 @@
 #include "ShapeCollider.h"
-#include <iostream>
 
-ShapeCollider::ShapeCollider(GameObject *parent, Transform colliderTransform) : Component(parent), m_colliderTransform(colliderTransform), m_transform(nullptr), m_rigidbody(nullptr)
-{
-    com = glm::vec3(0, 0, 0);
+#include "RigidBody.h"
+#include "components/Transform.h"
+#include "Contact.h"
+#include "world/GameObject.h"
+
+#include <algorithm>
+
+ShapeCollider::ShapeCollider(GameObject *parent) : Component(parent), restitution(0.25f), friction(0.85f), transform(nullptr), rigidBody(nullptr) {
+
 }
 
 void ShapeCollider::init() {
-    m_transform = m_gameObject->getComponent<Transform>();
-    m_rigidbody = m_gameObject->getComponent<RigidBody>();
+    transform = m_gameObject->getComponent<Transform>();
+    rigidBody = m_gameObject->getComponent<RigidBody>();
 }
 
 
-glm::vec3 ShapeCollider::getCenterOfMass() {
-    return m_transform->transformPoint(com);
+glm::vec3 ShapeCollider::_worldToLocal(const glm::vec3 &dirWorldSpace) const {
+    return transform->inverseRotateVector(dirWorldSpace);
 }
 
-std::shared_ptr<Transform> ShapeCollider::getTransform() {
-    return m_transform;
+void ShapeCollider::onInvalidate() {
+    for (auto& contact : contactInvolvement) {
+		contact->invalidate();
+	}
 }
 
-std::shared_ptr<RigidBody> ShapeCollider::getRigidBody() {
-    return m_rigidbody;
+
+bool ShapeCollider::isStatic() const {
+    return rigidBody == nullptr || rigidBody->isStatic || mass == 0;
 }
 
-bool ShapeCollider::isStatic() {
-    return m_rigidbody ? m_rigidbody->isStatic : true;
+bool ShapeCollider::isDynamic() const {
+	return !isStatic();
 }

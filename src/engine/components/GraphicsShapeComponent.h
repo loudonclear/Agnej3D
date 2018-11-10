@@ -4,8 +4,6 @@
 #include "GraphicsComponent.h"
 #include "engine/graphics/Shape.h"
 
-class ShapeCollider;
-
 class GraphicsShapeComponent : public virtual GraphicsComponent
 {
 public:
@@ -21,7 +19,6 @@ public:
 
 private:
     std::shared_ptr<Shape> m_shape;
-    std::shared_ptr<ShapeCollider> m_shapeCollider;
 
     bool m_frustumCull;
 };

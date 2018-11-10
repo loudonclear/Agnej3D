@@ -19,6 +19,8 @@ public:
 
     void setMaterial(const std::string &materialName) { m_materialName = materialName; }
 
+    float alpha = 1.f;
+
 protected:
     std::string m_materialName;
     std::shared_ptr<Transform> m_transform;

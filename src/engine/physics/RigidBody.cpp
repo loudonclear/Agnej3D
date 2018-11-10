@@ -1,19 +1,29 @@
 #include "RigidBody.h"
-#include "engine/world/GameObject.h"
-#include "engine/physics/ShapeCollider.h"
 
-RigidBody::RigidBody(GameObject *parent, float mass) : Component(parent), isStatic(isStatic), mass(mass), invMass(1.f/mass)
-{
+#include "ShapeCollider.h"
+#include "components/Transform.h"
+#include "world/GameObject.h"
+
+RigidBody::RigidBody(GameObject *parent, float density) : Component(parent), density(density), awake(true), motion(0.f), isStatic(false), canSleep(true), interaction(false), transform(nullptr), collider(nullptr) {
+
 }
 
 void RigidBody::init() {
-    m_transform = m_gameObject->getComponent<Transform>();
-    m_collider = m_gameObject->getComponent<ShapeCollider>();
+    transform = m_gameObject->getComponent<Transform>();
+    collider = m_gameObject->getComponent<ShapeCollider>();
 }
 
-void RigidBody::addForceAtPoint(const glm::vec3 &f, const glm::vec3 &p) {
-    const glm::vec3 ctp = p - m_transform->getPosition();
 
-    force += f;
-    torque += glm::cross(ctp, f);
+void RigidBody::addForce(const glm::vec3 &f) {
+    this->force += f;
 }
+
+void RigidBody::addForceWorld(const glm::vec3 &f, const glm::vec3 &p) {
+    this->force += f;
+    torque += glm::cross(p - transform->getPosition(), force);
+}
+
+void RigidBody::addTorque(const glm::vec3 &t) {
+    torque += t;
+}
+
